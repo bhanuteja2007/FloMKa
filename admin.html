@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>FloMKa Admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Jost',sans-serif;background:#0F0D0B;color:#F5F0E8;min-height:100vh;display:flex}
+h1,h2,h3{font-family:'Cormorant Garamond',serif;font-weight:600}
+input,textarea,select{font-family:'Jost',sans-serif;width:100%;padding:9px 12px;border:1px solid #2E2620;border-radius:2px;font-size:13px;background:#1C1814;color:#F5F0E8;outline:none;transition:border .2s}
+input:focus,textarea:focus,select:focus{border-color:#C9A84C}
+textarea{resize:vertical;min-height:80px}
+select option{background:#1C1814}
+label{font-size:11px;font-weight:600;display:block;margin-bottom:4px;color:#8C8279;letter-spacing:.06em;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border:1px solid #2E2620;border-radius:2px;background:transparent;color:#DDD5C8;font-size:12.5px;font-weight:500;cursor:pointer;transition:all .2s;font-family:'Jost',sans-serif;white-space:nowrap}
+.btn:hover{border-color:#C9A84C;color:#C9A84C}
+.btn-red{background:#A6192E;color:#fff;border-color:#A6192E}
+.btn-red:hover{background:#8B1425;border-color:#8B1425;color:#fff}
+.btn-gold{background:#C9A84C;color:#1C1814;border-color:#C9A84C;font-weight:600}
+.btn-sm{padding:5px 10px;font-size:11.5px}
+.btn-green{background:#1A4A28;border-color:#2D6A3F;color:#5AAF7A}
+.btn-green:hover{background:#2D6A3F;color:#fff}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.spinner{width:12px;height:12px;border:2px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;display:inline-block}
+.fade-in{animation:fadeIn .3s ease}
+/* Sidebar */
+.sidebar{width:220px;background:#0A0907;border-right:1px solid #1E1A16;flex-shrink:0;display:flex;flex-direction:column;position:fixed;top:0;left:0;height:100vh;overflow-y:auto;z-index:100}
+.sidebar-logo{padding:20px 18px 16px;border-bottom:1px solid #1E1A16}
+.sidebar-logo-box{width:28px;height:28px;background:#A6192E;border-radius:2px;display:inline-flex;align-items:center;justify-content:center;margin-right:8px;vertical-align:middle}
+.sidebar-logo-text{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:14px;color:#fff}
+.sidebar-brand{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;vertical-align:middle}
+.sidebar-tag{font-size:9px;color:#C9A84C;letter-spacing:.1em;display:block;margin-top:2px;padding-left:36px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 18px;cursor:pointer;font-size:13px;color:#8C8279;border-left:2px solid transparent;transition:all .2s}
+.nav-item:hover{color:#DDD5C8;background:#14110E}
+.nav-item.active{color:#C9A84C;border-left-color:#C9A84C;background:#14110E}
+.nav-icon{font-size:14px;width:18px;text-align:center}
+.nav-section{padding:16px 18px 6px;font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#4A4038}
+.sidebar-footer{margin-top:auto;padding:16px 18px;border-top:1px solid #1E1A16;font-size:12px;color:#4A4038}
+/* Main */
+.main{flex:1;margin-left:220px;min-height:100vh;display:flex;flex-direction:column}
+.topbar{background:#0A0907;border-bottom:1px solid #1E1A16;padding:0 28px;height:54px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.topbar-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600}
+.content{padding:28px;flex:1}
+/* Cards */
+.card{background:#14110E;border:1px solid #1E1A16;border-radius:3px;padding:20px}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.card-title{font-size:13px;font-weight:600;letter-spacing:.04em;color:#DDD5C8}
+/* Stats */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.stat-box{background:#14110E;border:1px solid #1E1A16;border-top:2px solid;border-radius:3px;padding:16px}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:700;line-height:1;margin-bottom:4px}
+.stat-label{font-size:11px;color:#8C8279;letter-spacing:.04em}
+/* Table */
+.table{width:100%;border-collapse:collapse}
+.table th{text-align:left;padding:8px 12px;font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#4A4038;border-bottom:1px solid #1E1A16}
+.table td{padding:10px 12px;font-size:12.5px;border-bottom:1px solid #14110E;vertical-align:middle}
+.table tr:hover td{background:#0F0D0B}
+.table tr:last-child td{border-bottom:none}
+/* Badge */
+.badge{font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:2px;letter-spacing:.06em;text-transform:uppercase}
+.badge-green{background:#1A3A22;color:#5AAF7A}
+.badge-red{background:#3A1018;color:#E57389}
+.badge-gold{background:#3A2A08;color:#C9A84C}
+.badge-gray{background:#1E1A16;color:#8C8279}
+/* Form */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.form-group{display:flex;flex-direction:column;gap:4px}
+.form-group.full{grid-column:1/-1}
+/* Toggle */
+.toggle{position:relative;display:inline-flex;align-items:center;gap:8px;cursor:pointer}
+.toggle input{position:absolute;opacity:0;width:0;height:0}
+.toggle-track{width:34px;height:18px;background:#2E2620;border-radius:9px;transition:background .2s;flex-shrink:0}
+.toggle input:checked + .toggle-track{background:#C9A84C}
+.toggle-thumb{position:absolute;left:2px;top:2px;width:14px;height:14px;background:#fff;border-radius:50%;transition:transform .2s}
+.toggle input:checked ~ .toggle-thumb{transform:translateX(16px)}
+/* Login */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:#0A0907}
+.login-box{background:#14110E;border:1px solid #1E1A16;border-top:3px solid #A6192E;border-radius:4px;padding:40px;width:400px}
+/* Toast */
+.toast-wrap{position:fixed;bottom:20px;right:20px;z-index:999;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast{background:#2D6A3F;color:#fff;padding:11px 16px;border-radius:3px;font-size:13px;font-weight:500;animation:fadeIn .3s ease;max-width:300px}
+.toast.error{background:#A6192E}.toast.warning{background:#C9A84C;color:#1C1814}
+/* Section */
+.page-section{display:none}.page-section.active{display:block}
+/* Tabs */
+.tabs{display:flex;border-bottom:1px solid #1E1A16;margin-bottom:24px}
+.tab{padding:9px 18px;border:none;background:none;font-size:12.5px;cursor:pointer;color:#8C8279;border-bottom:2px solid transparent;font-family:'Jost',sans-serif;transition:all .2s;margin-bottom:-1px}
+.tab.active{color:#C9A84C;border-bottom-color:#C9A84C;font-weight:500}
+/* Modal */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal-box{background:#14110E;border:1px solid #2E2620;border-top:2px solid #C9A84C;border-radius:4px;padding:30px;max-width:600px;width:100%;max-height:90vh;overflow-y:auto;animation:fadeIn .3s ease}
+</style>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23A6192E'/%3E%3Crect x='7' y='9' width='12' height='3' rx='1.5' fill='%23FAF7F2'/%3E%3Crect x='7' y='16' width='8' height='2.5' rx='1.25' fill='%23FAF7F2'/%3E%3Crect x='7' y='9' width='3' height='14' rx='1.5' fill='%23FAF7F2'/%3E%3Crect x='17' y='11' width='7' height='2.5' rx='1.25' fill='%23C9A84C'/%3E%3Crect x='17' y='16' width='4' height='2' rx='1' fill='%23C9A84C' opacity='.65'/%3E%3Crect x='17' y='21' width='8' height='2' rx='1' fill='%23C9A84C' opacity='.35'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<div id="app"></div>
+<div class="toast-wrap" id="toast-wrap"></div>
+<div id="modal-root"></div>
+
+<script>
+const SUPABASE_URL = 'https://yshheaikixdqundqboiv.supabase.co';
+const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzaGhlYWlraXhkcXVuZHFib2l2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5OTE3NDIsImV4cCI6MjA4OTU2Nzc0Mn0.9gsyaIv_IQDkQKwiYfmx1a5JT67Km7KURYCNR_D1QIE';
+const { createClient } = supabase;
+const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
+
+// IMPORTANT: Set your admin email here
+const ADMIN_EMAIL = 'admin@flomka.ai';
+
+let adminUser = null;
+let currentSection = 'dashboard';
+let allTools = [], allComplaints = [], allIdeas = [], allSubscribers = [], allPayments = [];
+
+// ===================== UTILS =====================
+function c(id){ return document.getElementById(id); }
+function toast(msg, type='success'){
+  const w = c('toast-wrap');
+  const el = document.createElement('div');
+  el.className = 'toast' + (type!=='success'?' '+type:'');
+  el.textContent = (type==='success'?'✓ ':type==='error'?'✕ ':'⚠ ') + msg;
+  w.appendChild(el);
+  setTimeout(()=>el.remove(), 3500);
+}
+function timeAgo(d){ const h=Math.floor((Date.now()-new Date(d))/3600000); return h<1?'just now':h<24?h+'h ago':Math.floor(h/24)+'d ago'; }
+function closeModal(){ c('modal-root').innerHTML=''; }
+
+// ===================== AUTH =====================
+async function initAdmin(){
+  const { data:{ session } } = await sb.auth.getSession();
+  if(session?.user){
+    if(session.user.email !== ADMIN_EMAIL && !session.user.email.endsWith('@flomka.ai')){
+      renderLoginPage('Access denied. Admin only.');
+      await sb.auth.signOut();
+      return;
+    }
+    adminUser = session.user;
+    renderAdminApp();
+    loadAllData();
+  } else {
+    renderLoginPage();
+  }
+}
+
+function renderLoginPage(err=''){
+  c('app').innerHTML = `
+  <div class="login-wrap">
+    <div class="login-box">
+      <div style="text-align:center;margin-bottom:28px">
+        <div style="margin-bottom:12px">
+          <svg width="120" height="38" viewBox="0 0 120 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="3" width="30" height="30" rx="5" fill="#A6192E"/>
+            <rect x="7" y="9" width="13" height="3" rx="1.5" fill="#FAF7F2"/>
+            <rect x="7" y="16" width="9" height="2.5" rx="1.25" fill="#FAF7F2"/>
+            <rect x="7" y="9" width="3" height="20" rx="1.5" fill="#FAF7F2"/>
+            <rect x="17" y="11" width="8" height="2.5" rx="1.25" fill="#C9A84C"/>
+            <rect x="17" y="16" width="5" height="2" rx="1" fill="#C9A84C" opacity="0.65"/>
+            <rect x="17" y="21" width="9" height="2" rx="1" fill="#C9A84C" opacity="0.35"/>
+            <text x="36" y="24" font-family="Georgia, serif" font-size="18" font-weight="700" letter-spacing="-0.5">
+              <tspan fill="#FAF7F2">Flo</tspan><tspan fill="#E57389">M</tspan><tspan fill="#FAF7F2">K</tspan><tspan fill="#C9A84C">a</tspan>
+            </text>
+          </svg>
+        </div>
+        <h2 style="font-size:22px;margin-bottom:4px">FloMKa Admin</h2>
+        <p style="font-size:12.5px;color:#8C8279">Restricted access — admin only</p>
+        ${err?`<div style="margin-top:10px;color:#E57389;font-size:12.5px;background:#3A1018;padding:8px 12px;border-radius:2px">${err}</div>`:''}
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div><label>Admin email</label><input type="email" id="a-email" placeholder="admin@flomka.ai"/></div>
+        <div><label>Password</label><input type="password" id="a-pw" placeholder="••••••••"/></div>
+        <div id="a-err" style="display:none;color:#E57389;font-size:12.5px"></div>
+        <button id="a-btn" onclick="adminLogin()" class="btn btn-red" style="padding:12px;width:100%;justify-content:center">Sign in to Admin</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+async function adminLogin(){
+  const email = c('a-email')?.value;
+  const pw = c('a-pw')?.value;
+  if(!email||!pw){ c('a-err').textContent='Fill all fields'; c('a-err').style.display='block'; return; }
+  const btn = c('a-btn');
+  btn.innerHTML = '<span class="spinner"></span> Signing in…';
+  btn.disabled = true;
+  const { error } = await sb.auth.signInWithPassword({ email, password: pw });
+  if(error){ c('a-err').textContent=error.message; c('a-err').style.display='block'; btn.innerHTML='Sign in to Admin'; btn.disabled=false; return; }
+  const { data:{ session } } = await sb.auth.getSession();
+  if(session?.user?.email !== ADMIN_EMAIL && !session?.user?.email?.endsWith('@flomka.ai')){
+    await sb.auth.signOut();
+    renderLoginPage('Access denied. This account is not an admin.');
+    return;
+  }
+  adminUser = session.user;
+  renderAdminApp();
+  loadAllData();
+}
+
+async function adminLogout(){ await sb.auth.signOut(); renderLoginPage(); }
+
+// ===================== RENDER APP =====================
+function renderAdminApp(){
+  c('app').innerHTML = `
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <svg width="130" height="44" viewBox="0 0 130 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="0" y="4" width="32" height="32" rx="5" fill="#A6192E"/>
+        <rect x="7" y="10" width="15" height="3.5" rx="1.5" fill="#FAF7F2"/>
+        <rect x="7" y="18" width="10" height="3" rx="1.5" fill="#FAF7F2"/>
+        <rect x="7" y="10" width="3.5" height="22" rx="1.5" fill="#FAF7F2"/>
+        <rect x="18" y="12" width="9"  height="3" rx="1.5" fill="#C9A84C"/>
+        <rect x="18" y="18" width="6"  height="2.5" rx="1.25" fill="#C9A84C" opacity="0.65"/>
+        <rect x="18" y="24" width="11" height="2.5" rx="1.25" fill="#C9A84C" opacity="0.35"/>
+        <text x="38" y="26" font-family="Georgia, serif" font-size="20" font-weight="700" letter-spacing="-0.5">
+          <tspan fill="#FAF7F2">Flo</tspan><tspan fill="#E57389">M</tspan><tspan fill="#FAF7F2">K</tspan><tspan fill="#C9A84C">a</tspan>
+        </text>
+        <text x="39" y="37" font-family="Georgia, serif" font-size="7" fill="#C9A84C" letter-spacing="2">ADMIN PANEL</text>
+      </svg>
+    </div>
+    <div style="padding:10px 0">
+      <div class="nav-section">Overview</div>
+      <div class="nav-item active" data-section="dashboard" onclick="showSection('dashboard',this)">
+        <span class="nav-icon">📊</span> Dashboard
+      </div>
+      <div class="nav-section">Content</div>
+      <div class="nav-item" data-section="tools" onclick="showSection('tools',this)">
+        <span class="nav-icon">🛠</span> Tools
+      </div>
+      <div class="nav-item" data-section="complaints" onclick="showSection('complaints',this)">
+        <span class="nav-icon">⚠️</span> Complaints
+      </div>
+      <div class="nav-item" data-section="ideas" onclick="showSection('ideas',this)">
+        <span class="nav-icon">💡</span> Ideas
+      </div>
+      <div class="nav-section">Business</div>
+      <div class="nav-item" data-section="subscribers" onclick="showSection('subscribers',this)">
+        <span class="nav-icon">📧</span> Subscribers
+      </div>
+      <div class="nav-item" data-section="payments" onclick="showSection('payments',this)">
+        <span class="nav-icon">💳</span> Payments
+      </div>
+      <div class="nav-item" data-section="users" onclick="showSection('users',this)">
+        <span class="nav-icon">👤</span> Users
+      </div>
+    </div>
+    <div class="sidebar-footer">
+      <div style="margin-bottom:8px;color:#DDD5C8;font-size:12px">${adminUser?.email}</div>
+      <button class="btn btn-sm" onclick="adminLogout()" style="width:100%;justify-content:center">Sign out</button>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="topbar-title">Dashboard</div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <span style="font-size:11px;color:#4A4038">Last sync: just now</span>
+        <button class="btn btn-sm btn-gold" onclick="loadAllData()">⟳ Refresh</button>
+        <a href="index.html" target="_blank" class="btn btn-sm">View site →</a>
+      </div>
+    </div>
+    <div class="content">
+      <div id="section-dashboard" class="page-section active"></div>
+      <div id="section-tools" class="page-section"></div>
+      <div id="section-complaints" class="page-section"></div>
+      <div id="section-ideas" class="page-section"></div>
+      <div id="section-subscribers" class="page-section"></div>
+      <div id="section-payments" class="page-section"></div>
+      <div id="section-users" class="page-section"></div>
+    </div>
+  </div>`;
+}
+
+function showSection(name, el){
+  currentSection = name;
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  if(el) el.classList.add('active');
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  const sec = c('section-' + name);
+  if(sec){ sec.classList.add('active'); renderSection(name); }
+  const titles = {dashboard:'Dashboard',tools:'Manage Tools',complaints:'Manage Complaints',ideas:'Manage Ideas',subscribers:'Newsletter Subscribers',payments:'Payments',users:'Users'};
+  if(c('topbar-title')) c('topbar-title').textContent = titles[name] || name;
+}
+
+// ===================== LOAD DATA =====================
+async function loadAllData(){
+  const [toolsRes, complaintsRes, ideasRes, subsRes, paymentsRes] = await Promise.all([
+    sb.from('tools').select('*').order('rank'),
+    sb.from('complaints').select('*').order('created_at', { ascending: false }),
+    sb.from('ideas').select('*').order('score', { ascending: false }),
+    sb.from('newsletter_subscribers').select('*').order('created_at', { ascending: false }),
+    sb.from('payments').select('*').order('created_at', { ascending: false })
+  ]);
+  allTools = toolsRes.data || [];
+  allComplaints = complaintsRes.data || [];
+  allIdeas = ideasRes.data || [];
+  allSubscribers = subsRes.data || [];
+  allPayments = paymentsRes.data || [];
+  renderSection(currentSection);
+  toast('Data refreshed');
+}
+
+function renderSection(name){
+  switch(name){
+    case 'dashboard': renderDashboard(); break;
+    case 'tools': renderToolsSection(); break;
+    case 'complaints': renderComplaintsSection(); break;
+    case 'ideas': renderIdeasSection(); break;
+    case 'subscribers': renderSubscribersSection(); break;
+    case 'payments': renderPaymentsSection(); break;
+    case 'users': renderUsersSection(); break;
+  }
+}
+
+// ===================== DASHBOARD =====================
+function renderDashboard(){
+  const el = c('section-dashboard');
+  const paidPayments = allPayments.filter(p => p.status === 'paid');
+  const revenue = paidPayments.reduce((sum, p) => sum + (p.amount||0)/100, 0);
+  el.innerHTML = `
+  <div class="stats-grid">
+    <div class="stat-box" style="border-top-color:#A6192E">
+      <div class="stat-num">${allTools.filter(t=>t.published).length}</div>
+      <div class="stat-label">Published tools</div>
+    </div>
+    <div class="stat-box" style="border-top-color:#C9A84C">
+      <div class="stat-num">${allComplaints.filter(c=>c.published).length}</div>
+      <div class="stat-label">Published complaints</div>
+    </div>
+    <div class="stat-box" style="border-top-color:#2D6A3F">
+      <div class="stat-num">${allSubscribers.length}</div>
+      <div class="stat-label">Newsletter subscribers</div>
+    </div>
+    <div class="stat-box" style="border-top-color:#5B3FA6">
+      <div class="stat-num">₹${revenue.toLocaleString()}</div>
+      <div class="stat-label">Total revenue</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px">
+    <!-- Recent complaints pending -->
+    <div class="card">
+      <div class="card-header">
+        <span class="card-title">Pending complaints</span>
+        <button class="btn btn-sm" onclick="showSection('complaints', document.querySelector('[data-section=complaints]'))">View all</button>
+      </div>
+      ${allComplaints.filter(c=>!c.published).slice(0,5).map(comp=>`
+      <div style="display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid #1E1A16">
+        <div style="flex:1">
+          <div style="font-size:12.5px;font-weight:500;color:#DDD5C8;margin-bottom:2px">${comp.tool}</div>
+          <div style="font-size:11.5px;color:#8C8279;line-height:1.4">${comp.complaint.slice(0,70)}…</div>
+        </div>
+        <button class="btn btn-sm btn-green" onclick="publishItem('complaints','${comp.id}',true)">Publish</button>
+      </div>`).join('') || '<div style="color:#4A4038;font-size:13px;padding:12px 0">No pending complaints</div>'}
+    </div>
+
+    <!-- Quick add -->
+    <div class="card">
+      <div class="card-header"><span class="card-title">Quick post</span></div>
+      <div class="tabs">
+        <button class="tab active" onclick="switchQTab('tool',this)">Tool</button>
+        <button class="tab" onclick="switchQTab('complaint',this)">Complaint</button>
+        <button class="tab" onclick="switchQTab('idea',this)">Idea</button>
+      </div>
+      <div id="q-tool">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div><label>Tool name</label><input type="text" id="q-tool-name" placeholder="e.g. Bolt.new"/></div>
+          <div><label>Score (0-100)</label><input type="number" id="q-tool-score" placeholder="85" min="0" max="100"/></div>
+          <div><label>Category</label><select id="q-tool-cat"><option>Coding</option><option>Search</option><option>Writing</option><option>Video</option><option>Inference</option><option>General</option></select></div>
+          <div><label>Short description</label><textarea id="q-tool-desc" style="min-height:60px" placeholder="What does it do?"></textarea></div>
+          <button class="btn btn-gold" onclick="quickAddTool()">Add tool →</button>
+        </div>
+      </div>
+      <div id="q-complaint" style="display:none">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div><label>Tool name</label><input type="text" id="q-comp-tool" placeholder="e.g. ChatGPT"/></div>
+          <div><label>Category</label><select id="q-comp-cat"><option>Reliability</option><option>Pricing</option><option>Quality</option><option>Developer</option><option>Censorship</option><option>Performance</option></select></div>
+          <div><label>Complaint</label><textarea id="q-comp-text" style="min-height:70px" placeholder="What are users complaining about?"></textarea></div>
+          <div class="form-grid"><div><label>Source</label><input type="text" id="q-comp-source" placeholder="reddit"/></div><div><label>Initial votes</label><input type="number" id="q-comp-votes" placeholder="500"/></div></div>
+          <button class="btn btn-red" onclick="quickAddComplaint()">Post complaint →</button>
+        </div>
+      </div>
+      <div id="q-idea" style="display:none">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div><label>Problem</label><input type="text" id="q-idea-problem" placeholder="The core problem"/></div>
+          <div><label>Opportunity</label><textarea id="q-idea-opp" style="min-height:60px" placeholder="The startup opportunity"></textarea></div>
+          <div><label>Evidence</label><input type="text" id="q-idea-evidence" placeholder="e.g. 2,847 Reddit upvotes"/></div>
+          <div class="form-grid"><div><label>Category</label><input type="text" id="q-idea-cat" placeholder="Dev Tools"/></div><div><label>Score</label><input type="number" id="q-idea-score" placeholder="85" min="0" max="100"/></div></div>
+          <button class="btn btn-gold" onclick="quickAddIdea()">Post idea →</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+function switchQTab(type, btn){
+  document.querySelectorAll('#section-dashboard .tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  ['tool','complaint','idea'].forEach(t=>{ const el=c('q-'+t); if(el) el.style.display='none'; });
+  const el = c('q-'+type); if(el) el.style.display='block';
+}
+
+// ===================== TOOLS =====================
+function renderToolsSection(){
+  const el = c('section-tools');
+  el.innerHTML = `
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+    <div>
+      <h2 style="font-size:26px;margin-bottom:2px">AI Tools</h2>
+      <p style="font-size:12.5px;color:#8C8279">${allTools.length} total · ${allTools.filter(t=>t.published).length} published</p>
+    </div>
+    <button class="btn btn-gold" onclick="openAddTool()">+ Add tool</button>
+  </div>
+  <div class="card" style="padding:0;overflow:hidden">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Rank</th><th>Tool</th><th>Category</th><th>Score</th><th>Votes</th><th>Status</th><th>Flags</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${allTools.map(t=>`
+        <tr>
+          <td><input type="number" value="${t.rank}" style="width:50px;padding:4px 6px;font-size:12px" onchange="updateRank('${t.id}',this.value)"/></td>
+          <td>
+            <div style="font-weight:500;font-size:13px;color:#DDD5C8">${t.name}</div>
+            <div style="font-size:11px;color:#4A4038">${t.website}</div>
+          </td>
+          <td><span class="badge badge-gray">${t.cat}</span></td>
+          <td>
+            <input type="number" value="${t.score}" min="0" max="100" style="width:55px;padding:4px 6px;font-size:12px" onchange="updateScore('${t.id}',this.value)"/>
+          </td>
+          <td style="color:#8C8279">${t.votes.toLocaleString()}</td>
+          <td><span class="badge ${t.published?'badge-green':'badge-red'}">${t.published?'Live':'Draft'}</span></td>
+          <td>
+            <div style="display:flex;gap:4px">
+              ${t.sponsored?'<span class="badge badge-gold">Sp</span>':''}
+              ${t.featured?'<span style="font-size:9.5px;font-weight:700;padding:2px 6px;border-radius:2px;background:#1E1A3A;color:#7B68EE;letter-spacing:.06em;text-transform:uppercase">Ft</span>':''}
+            </div>
+          </td>
+          <td>
+            <div style="display:flex;gap:5px">
+              <button class="btn btn-sm" onclick="openEditTool('${t.id}')">Edit</button>
+              <button class="btn btn-sm ${t.published?'btn-red':'btn-green'}" onclick="publishItem('tools','${t.id}',${!t.published})">${t.published?'Unpublish':'Publish'}</button>
+              <button class="btn btn-sm" style="color:#E57389;border-color:#3A1018" onclick="deleteItem('tools','${t.id}','${t.name}')">Del</button>
+            </div>
+          </td>
+        </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>`;
+}
+
+function openAddTool(){ openToolModal(null); }
+function openEditTool(id){ openToolModal(allTools.find(t=>t.id===id)); }
+
+function openToolModal(tool){
+  c('modal-root').innerHTML = `
+  <div class="modal-overlay" onclick="if(event.target===this)closeModal()">
+    <div class="modal-box">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+        <h3 style="font-size:20px">${tool?'Edit Tool':'Add New Tool'}</h3>
+        <button onclick="closeModal()" style="background:none;border:none;color:#8C8279;cursor:pointer;font-size:18px">✕</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="form-grid">
+          <div class="form-group"><label>Tool name *</label><input type="text" id="m-name" value="${tool?.name||''}"/></div>
+          <div class="form-group"><label>Slug *</label><input type="text" id="m-slug" value="${tool?.slug||''}"/></div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group"><label>Category</label>
+            <select id="m-cat">
+              ${['Coding','Search','Writing','Video','Inference','General'].map(c=>`<option ${tool?.cat===c?'selected':''}>${c}</option>`).join('')}
+            </select>
+          </div>
+          <div class="form-group"><label>Score (0-100)</label><input type="number" id="m-score" value="${tool?.score||50}" min="0" max="100"/></div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group"><label>Rank</label><input type="number" id="m-rank" value="${tool?.rank||99}"/></div>
+          <div class="form-group"><label>Change</label><input type="text" id="m-change" value="${tool?.change||'+0'}" placeholder="+5 or New"/></div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group"><label>Price</label><input type="text" id="m-price" value="${tool?.price||'Free'}"/></div>
+          <div class="form-group"><label>Website</label><input type="text" id="m-website" value="${tool?.website||''}"/></div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group"><label>Users count</label><input type="text" id="m-users" value="${tool?.users_count||''}"/></div>
+          <div class="form-group"><label>Initial votes</label><input type="number" id="m-votes" value="${tool?.votes||0}"/></div>
+        </div>
+        <div class="form-group full"><label>Description *</label><textarea id="m-desc" style="min-height:75px">${tool?.description||''}</textarea></div>
+        <div class="form-group full"><label>Tags (comma-separated)</label><input type="text" id="m-tags" value="${(tool?.tags||[]).join(', ')}"/></div>
+        <div style="display:flex;gap:20px">
+          <label class="toggle">
+            <input type="checkbox" id="m-pub" ${tool?.published!==false?'checked':''}/><div class="toggle-track"></div><div class="toggle-thumb"></div>
+            <span style="font-size:12.5px">Published</span>
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="m-featured" ${tool?.featured?'checked':''}/><div class="toggle-track"></div><div class="toggle-thumb"></div>
+            <span style="font-size:12.5px">Featured</span>
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="m-sponsored" ${tool?.sponsored?'checked':''}/><div class="toggle-track"></div><div class="toggle-thumb"></div>
+            <span style="font-size:12.5px">Sponsored</span>
+          </label>
+        </div>
+        <div id="m-err" style="display:none;color:#E57389;font-size:12.5px"></div>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:6px">
+          <button onclick="closeModal()" class="btn">Cancel</button>
+          <button onclick="saveTool('${tool?.id||''}')" class="btn btn-gold" id="m-save">Save tool</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+async function saveTool(id){
+  const name = c('m-name').value.trim();
+  const slug = c('m-slug').value.trim().toLowerCase().replace(/\s+/g,'-');
+  const desc = c('m-desc').value.trim();
+  if(!name||!slug||!desc){ c('m-err').textContent='Name, slug, and description are required'; c('m-err').style.display='block'; return; }
+  const btn = c('m-save'); btn.innerHTML='<span class="spinner"></span>'; btn.disabled=true;
+  const data = {
+    name, slug, description: desc,
+    cat: c('m-cat').value,
+    score: parseInt(c('m-score').value)||50,
+    rank: parseInt(c('m-rank').value)||99,
+    change: c('m-change').value||'+0',
+    trend: c('m-change').value?.startsWith('+')||c('m-change').value==='New' ? 'up' : 'down',
+    price: c('m-price').value||'Free',
+    website: c('m-website').value||'',
+    users_count: c('m-users').value||'',
+    votes: parseInt(c('m-votes').value)||0,
+    tags: c('m-tags').value.split(',').map(t=>t.trim()).filter(Boolean),
+    published: c('m-pub').checked,
+    featured: c('m-featured').checked,
+    sponsored: c('m-sponsored').checked,
+    updated_at: new Date().toISOString()
+  };
+  const { error } = id
+    ? await sb.from('tools').update(data).eq('id', id)
+    : await sb.from('tools').insert(data);
+  if(error){ c('m-err').textContent=error.message; c('m-err').style.display='block'; btn.innerHTML='Save tool'; btn.disabled=false; return; }
+  toast(id ? 'Tool updated!' : 'Tool added!');
+  closeModal();
+  await loadAllData();
+}
+
+async function updateRank(id, val){
+  await sb.from('tools').update({rank:parseInt(val), updated_at:new Date().toISOString()}).eq('id',id);
+  toast('Rank updated');
+}
+async function updateScore(id, val){
+  await sb.from('tools').update({score:parseInt(val), updated_at:new Date().toISOString()}).eq('id',id);
+  toast('Score updated');
+}
+
+// ===================== COMPLAINTS =====================
+function renderComplaintsSection(){
+  const el = c('section-complaints');
+  const pending = allComplaints.filter(c=>!c.published);
+  const published = allComplaints.filter(c=>c.published);
+  el.innerHTML = `
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+    <div>
+      <h2 style="font-size:26px;margin-bottom:2px">Complaints</h2>
+      <p style="font-size:12.5px;color:#8C8279">${pending.length} pending · ${published.length} published</p>
+    </div>
+    <button class="btn btn-red" onclick="openAddComplaint()">+ Add complaint</button>
+  </div>
+  <div class="tabs">
+    <button class="tab active" id="ctab-pending" onclick="switchComplaintTab('pending',this)">Pending (${pending.length})</button>
+    <button class="tab" id="ctab-published" onclick="switchComplaintTab('published',this)">Published (${published.length})</button>
+  </div>
+  <div id="complaints-pending">
+    ${pending.length===0?'<div style="color:#4A4038;padding:24px 0;font-size:13.5px">No pending complaints — queue is clean ✓</div>':
+    pending.map(comp=>complaintRow(comp, false)).join('')}
+  </div>
+  <div id="complaints-published" style="display:none">
+    ${published.map(comp=>complaintRow(comp, true)).join('')}
+  </div>`;
+}
+
+function complaintRow(comp, pub){
+  return `
+  <div style="background:#14110E;border:1px solid #1E1A16;border-left:2px solid ${pub?'#2D6A3F':'#C9A84C'};border-radius:2px;padding:14px 18px;margin-bottom:8px">
+    <div style="display:flex;gap:14px;align-items:flex-start">
+      <div style="flex:1">
+        <div style="display:flex;gap:8px;align-items:center;margin-bottom:5px">
+          <span style="font-family:'Cormorant Garamond',serif;font-weight:600;color:#E57389">${comp.tool}</span>
+          <span class="badge badge-gray">${comp.cat}</span>
+          <span style="font-size:11px;color:#4A4038">${comp.source} · ${timeAgo(comp.created_at)}</span>
+          <span style="font-size:11px;color:#8C8279;margin-left:auto">${comp.votes.toLocaleString()} votes</span>
+        </div>
+        <p style="font-size:13px;color:#DDD5C8;line-height:1.5">${comp.complaint}</p>
+      </div>
+      <div style="display:flex;gap:6px;flex-shrink:0">
+        ${!pub?`<button class="btn btn-sm btn-green" onclick="publishItem('complaints','${comp.id}',true)">✓ Publish</button>`:''}
+        <button class="btn btn-sm" onclick="openEditComplaint('${comp.id}')">Edit</button>
+        ${pub?`<button class="btn btn-sm btn-red" onclick="publishItem('complaints','${comp.id}',false)">Unpublish</button>`:''}
+        <button class="btn btn-sm" style="color:#E57389;border-color:#3A1018" onclick="deleteItem('complaints','${comp.id}','this complaint')">Del</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function switchComplaintTab(tab, btn){
+  document.querySelectorAll('#section-complaints .tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  c('complaints-pending').style.display = tab==='pending'?'block':'none';
+  c('complaints-published').style.display = tab==='published'?'block':'none';
+}
+
+function openAddComplaint(){ openComplaintModal(null); }
+function openEditComplaint(id){ openComplaintModal(allComplaints.find(c=>c.id===id)); }
+
+function openComplaintModal(comp){
+  c('modal-root').innerHTML = `
+  <div class="modal-overlay" onclick="if(event.target===this)closeModal()">
+    <div class="modal-box">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+        <h3 style="font-size:20px">${comp?'Edit Complaint':'Add Complaint'}</h3>
+        <button onclick="closeModal()" style="background:none;border:none;color:#8C8279;cursor:pointer;font-size:18px">✕</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="form-grid">
+          <div class="form-group"><label>Tool name *</label><input type="text" id="cm-tool" value="${comp?.tool||''}"/></div>
+          <div class="form-group"><label>Category</label>
+            <select id="cm-cat">${['Reliability','Pricing','Quality','Developer','Censorship','Performance'].map(c=>`<option ${comp?.cat===c?'selected':''}>${c}</option>`).join('')}</select>
+          </div>
+        </div>
+        <div class="form-grid">
+          <div class="form-group"><label>Source</label><input type="text" id="cm-source" value="${comp?.source||'reddit'}"/></div>
+          <div class="form-group"><label>Initial votes</label><input type="number" id="cm-votes" value="${comp?.votes||0}"/></div>
+        </div>
+        <div class="form-group"><label>Complaint text *</label><textarea id="cm-text" style="min-height:90px">${comp?.complaint||''}</textarea></div>
+        <label class="toggle">
+          <input type="checkbox" id="cm-pub" ${comp?.published?'checked':''}/><div class="toggle-track"></div><div class="toggle-thumb"></div>
+          <span style="font-size:12.5px">Publish immediately</span>
+        </label>
+        <div id="cm-err" style="display:none;color:#E57389;font-size:12.5px"></div>
+        <div style="display:flex;gap:10px;justify-content:flex-end">
+          <button onclick="closeModal()" class="btn">Cancel</button>
+          <button onclick="saveComplaint('${comp?.id||''}')" class="btn btn-red" id="cm-save">Save complaint</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+async function saveComplaint(id){
+  const tool = c('cm-tool').value.trim();
+  const text = c('cm-text').value.trim();
+  if(!tool||!text){ c('cm-err').textContent='Tool and complaint text required'; c('cm-err').style.display='block'; return; }
+  const btn = c('cm-save'); btn.innerHTML='<span class="spinner"></span>'; btn.disabled=true;
+  const data = { tool, complaint:text, cat:c('cm-cat').value, source:c('cm-source').value||'reddit', votes:parseInt(c('cm-votes').value)||0, published:c('cm-pub').checked, updated_at:new Date().toISOString() };
+  const { error } = id ? await sb.from('complaints').update(data).eq('id',id) : await sb.from('complaints').insert(data);
+  if(error){ c('cm-err').textContent=error.message; c('cm-err').style.display='block'; btn.innerHTML='Save complaint'; btn.disabled=false; return; }
+  toast(id?'Complaint updated!':'Complaint added!');
+  closeModal();
+  await loadAllData();
+}
+
+// ===================== IDEAS =====================
+function renderIdeasSection(){
+  const el = c('section-ideas');
+  el.innerHTML = `
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+    <div>
+      <h2 style="font-size:26px;margin-bottom:2px">Startup Ideas</h2>
+      <p style="font-size:12.5px;color:#8C8279">${allIdeas.length} total · ${allIdeas.filter(i=>i.published).length} published</p>
+    </div>
+    <button class="btn btn-gold" onclick="openAddIdea()">+ Add idea</button>
+  </div>
+  <div class="grid-ideas">
+    ${allIdeas.map(idea=>`
+    <div style="background:#14110E;border:1px solid #1E1A16;border-left:2px solid ${idea.score>85?'#A6192E':'#C9A84C'};border-radius:2px;padding:16px 18px;margin-bottom:10px">
+      <div style="display:flex;gap:10px;align-items:flex-start">
+        <div style="flex:1">
+          <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px">
+            <span class="badge badge-gray">${idea.cat}</span>
+            <span style="font-size:11px;font-weight:700;color:${idea.score>85?'#E57389':'#C9A84C'}">Score ${idea.score}/100</span>
+            <span style="font-size:11px;color:#4A4038;margin-left:auto">${timeAgo(idea.created_at)}</span>
+          </div>
+          <p style="font-size:12.5px;font-style:italic;color:#E57389;margin-bottom:4px">"${idea.problem}"</p>
+          <p style="font-size:13px;color:#DDD5C8;font-weight:500;margin-bottom:4px">${idea.opportunity}</p>
+          <p style="font-size:11px;color:#8C8279">${idea.evidence}</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:5px;flex-shrink:0">
+          <span class="badge ${idea.published?'badge-green':'badge-red'}">${idea.published?'Live':'Draft'}</span>
+          <button class="btn btn-sm" onclick="openEditIdea('${idea.id}')">Edit</button>
+          <button class="btn btn-sm ${idea.published?'btn-red':'btn-green'}" onclick="publishItem('ideas','${idea.id}',${!idea.published})">${idea.published?'Hide':'Show'}</button>
+          <button class="btn btn-sm" style="color:#E57389;border-color:#3A1018" onclick="deleteItem('ideas','${idea.id}','this idea')">Del</button>
+        </div>
+      </div>
+    </div>`).join('')}
+  </div>`;
+}
+
+function openAddIdea(){ openIdeaModal(null); }
+function openEditIdea(id){ openIdeaModal(allIdeas.find(i=>i.id===id)); }
+
+function openIdeaModal(idea){
+  c('modal-root').innerHTML = `
+  <div class="modal-overlay" onclick="if(event.target===this)closeModal()">
+    <div class="modal-box">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:22px">
+        <h3 style="font-size:20px">${idea?'Edit Idea':'Add Idea'}</h3>
+        <button onclick="closeModal()" style="background:none;border:none;color:#8C8279;cursor:pointer;font-size:18px">✕</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div class="form-group"><label>Problem statement *</label><input type="text" id="im-problem" value="${idea?.problem||''}" placeholder="The core user problem"/></div>
+        <div class="form-group"><label>Opportunity *</label><textarea id="im-opp" style="min-height:75px">${idea?.opportunity||''}</textarea></div>
+        <div class="form-group"><label>Evidence</label><input type="text" id="im-evidence" value="${idea?.evidence||''}" placeholder="e.g. 2,847 Reddit upvotes this week"/></div>
+        <div class="form-grid">
+          <div class="form-group"><label>Category</label><input type="text" id="im-cat" value="${idea?.cat||''}"/></div>
+          <div class="form-group"><label>Score (0-100)</label><input type="number" id="im-score" value="${idea?.score||75}" min="0" max="100"/></div>
+        </div>
+        <label class="toggle">
+          <input type="checkbox" id="im-pub" ${idea?.published!==false?'checked':''}/><div class="toggle-track"></div><div class="toggle-thumb"></div>
+          <span style="font-size:12.5px">Published</span>
+        </label>
+        <div id="im-err" style="display:none;color:#E57389;font-size:12.5px"></div>
+        <div style="display:flex;gap:10px;justify-content:flex-end">
+          <button onclick="closeModal()" class="btn">Cancel</button>
+          <button onclick="saveIdea('${idea?.id||''}')" class="btn btn-gold" id="im-save">Save idea</button>
+        </div>
+      </div>
+    </div>
+  </div>`;
+}
+
+async function saveIdea(id){
+  const problem = c('im-problem').value.trim();
+  const opp = c('im-opp').value.trim();
+  if(!problem||!opp){ c('im-err').textContent='Problem and opportunity required'; c('im-err').style.display='block'; return; }
+  const btn = c('im-save'); btn.innerHTML='<span class="spinner"></span>'; btn.disabled=true;
+  const data = { problem, opportunity:opp, evidence:c('im-evidence').value, cat:c('im-cat').value||'General', score:parseInt(c('im-score').value)||75, published:c('im-pub').checked, updated_at:new Date().toISOString() };
+  const { error } = id ? await sb.from('ideas').update(data).eq('id',id) : await sb.from('ideas').insert({...data, upvotes:0});
+  if(error){ c('im-err').textContent=error.message; c('im-err').style.display='block'; btn.innerHTML='Save idea'; btn.disabled=false; return; }
+  toast(id?'Idea updated!':'Idea added!');
+  closeModal();
+  await loadAllData();
+}
+
+// ===================== QUICK ADD =====================
+async function quickAddTool(){
+  const name = c('q-tool-name')?.value?.trim();
+  const score = parseInt(c('q-tool-score')?.value)||75;
+  const cat = c('q-tool-cat')?.value;
+  const desc = c('q-tool-desc')?.value?.trim();
+  if(!name||!desc){ toast('Name and description required','error'); return; }
+  const slug = name.toLowerCase().replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'');
+  const rank = Math.max(...allTools.map(t=>t.rank), 0) + 1;
+  const { error } = await sb.from('tools').insert({ name, slug, cat, score, description:desc, rank, change:'+New', trend:'up', price:'Free', website:'', votes:0, tags:[], published:true });
+  if(error){ toast(error.code==='23505'?'Slug already exists':'Error: '+error.message,'error'); return; }
+  toast(`Tool "${name}" added and published!`);
+  c('q-tool-name').value=''; c('q-tool-score').value=''; c('q-tool-desc').value='';
+  await loadAllData();
+}
+
+async function quickAddComplaint(){
+  const tool = c('q-comp-tool')?.value?.trim();
+  const text = c('q-comp-text')?.value?.trim();
+  const cat = c('q-comp-cat')?.value;
+  const source = c('q-comp-source')?.value?.trim()||'reddit';
+  const votes = parseInt(c('q-comp-votes')?.value)||0;
+  if(!tool||!text){ toast('Tool and complaint text required','error'); return; }
+  const { error } = await sb.from('complaints').insert({ tool, complaint:text, cat, source, votes, published:true });
+  if(error){ toast('Error: '+error.message,'error'); return; }
+  toast('Complaint posted!');
+  c('q-comp-tool').value=''; c('q-comp-text').value=''; c('q-comp-votes').value='';
+  await loadAllData();
+}
+
+async function quickAddIdea(){
+  const problem = c('q-idea-problem')?.value?.trim();
+  const opp = c('q-idea-opp')?.value?.trim();
+  const evidence = c('q-idea-evidence')?.value?.trim();
+  const cat = c('q-idea-cat')?.value?.trim()||'General';
+  const score = parseInt(c('q-idea-score')?.value)||75;
+  if(!problem||!opp){ toast('Problem and opportunity required','error'); return; }
+  const { error } = await sb.from('ideas').insert({ problem, opportunity:opp, evidence, cat, score, upvotes:0, published:true });
+  if(error){ toast('Error: '+error.message,'error'); return; }
+  toast('Idea posted!');
+  c('q-idea-problem').value=''; c('q-idea-opp').value=''; c('q-idea-evidence').value='';
+  await loadAllData();
+}
+
+// ===================== SUBSCRIBERS =====================
+function renderSubscribersSection(){
+  const el = c('section-subscribers');
+  el.innerHTML = `
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+    <div>
+      <h2 style="font-size:26px;margin-bottom:2px">Newsletter Subscribers</h2>
+      <p style="font-size:12.5px;color:#8C8279">${allSubscribers.length} total subscribers</p>
+    </div>
+    <button class="btn btn-gold" onclick="exportSubscribers()">⬇ Export CSV</button>
+  </div>
+  <div class="card" style="padding:0;overflow:hidden">
+    <table class="table">
+      <thead><tr><th>#</th><th>Email</th><th>Subscribed</th></tr></thead>
+      <tbody>
+        ${allSubscribers.map((s,i)=>`
+        <tr>
+          <td style="color:#4A4038">${i+1}</td>
+          <td style="color:#DDD5C8">${s.email}</td>
+          <td style="color:#8C8279">${new Date(s.created_at).toLocaleDateString('en-IN')}</td>
+        </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>`;
+}
+
+function exportSubscribers(){
+  const csv = 'Email,Subscribed\n' + allSubscribers.map(s=>`${s.email},${s.created_at}`).join('\n');
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url; a.download='flomka_subscribers.csv'; a.click();
+  toast('Exported!');
+}
+
+// ===================== PAYMENTS =====================
+function renderPaymentsSection(){
+  const el = c('section-payments');
+  const paid = allPayments.filter(p=>p.status==='paid');
+  const revenue = paid.reduce((s,p)=>s+(p.amount||0)/100, 0);
+  el.innerHTML = `
+  <div style="display:flex;gap:16px;margin-bottom:24px">
+    <div class="stat-box" style="flex:1;border-top-color:#2D6A3F">
+      <div class="stat-num">₹${revenue.toLocaleString()}</div>
+      <div class="stat-label">Total revenue</div>
+    </div>
+    <div class="stat-box" style="flex:1;border-top-color:#C9A84C">
+      <div class="stat-num">${paid.length}</div>
+      <div class="stat-label">Successful payments</div>
+    </div>
+    <div class="stat-box" style="flex:1;border-top-color:#A6192E">
+      <div class="stat-num">${allPayments.filter(p=>p.status==='failed').length}</div>
+      <div class="stat-label">Failed payments</div>
+    </div>
+  </div>
+  <div class="card" style="padding:0;overflow:hidden">
+    <table class="table">
+      <thead><tr><th>Date</th><th>User</th><th>Plan</th><th>Amount</th><th>Status</th><th>Payment ID</th></tr></thead>
+      <tbody>
+        ${allPayments.map(p=>`
+        <tr>
+          <td style="color:#8C8279">${new Date(p.created_at).toLocaleDateString('en-IN')}</td>
+          <td style="font-size:11.5px;color:#8C8279">${p.user_id?.slice(0,8)}…</td>
+          <td><span class="badge ${p.plan==='pro'?'badge-gold':'badge-gray'}">${p.plan}</span></td>
+          <td style="color:#DDD5C8">₹${(p.amount/100).toLocaleString()}</td>
+          <td><span class="badge ${p.status==='paid'?'badge-green':p.status==='failed'?'badge-red':'badge-gray'}">${p.status}</span></td>
+          <td style="font-size:11px;color:#4A4038">${p.razorpay_payment_id||'—'}</td>
+        </tr>`).join('') || '<tr><td colspan="6" style="text-align:center;color:#4A4038;padding:24px">No payments yet</td></tr>'}
+      </tbody>
+    </table>
+  </div>`;
+}
+
+// ===================== USERS =====================
+async function renderUsersSection(){
+  const el = c('section-users');
+  el.innerHTML = `<div style="color:#8C8279;padding:24px 0;font-size:13.5px">Loading users…</div>`;
+  const { data: profiles } = await sb.from('profiles').select('*').order('created_at', { ascending: false });
+  el.innerHTML = `
+  <div style="margin-bottom:20px">
+    <h2 style="font-size:26px;margin-bottom:2px">Users</h2>
+    <p style="font-size:12.5px;color:#8C8279">${(profiles||[]).length} registered users</p>
+  </div>
+  <div class="card" style="padding:0;overflow:hidden">
+    <table class="table">
+      <thead><tr><th>Name</th><th>Email</th><th>Plan</th><th>Joined</th><th>Actions</th></tr></thead>
+      <tbody>
+        ${(profiles||[]).map(u=>`
+        <tr>
+          <td style="color:#DDD5C8;font-weight:500">${u.name||'—'}</td>
+          <td style="color:#8C8279">${u.email}</td>
+          <td>
+            <select onchange="updateUserPlan('${u.id}',this.value)" style="width:auto;padding:3px 6px;font-size:12px">
+              ${['free','pro','api'].map(p=>`<option ${u.plan===p?'selected':''}>${p}</option>`).join('')}
+            </select>
+          </td>
+          <td style="color:#4A4038">${new Date(u.created_at).toLocaleDateString('en-IN')}</td>
+          <td>
+            <button class="btn btn-sm" onclick="toast('Email user: '+this.closest('tr').querySelector('td:nth-child(2)').textContent)">📧</button>
+          </td>
+        </tr>`).join('') || '<tr><td colspan="5" style="text-align:center;color:#4A4038;padding:24px">No users yet</td></tr>'}
+      </tbody>
+    </table>
+  </div>`;
+}
+
+async function updateUserPlan(userId, plan){
+  const { error } = await sb.from('profiles').update({plan, updated_at:new Date().toISOString()}).eq('id',userId);
+  if(error){ toast('Error: '+error.message,'error'); return; }
+  toast('User plan updated to '+plan);
+}
+
+// ===================== SHARED ACTIONS =====================
+async function publishItem(table, id, val){
+  const { error } = await sb.from(table).update({published:val, updated_at:new Date().toISOString()}).eq('id',id);
+  if(error){ toast('Error: '+error.message,'error'); return; }
+  toast(val ? 'Published!' : 'Unpublished');
+  await loadAllData();
+}
+
+async function deleteItem(table, id, label){
+  if(!confirm(`Delete ${label}? This cannot be undone.`)) return;
+  const { error } = await sb.from(table).delete().eq('id',id);
+  if(error){ toast('Error: '+error.message,'error'); return; }
+  toast('Deleted');
+  await loadAllData();
+}
+
+// ===================== INIT =====================
+initAdmin();
+</script>
+</body>
+</html>
