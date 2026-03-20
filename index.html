@@ -285,6 +285,8 @@ function timeAgo(dateStr){
 }
 function navigate(page){
   currentPage = page;
+  // Clear cache so admin changes show immediately on next visit
+  clearCache();
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const el = c('page-' + page);
   if(el){ el.classList.add('active'); renderPage(page); }
@@ -558,12 +560,12 @@ const FALLBACK_IDEAS = [
 ];
 
 // ===================== DATA FETCHING =====================
-async function fetchTools(){
-  if(cachedTools.length) return cachedTools;
+// Always fetch fresh from Supabase — no caching so admin changes show instantly
+async function fetchTools(force=false){
+  if(cachedTools.length && !force) return cachedTools;
   try {
     const { data, error } = await sb.from('tools').select('*').eq('published', true).order('rank');
     if(error){
-      // Table doesn't exist yet — use fallback data silently
       console.warn('DB not set up yet, using fallback tools data. Run schema.sql in Supabase to fix.');
       cachedTools = FALLBACK_TOOLS;
       return cachedTools;
@@ -577,8 +579,8 @@ async function fetchTools(){
   }
 }
 
-async function fetchComplaints(){
-  if(cachedComplaints.length) return cachedComplaints;
+async function fetchComplaints(force=false){
+  if(cachedComplaints.length && !force) return cachedComplaints;
   try {
     const { data, error } = await sb.from('complaints').select('*').eq('published', true).order('votes', { ascending: false });
     if(error){
@@ -595,8 +597,8 @@ async function fetchComplaints(){
   }
 }
 
-async function fetchIdeas(){
-  if(cachedIdeas.length) return cachedIdeas;
+async function fetchIdeas(force=false){
+  if(cachedIdeas.length && !force) return cachedIdeas;
   try {
     const { data, error } = await sb.from('ideas').select('*').eq('published', true).order('score', { ascending: false });
     if(error){
@@ -613,7 +615,7 @@ async function fetchIdeas(){
   }
 }
 
-// Clear caches on page reload
+// Clear cache — forces fresh fetch from Supabase next time
 function clearCache(){ cachedTools = []; cachedComplaints = []; cachedIdeas = []; }
 
 // ===================== SEARCH =====================
@@ -1515,12 +1517,36 @@ document.addEventListener('keydown', e => {
   }
 });
 
+// Listen for real-time changes from Supabase
+// When admin publishes something — index.html updates automatically
+function initRealtimeSync(){
+  try {
+    sb.channel('public-changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'tools' }, () => {
+        cachedTools = [];
+        if(currentPage === 'home' || currentPage === 'tools' || currentPage === 'trends') renderPage(currentPage);
+      })
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'complaints' }, () => {
+        cachedComplaints = [];
+        if(currentPage === 'home' || currentPage === 'complaints') renderPage(currentPage);
+      })
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'ideas' }, () => {
+        cachedIdeas = [];
+        if(currentPage === 'home' || currentPage === 'ideas') renderPage(currentPage);
+      })
+      .subscribe();
+  } catch(e) {
+    console.warn('Realtime sync not available:', e.message);
+  }
+}
+
 async function init(){
   initTicker();
   renderFooter();
   if(darkMode) c('dark-toggle').textContent = '☀️';
   await initAuth();
   await renderPage('home');
+  initRealtimeSync();
 }
 
 init();
