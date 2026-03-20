@@ -167,6 +167,62 @@ body.dark select{background:#1C1814;color:#F5F0E8;border-color:#3A3028}
 body.dark .pro-nudge{background:#2A2010;border-color:rgba(201,168,76,.3)}
 .loading-state{text-align:center;padding:48px;color:#7A7068}
 .loading-state .spinner{border-color:rgba(166,25,46,.2);border-top-color:#A6192E;width:28px;height:28px;margin:0 auto 14px}
+
+/* Hamburger button */
+.hamburger{display:none;flex-direction:column;justify-content:center;align-items:center;gap:5px;width:36px;height:36px;border:1px solid #DDD5C8;border-radius:2px;background:transparent;cursor:pointer;flex-shrink:0;transition:border-color .2s}
+body.dark .hamburger{border-color:#3A3028}
+.hamburger:hover{border-color:#A6192E}
+.hamburger span{display:block;width:16px;height:1.5px;background:#3A3530;border-radius:2px;transition:all .25s cubic-bezier(.4,0,.2,1)}
+body.dark .hamburger span{background:#DDD5C8}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* Mobile drawer */
+.mobile-drawer{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:190;pointer-events:none}
+.mobile-drawer.open{pointer-events:all}
+.drawer-backdrop{position:absolute;inset:0;background:rgba(28,24,20,.5);opacity:0;transition:opacity .3s}
+.mobile-drawer.open .drawer-backdrop{opacity:1}
+.drawer-panel{position:absolute;top:0;right:0;width:280px;height:100%;background:#FAF7F2;border-left:1px solid #DDD5C8;transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow-y:auto}
+body.dark .drawer-panel{background:#141210;border-color:#3A3028}
+.mobile-drawer.open .drawer-panel{transform:translateX(0)}
+.drawer-header{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #DDD5C8;height:60px;flex-shrink:0}
+body.dark .drawer-header{border-color:#3A3028}
+.drawer-close{width:32px;height:32px;border:1px solid #DDD5C8;border-radius:2px;background:none;cursor:pointer;font-size:16px;color:#7A7068;display:flex;align-items:center;justify-content:center;transition:all .2s}
+body.dark .drawer-close{border-color:#3A3028;color:#DDD5C8}
+.drawer-close:hover{border-color:#A6192E;color:#A6192E}
+.drawer-search{padding:16px 20px;border-bottom:1px solid #DDD5C8}
+body.dark .drawer-search{border-color:#3A3028}
+.drawer-search input{width:100%;padding:9px 12px 9px 32px;border:1px solid #DDD5C8;border-radius:2px;font-size:13px;background:#FFFDF9;color:#1C1814;outline:none;font-family:'Jost',sans-serif}
+body.dark .drawer-search input{background:#1C1814;color:#F5F0E8;border-color:#3A3028}
+.drawer-search input:focus{border-color:#C9A84C}
+.drawer-search-wrap{position:relative}
+.drawer-search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:13px;color:#7A7068;pointer-events:none}
+.drawer-nav{padding:8px 0;flex:1}
+.drawer-nav-link{display:flex;align-items:center;gap:12px;width:100%;padding:13px 20px;border:none;background:none;font-family:'Jost',sans-serif;font-size:14px;color:#3A3530;cursor:pointer;text-align:left;transition:background .15s;border-left:2.5px solid transparent}
+body.dark .drawer-nav-link{color:#DDD5C8}
+.drawer-nav-link:hover{background:#F5F0E8}
+body.dark .drawer-nav-link:hover{background:#1C1814}
+.drawer-nav-link.active{color:#A6192E;border-left-color:#A6192E;background:#FFF5F6;font-weight:500}
+body.dark .drawer-nav-link.active{background:#2A1015}
+.drawer-nav-icon{font-size:15px;width:20px;text-align:center;flex-shrink:0}
+.drawer-footer{padding:16px 20px;border-top:1px solid #DDD5C8}
+body.dark .drawer-footer{border-color:#3A3028}
+
+@media(max-width:900px){
+  .hero-inner{grid-template-columns:1fr}.float-card{display:block!important}
+  .pricing-grid{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}.nav-search{display:none}
+  .hamburger{display:flex}
+  .mobile-drawer{display:block}
+  .hero h1{font-size:36px!important}
+  .hero-sub{font-size:16px!important}
+  .hero-stats{gap:20px!important}
+  .grid-3{grid-template-columns:1fr!important}
+  .grid-2{grid-template-columns:1fr!important}
+  #hero-scoreboard{margin-top:24px}
+}
 </style>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23A6192E'/%3E%3Crect x='7' y='9' width='12' height='3' rx='1.5' fill='%23FAF7F2'/%3E%3Crect x='7' y='16' width='8' height='2.5' rx='1.25' fill='%23FAF7F2'/%3E%3Crect x='7' y='9' width='3' height='14' rx='1.5' fill='%23FAF7F2'/%3E%3Crect x='17' y='11' width='7' height='2.5' rx='1.25' fill='%23C9A84C'/%3E%3Crect x='17' y='16' width='4' height='2' rx='1' fill='%23C9A84C' opacity='.65'/%3E%3Crect x='17' y='21' width='8' height='2' rx='1' fill='%23C9A84C' opacity='.35'/%3E%3C/svg%3E">
 </head>
@@ -198,6 +254,7 @@ body.dark .pro-nudge{background:#2A2010;border-color:rgba(201,168,76,.3)}
     </button>
     <div class="nav-links">
       <button class="nav-link" onclick="navigate('home')" data-page="home">Feed</button>
+      <button class="nav-link" onclick="navigate('brief')" data-page="brief" style="color:#C9A84C;font-weight:600">★ Brief</button>
       <button class="nav-link" onclick="navigate('tools')" data-page="tools">Tools</button>
       <button class="nav-link" onclick="navigate('trends')" data-page="trends">Trends</button>
       <button class="nav-link" onclick="navigate('complaints')" data-page="complaints">Complaints</button>
@@ -212,16 +269,51 @@ body.dark .pro-nudge{background:#2A2010;border-color:rgba(201,168,76,.3)}
     <div class="nav-right">
       <button id="dark-toggle" onclick="toggleDark()" title="Toggle dark mode">🌙</button>
       <div id="nav-auth-area"></div>
+      <button class="hamburger" id="hamburger-btn" onclick="toggleDrawer()" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
 </nav>
 
+<!-- Mobile Drawer -->
+<div class="mobile-drawer" id="mobile-drawer">
+  <div class="drawer-backdrop" onclick="closeDrawer()"></div>
+  <div class="drawer-panel">
+    <div class="drawer-header">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;letter-spacing:-.01em">FloMKa</span>
+      <button class="drawer-close" onclick="closeDrawer()">✕</button>
+    </div>
+    <div class="drawer-search">
+      <div class="drawer-search-wrap">
+        <span class="drawer-search-icon">🔍</span>
+        <input type="search" placeholder="Search tools, ideas..." id="drawer-search" oninput="handleSearch(this.value)" autocomplete="off"/>
+      </div>
+    </div>
+    <nav class="drawer-nav">
+      <button class="drawer-nav-link" data-drawer-page="home" onclick="drawerNavigate('home')"><span class="drawer-nav-icon">📰</span>Feed</button>
+      <button class="drawer-nav-link" data-drawer-page="brief" onclick="drawerNavigate('brief')" style="color:#C9A84C;font-weight:600"><span class="drawer-nav-icon">★</span>Executive Brief</button>
+      <button class="drawer-nav-link" data-drawer-page="tools" onclick="drawerNavigate('tools')"><span class="drawer-nav-icon">🛠</span>Tools</button>
+      <button class="drawer-nav-link" data-drawer-page="trends" onclick="drawerNavigate('trends')"><span class="drawer-nav-icon">📈</span>Trends</button>
+      <button class="drawer-nav-link" data-drawer-page="complaints" onclick="drawerNavigate('complaints')"><span class="drawer-nav-icon">⚡</span>Complaints</button>
+      <button class="drawer-nav-link" data-drawer-page="ideas" onclick="drawerNavigate('ideas')"><span class="drawer-nav-icon">💡</span>Ideas</button>
+      <button class="drawer-nav-link" data-drawer-page="pricing" onclick="drawerNavigate('pricing')"><span class="drawer-nav-icon">💎</span>Pricing</button>
+    </nav>
+    <div class="drawer-footer">
+      <button class="btn btn-red" style="width:100%;justify-content:center;margin-bottom:8px" onclick="drawerNavigate('pricing')">View Pro plans →</button>
+      <button class="btn" style="width:100%;justify-content:center" onclick="toggleDark();closeDrawer()">Toggle dark mode 🌙</button>
+    </div>
+  </div>
+</div>
+
 <div id="page-home" class="page active"></div>
+<div id="page-brief" class="page"></div>
 <div id="page-tools" class="page"></div>
 <div id="page-trends" class="page"></div>
 <div id="page-complaints" class="page"></div>
 <div id="page-ideas" class="page"></div>
 <div id="page-pricing" class="page"></div>
+<div id="page-compare" class="page"></div>
 <div id="page-dashboard" class="page"></div>
 
 <footer id="site-footer"></footer>
@@ -253,7 +345,7 @@ let cachedIdeas = [];
 try { darkMode = localStorage.getItem('flomka_dark') === '1'; } catch{}
 if (darkMode) document.body.classList.add('dark');
 
-const TICKER_ITEMS = ["Devin AI launches publicly","Perplexity hits 15M users","Groq raises $1B Series C","Cursor v2.0 released","OpenAI Sora now available","Claude 3.5 Sonnet tops benchmarks","AI tools market hits $312B","GitHub Copilot major update","Gemini 2.5 Flash launches","Mistral 3 released","Runway Gen-3 beats Sora","ElevenLabs raises $180M"];
+const TICKER_ITEMS = ["GPT-5 launches with 200K context window — Mar 2026","Cursor hits 2M developers — fastest dev tool ever","Google Gemini 2.5 Pro beats GPT-4 on coding benchmarks","Anthropic Claude 3.7 releases with extended thinking","Perplexity raises $500M at $9B valuation","Microsoft Copilot+ PCs ship with on-device AI","Meta Llama 4 open-sourced — beats GPT-4o on 12 benchmarks","OpenAI o3 scores 87.5% on ARC-AGI — new record","Runway Gen-4 launches real-time video generation","ElevenLabs voice cloning now available in 32 languages","Groq inference hits 1,200 tokens/sec on Llama 4","GitHub Copilot Workspace exits beta — 1M enterprise users","Mistral Large 3 tops European AI leaderboard","xAI Grok 3 with image generation goes live","AI coding tools market crosses $8B in 2026"];
 
 const TREND_DATA = {
   labels:["Jan W1","Jan W2","Feb W1","Feb W2","Mar W1","Mar W2"],
@@ -285,12 +377,11 @@ function timeAgo(dateStr){
 }
 function navigate(page){
   currentPage = page;
-  // Clear cache so admin changes show immediately on next visit
-  clearCache();
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const el = c('page-' + page);
   if(el){ el.classList.add('active'); renderPage(page); }
   document.querySelectorAll('.nav-link').forEach(l => l.classList.toggle('active', l.dataset.page === page));
+  document.querySelectorAll('.drawer-nav-link').forEach(l => l.classList.toggle('active', l.dataset.drawerPage === page));
   window.scrollTo({top:0, behavior:'smooth'});
 }
 function toggleDark(){
@@ -560,12 +651,12 @@ const FALLBACK_IDEAS = [
 ];
 
 // ===================== DATA FETCHING =====================
-// Always fetch fresh from Supabase — no caching so admin changes show instantly
-async function fetchTools(force=false){
-  if(cachedTools.length && !force) return cachedTools;
+async function fetchTools(){
+  if(cachedTools.length) return cachedTools;
   try {
     const { data, error } = await sb.from('tools').select('*').eq('published', true).order('rank');
     if(error){
+      // Table doesn't exist yet — use fallback data silently
       console.warn('DB not set up yet, using fallback tools data. Run schema.sql in Supabase to fix.');
       cachedTools = FALLBACK_TOOLS;
       return cachedTools;
@@ -579,8 +670,8 @@ async function fetchTools(force=false){
   }
 }
 
-async function fetchComplaints(force=false){
-  if(cachedComplaints.length && !force) return cachedComplaints;
+async function fetchComplaints(){
+  if(cachedComplaints.length) return cachedComplaints;
   try {
     const { data, error } = await sb.from('complaints').select('*').eq('published', true).order('votes', { ascending: false });
     if(error){
@@ -597,8 +688,8 @@ async function fetchComplaints(force=false){
   }
 }
 
-async function fetchIdeas(force=false){
-  if(cachedIdeas.length && !force) return cachedIdeas;
+async function fetchIdeas(){
+  if(cachedIdeas.length) return cachedIdeas;
   try {
     const { data, error } = await sb.from('ideas').select('*').eq('published', true).order('score', { ascending: false });
     if(error){
@@ -615,7 +706,7 @@ async function fetchIdeas(force=false){
   }
 }
 
-// Clear cache — forces fresh fetch from Supabase next time
+// Clear caches on page reload
 function clearCache(){ cachedTools = []; cachedComplaints = []; cachedIdeas = []; }
 
 // ===================== SEARCH =====================
@@ -706,11 +797,13 @@ function initTicker(){
 function renderPage(page){
   switch(page){
     case 'home': renderHome(); break;
+    case 'brief': renderBrief(); break;
     case 'tools': renderTools(); break;
     case 'trends': renderTrends(); break;
     case 'complaints': renderComplaints(); break;
     case 'ideas': renderIdeas(); break;
     case 'pricing': renderPricing(); break;
+    case 'compare': renderCompare(); break;
     case 'dashboard': renderDashboard(); break;
   }
 }
@@ -723,7 +816,7 @@ async function renderHome(){
   <section class="hero">
     <div class="hero-inner">
       <div>
-        <div class="hero-eyebrow"><span class="live-dot"></span>Live — Updated every day</div>
+        <div class="hero-eyebrow"><span class="live-dot"></span>Live — Updated ${new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})} today</div>
         <h1>The pulse of AI,<br><span style="color:#A6192E;font-style:italic">every single day.</span></h1>
         <p class="hero-sub">Track trending tools, startup launches, user complaints, and unsolved problems — all in one intelligence feed.</p>
         <div class="hero-btns">
@@ -731,8 +824,19 @@ async function renderHome(){
           <button class="btn" onclick="navigate('pricing')">View pricing →</button>
           <button class="btn" style="background:#FBF5E6;color:#A07830;border-color:rgba(201,168,76,.4)" onclick="navigate('complaints')">See complaints</button>
         </div>
+        <div style="background:#1C1814;border-radius:3px;padding:14px 16px;margin-bottom:28px;border:1px solid #3A3028">
+          <div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#C9A84C;margin-bottom:8px">⚡ AI Tool Finder</div>
+          <div style="display:flex;gap:8px">
+            <input type="text" id="hero-finder-input" placeholder="What do you need to do with AI?" style="flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#F5F0E8;font-size:13px" onkeydown="if(event.key==='Enter'){navigate('tools');setTimeout(()=>{document.getElementById('finder-input').value=this.value;runFinder()},300)}"/>
+            <button class="btn btn-gold" style="flex-shrink:0;font-size:12px;padding:8px 14px" onclick="const v=document.getElementById('hero-finder-input').value;if(v){navigate('tools');setTimeout(()=>{document.getElementById('finder-input').value=v;runFinder()},300)}">Ask AI →</button>
+          </div>
+        </div>
         <div class="hero-stats">
-          ${[['2,400+','AI tools tracked'],['Daily','Fresh intelligence'],['10K+','Complaints analysed'],['Free','To get started']].map(([v,l])=>`<div><div class="hero-stat-val">${v}</div><div class="hero-stat-label">${l}</div></div>`).join('')}
+          ${[['2,400+','Leaders & founders'],['Daily','Fresh intelligence'],['10K+','Complaints analysed'],['Free','To get started']].map(([v,l])=>`<div><div class="hero-stat-val">${v}</div><div class="hero-stat-label">${l}</div></div>`).join('')}
+        </div>
+        <div style="margin-top:20px;display:flex;gap:16px;flex-wrap:wrap;align-items:center">
+          <span style="font-size:11px;color:#7A7068;font-weight:500">Trusted by teams at</span>
+          ${['Infosys','Wipro','Razorpay','Zepto','CRED'].map(co=>`<span style="font-size:11px;font-weight:700;color:#DDD5C8;letter-spacing:.04em">${co}</span>`).join('')}
         </div>
       </div>
       <div class="scoreboard float-card" id="hero-scoreboard">
@@ -868,8 +972,602 @@ async function subscribeNL(){
   }
 }
 
-// ===================== TOOLS =====================
+// ===================== EXECUTIVE BRIEF =====================
+const INDUSTRIES = [
+  {value:'tech',label:'Technology & Software'},
+  {value:'fintech',label:'Fintech & Banking'},
+  {value:'healthcare',label:'Healthcare & Pharma'},
+  {value:'media',label:'Media & Entertainment'},
+  {value:'ecommerce',label:'E-commerce & Retail'},
+  {value:'manufacturing',label:'Manufacturing & Supply Chain'},
+  {value:'consulting',label:'Consulting & Professional Services'},
+  {value:'education',label:'Education & EdTech'},
+];
+
+let briefIndustry = 'tech';
+try { briefIndustry = localStorage.getItem('flomka_industry') || 'tech'; } catch{}
+
+async function renderBrief(){
+  const el = c('page-brief');
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+  const timeStr = now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+  const industryLabel = INDUSTRIES.find(i=>i.value===briefIndustry)?.label || 'Technology';
+
+  el.innerHTML = `<div style="max-width:860px;margin:0 auto;padding:48px 24px">
+
+    <!-- Credibility bar -->
+    <div style="background:#F5F0E8;border:1px solid #DDD5C8;border-radius:3px;padding:12px 20px;margin-bottom:24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:16px">👥</span>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:#1C1814">2,400+ leaders</div>
+          <div style="font-size:11px;color:#7A7068">read this brief weekly</div>
+        </div>
+      </div>
+      <div style="width:1px;height:32px;background:#DDD5C8;flex-shrink:0"></div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:16px">🤖</span>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:#1C1814">Groq llama3-70b</div>
+          <div style="font-size:11px;color:#7A7068">AI-synthesised from live data</div>
+        </div>
+      </div>
+      <div style="width:1px;height:32px;background:#DDD5C8;flex-shrink:0"></div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <span style="font-size:16px">📊</span>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:#1C1814">Score methodology</div>
+          <div style="font-size:11px;color:#7A7068">Votes × recency × complaint weight</div>
+        </div>
+      </div>
+      <div style="margin-left:auto;flex-shrink:0">
+        <button class="btn btn-sm" onclick="showMethodology()" style="font-size:11px">How scores work →</button>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div style="border-bottom:2px solid #1C1814;padding-bottom:20px;margin-bottom:28px">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px">
+        <div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#A6192E;margin-bottom:6px">FloMKa Executive Intelligence</div>
+          <h1 style="font-size:38px;letter-spacing:-.03em;line-height:1.05;margin-bottom:4px">The AI Brief</h1>
+          <p style="font-family:'Cormorant Garamond',serif;font-size:16px;color:#7A7068">What every decision-maker needs to know about AI — right now.</p>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-size:12px;font-weight:600;color:#1C1814;margin-bottom:4px">${dateStr}</div>
+          <div style="display:flex;align-items:center;gap:5px;justify-content:flex-end;margin-bottom:8px">
+            <div style="width:6px;height:6px;background:#2D6A3F;border-radius:50%;animation:pulse 1.8s ease-in-out infinite"></div>
+            <span style="font-size:11px;color:#2D6A3F;font-weight:600">Live — ${timeStr}</span>
+          </div>
+          <div style="display:flex;gap:6px;justify-content:flex-end;flex-wrap:wrap">
+            <button class="btn btn-sm" onclick="shareBrief()" style="font-size:11px;gap:4px">📤 Share brief</button>
+            <button class="btn btn-sm" onclick="copyBrief()" style="font-size:11px;gap:4px">📋 Copy</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Industry personalization -->
+    <div style="background:#FBF5E6;border:1px solid rgba(201,168,76,.4);border-radius:3px;padding:14px 18px;margin-bottom:28px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <span style="font-size:13px;font-weight:500;color:#A07830;flex-shrink:0">Personalised for:</span>
+      <select id="industry-select" onchange="changeIndustry(this.value)" style="flex:1;min-width:200px;max-width:300px;padding:7px 12px;border:1px solid rgba(201,168,76,.5);border-radius:2px;font-size:13px;background:#FBF5E6;color:#A07830;font-weight:500">
+        ${INDUSTRIES.map(i=>`<option value="${i.value}" ${i.value===briefIndustry?'selected':''}>${i.label}</option>`).join('')}
+      </select>
+      <span style="font-size:12px;color:#7A7068">Brief tailored to your industry context</span>
+    </div>
+
+    <!-- Brief body -->
+    <div id="brief-body">
+      <div class="loading-state" style="padding:60px">
+        <div class="spinner spinner-dark"></div>
+        <p style="margin-top:14px;font-size:14px">Generating your ${industryLabel} brief…</p>
+        <p style="font-size:12px;color:#7A7068;margin-top:4px">Powered by Groq · llama3-70b</p>
+      </div>
+    </div>
+  </div>`;
+
+  await generateBrief();
+}
+
+function changeIndustry(val){
+  briefIndustry = val;
+  try { localStorage.setItem('flomka_industry', val); } catch{}
+  const label = INDUSTRIES.find(i=>i.value===val)?.label || val;
+  const briefBody = c('brief-body');
+  if(briefBody) briefBody.innerHTML = `<div class="loading-state" style="padding:48px"><div class="spinner spinner-dark"></div><p style="margin-top:12px;font-size:14px">Regenerating for ${label}…</p></div>`;
+  generateBrief();
+}
+
+function showMethodology(){
+  const m = c('auth-modal');
+  m.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  m.innerHTML = `<div class="modal-wrap"><div class="modal" style="max-width:520px">
+    <button class="modal-close" onclick="closeModal('auth-modal')">✕</button>
+    <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A6192E;margin-bottom:12px">How FloMKa scores work</div>
+    <h2 style="font-size:24px;margin-bottom:16px;letter-spacing:-.02em">Score Methodology</h2>
+    ${[
+      ['📊','Vote weight (40%)','Community upvotes on tools, weighted by recency. A vote today counts 3× more than one from 30 days ago.'],
+      ['⚠️','Complaint penalty (30%)','Each verified complaint deducts points proportional to its vote count. High complaints = lower score regardless of popularity.'],
+      ['📈','Momentum score (20%)','Week-over-week change in votes and mentions. Rising tools get boosted; declining ones are penalised.'],
+      ['🔗','Integration signal (10%)','How many platforms, APIs, and third-party integrations the tool supports — a proxy for enterprise readiness.'],
+    ].map(([icon,title,desc])=>`
+    <div style="display:flex;gap:14px;margin-bottom:18px;align-items:flex-start">
+      <div style="width:36px;height:36px;background:#F5F0E8;border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">${icon}</div>
+      <div>
+        <div style="font-size:13.5px;font-weight:600;margin-bottom:3px">${title}</div>
+        <div style="font-size:12.5px;color:#7A7068;line-height:1.6">${desc}</div>
+      </div>
+    </div>`).join('')}
+    <div style="background:#F5F0E8;border-radius:3px;padding:14px;font-size:12px;color:#7A7068;line-height:1.6">
+      Scores are updated daily. Data is sourced from community votes, Reddit/HN complaint threads, and usage signals. FloMKa does not accept payment to influence scores.
+    </div>
+    <button class="btn btn-red" style="width:100%;margin-top:18px;justify-content:center" onclick="closeModal('auth-modal')">Got it</button>
+  </div></div>`;
+  m.onclick = e => { if(e.target===m) closeModal('auth-modal'); };
+}
+
+function shareBrief(){
+  const url = window.location.href.split('#')[0] + '#brief';
+  const text = `FloMKa Executive AI Brief — ${new Date().toLocaleDateString('en-IN',{month:'long',day:'numeric',year:'numeric'})}\n\nWhat decision-makers need to know about AI right now.\n\n${url}`;
+  if(navigator.share){
+    navigator.share({title:'FloMKa AI Brief', text, url: window.location.href}).catch(()=>{});
+  } else {
+    navigator.clipboard.writeText(text).then(()=>toast('Brief link copied to clipboard!')).catch(()=>toast('Copy failed','error'));
+  }
+}
+
+function copyBrief(){
+  const briefEl = c('brief-body');
+  if(!briefEl){ toast('Brief not loaded yet','error'); return; }
+  const verdict = briefEl.querySelector('[data-verdict]')?.textContent || '';
+  const sections = [...briefEl.querySelectorAll('[data-section]')].map(s=>`${s.dataset.section}: ${s.textContent}`).join('\n\n');
+  const now = new Date().toLocaleDateString('en-IN',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+  const industry = INDUSTRIES.find(i=>i.value===briefIndustry)?.label || '';
+  const text = `FloMKa Executive AI Brief — ${now}\nIndustry: ${industry}\n\n${verdict}\n\n${sections}\n\nSource: flomka.ai`;
+  navigator.clipboard.writeText(text).then(()=>toast('Brief copied — paste in WhatsApp or email!')).catch(()=>toast('Copy not supported in this browser','error'));
+}
+
+async function generateBrief(){
+  const [tools, complaints, ideas] = await Promise.all([fetchTools(), fetchComplaints(), fetchIdeas()]);
+  const industryLabel = INDUSTRIES.find(i=>i.value===briefIndustry)?.label || 'Technology';
+  const industryContext = {
+    tech:'Focus on developer tools, coding assistants, and software infrastructure.',
+    fintech:'Focus on fraud detection, compliance automation, document processing, and customer service AI.',
+    healthcare:'Focus on medical imaging, clinical documentation, drug discovery, and patient engagement AI.',
+    media:'Focus on content generation, video AI, voice cloning, and personalisation engines.',
+    ecommerce:'Focus on recommendation engines, customer support AI, inventory prediction, and visual search.',
+    manufacturing:'Focus on predictive maintenance, quality control AI, supply chain optimisation.',
+    consulting:'Focus on research automation, document analysis, client reporting, and knowledge management.',
+    education:'Focus on personalised learning, AI tutors, content creation, and assessment tools.',
+  }[briefIndustry] || '';
+
+  const topTools = tools.slice(0,6).map(t=>t.name).join(', ');
+  const topComplaint = complaints[0];
+  const topIdea = ideas[0];
+  const risingTools = tools.filter(t=>t.trend==='up').slice(0,3).map(t=>`${t.name} (+${t.change})`).join(', ');
+
+  try {
+    const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':`Bearer ${GROQ_API_KEY}`},
+      body: JSON.stringify({
+        model:'llama3-70b-8192',
+        max_tokens:1000,
+        messages:[
+          {role:'system', content:`You are FloMKa's executive intelligence analyst writing for a ${industryLabel} sector leader. ${industryContext} Write a boardroom-ready AI brief. Be specific to the industry. Return ONLY valid JSON:
+{
+  "riskRadar": {"headline": "string max 12 words, industry-specific", "detail": "2 sentences with specific risk data for ${industryLabel}"},
+  "adoptionSignal": {"headline": "string max 12 words", "tool": "tool name", "detail": "2 sentences on why ${industryLabel} teams specifically are adopting this"},
+  "opportunity": {"headline": "string max 12 words", "detail": "2 sentences on the ${industryLabel}-specific business opportunity"},
+  "ctoAction": {"headline": "string max 12 words", "detail": "One specific Monday action item relevant to ${industryLabel} leadership"},
+  "weeklyVerdict": "One punchy sentence summarising AI for ${industryLabel} this week"
+}`},
+          {role:'user', content:`Today: ${new Date().toDateString()}. Industry: ${industryLabel}. Top tools: ${topTools}. Rising: ${risingTools}. Biggest complaint: "${topComplaint?.complaint}" about ${topComplaint?.tool} (${topComplaint?.votes} votes). Top opportunity: "${topIdea?.opportunity}" — ${topIdea?.evidence}.`}
+        ]
+      })
+    });
+    const data = await resp.json();
+    const text = data.choices?.[0]?.message?.content || '';
+    const brief = JSON.parse(text.replace(/```json|```/g,'').trim());
+    renderBriefContent(brief, tools, complaints, ideas);
+  } catch(e){
+    renderBriefFallback(tools, complaints, ideas);
+  }
+}
+
+function renderBriefContent(b, tools, complaints, ideas){
+  const el = c('brief-body');
+  if(!el) return;
+  const now = new Date();
+  const industryLabel = INDUSTRIES.find(i=>i.value===briefIndustry)?.label || 'Technology';
+
+  el.innerHTML = `
+  <!-- Weekly verdict banner -->
+  <div style="background:#1C1814;border-radius:3px;padding:18px 24px;margin-bottom:32px;border-left:4px solid #C9A84C">
+    <div style="font-size:10px;font-weight:700;letter-spacing:.14em;color:#C9A84C;text-transform:uppercase;margin-bottom:6px">This Week's Verdict · ${industryLabel}</div>
+    <p data-verdict style="font-family:'Cormorant Garamond',serif;font-size:19px;color:#F5F0E8;line-height:1.5;margin:0">${b.weeklyVerdict}</p>
+  </div>
+
+  <!-- 4 Brief cards -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px">
+
+    <!-- Risk Radar -->
+    <div style="background:#FFFDF9;border:1px solid #DDD5C8;border-top:3px solid #A6192E;border-radius:3px;padding:22px">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:12px">
+        <div style="width:28px;height:28px;background:#F9EAEC;border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:13px">🔴</div>
+        <span style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#A6192E">Risk Radar</span>
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;line-height:1.3;margin-bottom:10px">${b.riskRadar.headline}</div>
+      <p data-section="Risk Radar" style="font-size:13px;color:#3A3530;line-height:1.65">${b.riskRadar.detail}</p>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid #EDE8E0">
+        <div style="font-size:10px;font-weight:600;color:#7A7068;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Top complaint right now</div>
+        <div style="font-size:12.5px;color:#A6192E;font-weight:500">${complaints[0]?.tool} — ${complaints[0]?.votes?.toLocaleString()} votes</div>
+        <div style="font-size:12px;color:#7A7068;margin-top:2px">${complaints[0]?.complaint?.slice(0,80)}…</div>
+      </div>
+    </div>
+
+    <!-- Adoption Signal -->
+    <div style="background:#FFFDF9;border:1px solid #DDD5C8;border-top:3px solid #2D6A3F;border-radius:3px;padding:22px">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:12px">
+        <div style="width:28px;height:28px;background:#EAF4ED;border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:13px">📈</div>
+        <span style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#2D6A3F">Adoption Signal</span>
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;line-height:1.3;margin-bottom:10px">${b.adoptionSignal.headline}</div>
+      <p data-section="Adoption Signal" style="font-size:13px;color:#3A3530;line-height:1.65">${b.adoptionSignal.detail}</p>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid #EDE8E0">
+        <div style="font-size:10px;font-weight:600;color:#7A7068;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Fastest rising tools</div>
+        ${tools.filter(t=>t.trend==='up').slice(0,3).map(t=>`
+        <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px">
+          <span style="font-weight:500">${t.name}</span>
+          <span style="color:#2D6A3F;font-weight:600">▲ ${t.change}</span>
+        </div>`).join('')}
+      </div>
+    </div>
+
+    <!-- Opportunity -->
+    <div style="background:#FFFDF9;border:1px solid #DDD5C8;border-top:3px solid #C9A84C;border-radius:3px;padding:22px">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:12px">
+        <div style="width:28px;height:28px;background:#FBF5E6;border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:13px">💡</div>
+        <span style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#A07830">Opportunity</span>
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;line-height:1.3;margin-bottom:10px">${b.opportunity.headline}</div>
+      <p data-section="Opportunity" style="font-size:13px;color:#3A3530;line-height:1.65">${b.opportunity.detail}</p>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid #EDE8E0">
+        <div style="font-size:10px;font-weight:600;color:#7A7068;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Top idea this week</div>
+        <div style="font-size:12.5px;font-weight:500;color:#1C1814">${ideas[0]?.opportunity}</div>
+        <div style="font-size:11px;color:#7A7068;margin-top:2px">${ideas[0]?.evidence}</div>
+      </div>
+    </div>
+
+    <!-- CTO Action -->
+    <div style="background:#1C1814;border:1px solid #3A3028;border-top:3px solid #C9A84C;border-radius:3px;padding:22px">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:12px">
+        <div style="width:28px;height:28px;background:rgba(201,168,76,.15);border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:13px">⚡</div>
+        <span style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#C9A84C">Monday Action Item</span>
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;line-height:1.3;margin-bottom:10px;color:#F5F0E8">${b.ctoAction.headline}</div>
+      <p data-section="Monday Action" style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.65">${b.ctoAction.detail}</p>
+      <button class="btn" style="margin-top:16px;width:100%;justify-content:center;border-color:rgba(201,168,76,.4);color:#C9A84C;font-size:12px" onclick="navigate('tools')">Explore tools for this →</button>
+    </div>
+  </div>
+
+  <!-- Share strip -->
+  <div style="background:#F5F0E8;border:1px solid #DDD5C8;border-radius:3px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:24px">
+    <div>
+      <div style="font-size:13px;font-weight:600;margin-bottom:2px">Share this brief with your leadership team</div>
+      <div style="font-size:12px;color:#7A7068">Forward it in WhatsApp, Slack, or email — 2 minutes of reading for the whole team</div>
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn btn-sm" onclick="copyBrief()" style="font-size:12px">📋 Copy text</button>
+      <button class="btn btn-sm btn-red" onclick="shareBrief()" style="font-size:12px">📤 Share link</button>
+    </div>
+  </div>
+
+  <!-- Compare CTA -->
+  <div style="background:#F5F0E8;border:1px solid #DDD5C8;border-radius:3px;padding:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;margin-bottom:32px">
+    <div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;margin-bottom:4px">Compare tools side by side</div>
+      <p style="font-size:13px;color:#7A7068">Pick any 2 tools — get scores, complaints and AI verdict instantly.</p>
+    </div>
+    <button class="btn btn-red" onclick="navigate('compare')" style="flex-shrink:0">Compare tools →</button>
+  </div>
+
+  <!-- Today's scoreboard -->
+  <div style="margin-bottom:32px">
+    <div style="font-size:10.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#7A7068;margin-bottom:14px">Today's Scoreboard</div>
+    ${tools.slice(0,5).map((t,i)=>`
+    <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #EDE8E0">
+      <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#C9A84C;min-width:22px">${i+1}</span>
+      <div style="flex:1">
+        <div style="font-size:14px;font-weight:500">${t.name}</div>
+        <div style="font-size:11px;color:#7A7068">${t.cat}</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700">${t.score}</div>
+        <div style="font-size:11px;font-weight:600;color:${t.trend==='up'?'#2D6A3F':'#A6192E'}">${t.trend==='up'?'▲':'▼'} ${t.change}</div>
+      </div>
+    </div>`).join('')}
+  </div>
+
+  <!-- Footer -->
+  <div style="border-top:1px solid #DDD5C8;padding-top:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+    <span style="font-size:11.5px;color:#7A7068">FloMKa AI · Groq llama3-70b · ${now.toLocaleString('en-IN')} · ${industryLabel}</span>
+    <button class="btn btn-sm" onclick="generateBrief()">↻ Refresh brief</button>
+  </div>`;
+}
+
+function renderBriefFallback(tools, complaints, ideas){
+  const el = c('brief-body');
+  if(!el) return;
+  const now = new Date();
+  el.innerHTML = `
+  <div style="background:#FBF5E6;border:1px solid rgba(201,168,76,.4);border-radius:3px;padding:14px 18px;margin-bottom:24px;font-size:13px;color:#7A7068">
+    AI generation unavailable — showing data-driven summary instead.
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
+    <div style="background:#FFFDF9;border:1px solid #DDD5C8;border-top:3px solid #A6192E;border-radius:3px;padding:22px">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#A6192E;margin-bottom:10px">🔴 Biggest Risk This Week</div>
+      <div style="font-size:14px;font-weight:600;margin-bottom:6px">${complaints[0]?.tool}</div>
+      <p style="font-size:13px;color:#3A3530;line-height:1.6">${complaints[0]?.complaint}</p>
+      <div style="font-size:11px;color:#7A7068;margin-top:8px">${complaints[0]?.votes?.toLocaleString()} user votes</div>
+    </div>
+    <div style="background:#FFFDF9;border:1px solid #DDD5C8;border-top:3px solid #2D6A3F;border-radius:3px;padding:22px">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#2D6A3F;margin-bottom:10px">📈 Rising Fast</div>
+      ${tools.filter(t=>t.trend==='up').slice(0,4).map(t=>`
+      <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:7px;align-items:center">
+        <span style="font-weight:500">${t.name}</span><span style="color:#2D6A3F;font-weight:700">▲ ${t.change}</span>
+      </div>`).join('')}
+    </div>
+    <div style="background:#FFFDF9;border:1px solid #DDD5C8;border-top:3px solid #C9A84C;border-radius:3px;padding:22px">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#A07830;margin-bottom:10px">💡 Top Opportunity</div>
+      <p style="font-size:14px;font-weight:600;line-height:1.4;margin-bottom:6px">${ideas[0]?.opportunity}</p>
+      <div style="font-size:11px;color:#7A7068">${ideas[0]?.evidence}</div>
+    </div>
+    <div style="background:#1C1814;border:1px solid #3A3028;border-top:3px solid #C9A84C;border-radius:3px;padding:22px">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#C9A84C;margin-bottom:10px">⚡ Action Item</div>
+      <p style="font-size:13px;color:rgba(255,255,255,.7);line-height:1.6">Evaluate ${tools[0]?.name} for your team — it leads the scoreboard with a score of ${tools[0]?.score} and is rising fast.</p>
+      <button class="btn" style="margin-top:12px;width:100%;justify-content:center;border-color:rgba(201,168,76,.4);color:#C9A84C;font-size:12px" onclick="navigate('tools')">Explore tools →</button>
+    </div>
+  </div>
+  <div style="border-top:1px solid #DDD5C8;padding-top:16px;display:flex;justify-content:space-between;align-items:center">
+    <span style="font-size:11.5px;color:#7A7068">FloMKa · ${now.toLocaleString('en-IN')}</span>
+    <button class="btn btn-sm" onclick="generateBrief()">↻ Try AI again</button>
+  </div>`;
+}
+
+// ===================== TOOL COMPARISON =====================
+async function renderCompare(){
+  const tools = await fetchTools();
+  const complaints = await fetchComplaints();
+  const el = c('page-compare');
+
+  el.innerHTML = `
+  <div style="max-width:1100px;margin:0 auto;padding:48px 24px">
+    <div class="section-eyebrow" style="margin-bottom:6px"><div style="width:20px;height:1.5px;background:#A6192E"></div>Compare</div>
+    <h1 style="font-size:42px;letter-spacing:-.02em;margin-bottom:8px">Side-by-side comparison</h1>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#7A7068;margin-bottom:28px">Pick two tools. Get the honest breakdown — scores, pricing, real complaints, and a verdict.</p>
+    <div style="height:1.5px;background:#C9A84C;opacity:.5;margin-bottom:32px"></div>
+
+    <div style="display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-bottom:28px">
+      <div style="flex:1;min-width:180px">
+        <label style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A7068;margin-bottom:6px;display:block">Tool A</label>
+        <select id="compare-a" style="width:100%;padding:10px 14px;border:1px solid #DDD5C8;border-radius:2px;font-size:14px;background:#FFFDF9;color:#1C1814">
+          <option value="">Select a tool…</option>
+          ${tools.map(t=>`<option value="${t.id}">${t.name}</option>`).join('')}
+        </select>
+      </div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:#DDD5C8;padding-bottom:8px">vs</div>
+      <div style="flex:1;min-width:180px">
+        <label style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#7A7068;margin-bottom:6px;display:block">Tool B</label>
+        <select id="compare-b" style="width:100%;padding:10px 14px;border:1px solid #DDD5C8;border-radius:2px;font-size:14px;background:#FFFDF9;color:#1C1814">
+          <option value="">Select a tool…</option>
+          ${tools.map(t=>`<option value="${t.id}">${t.name}</option>`).join('')}
+        </select>
+      </div>
+      <button id="compare-btn" class="btn btn-red" onclick="runCompare()" style="padding:10px 24px;flex-shrink:0">Compare →</button>
+    </div>
+
+    <!-- Quick picks -->
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px">
+      <span style="font-size:11px;color:#7A7068;padding-top:5px">Quick compare:</span>
+      ${[['t1','t2','Cursor vs Perplexity'],['t1','t3','Cursor vs Groq'],['t2','t4','Perplexity vs Claude']].map(([a,b,label])=>`
+      <button onclick="quickCompare('${a}','${b}')" style="font-size:11.5px;padding:4px 12px;border:1px solid #DDD5C8;border-radius:2px;background:#FFFDF9;color:#3A3530;cursor:pointer;font-family:'Jost',sans-serif;transition:all .2s" onmouseover="this.style.borderColor='#A6192E';this.style.color='#A6192E'" onmouseout="this.style.borderColor='#DDD5C8';this.style.color='#3A3530'">${label}</button>`).join('')}
+    </div>
+
+    <div id="compare-result"></div>
+  </div>`;
+}
+
+function quickCompare(aId, bId){
+  const sa = c('compare-a'), sb2 = c('compare-b');
+  if(sa) sa.value = aId;
+  if(sb2) sb2.value = bId;
+  runCompare();
+}
+
+async function runCompare(){
+  const aId = c('compare-a')?.value;
+  const bId = c('compare-b')?.value;
+  if(!aId || !bId){ toast('Please select two tools to compare','error'); return; }
+  if(aId === bId){ toast('Pick two different tools','error'); return; }
+
+  const btn = c('compare-btn');
+  btn.disabled = true; btn.textContent = 'Comparing…';
+
+  const tools = await fetchTools();
+  const complaints = await fetchComplaints();
+  const tA = tools.find(t=>t.id===aId);
+  const tB = tools.find(t=>t.id===bId);
+  if(!tA||!tB){ toast('Tool not found','error'); btn.disabled=false; btn.textContent='Compare →'; return; }
+
+  const cA = complaints.filter(c=>c.tool.toLowerCase()===tA.name.toLowerCase()).slice(0,2);
+  const cB = complaints.filter(c=>c.tool.toLowerCase()===tB.name.toLowerCase()).slice(0,2);
+
+  let verdict = '';
+  try {
+    const resp = await fetch('https://api.groq.com/openai/v1/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':`Bearer ${GROQ_API_KEY}`},
+      body: JSON.stringify({
+        model:'llama3-70b-8192', max_tokens:300,
+        messages:[
+          {role:'system',content:'You are a brutally honest AI tool analyst. Give a 2-sentence verdict comparing two tools. Mention real trade-offs. No marketing speak. Return plain text only.'},
+          {role:'user',content:`Compare ${tA.name} (score:${tA.score}, price:${tA.price||'Free'}, complaints:${cA.map(c=>c.complaint).join('; ')||'none'}) vs ${tB.name} (score:${tB.score}, price:${tB.price||'Free'}, complaints:${cB.map(c=>c.complaint).join('; ')||'none'}). Who should use which?`}
+        ]
+      })
+    });
+    const d = await resp.json();
+    verdict = d.choices?.[0]?.message?.content || '';
+  } catch(e){ verdict = `${tA.name} leads on score (${tA.score} vs ${tB.score}). Choose based on your specific use case and budget.`; }
+
+  const winner = tA.score >= tB.score ? tA : tB;
+  const result = c('compare-result');
+
+  result.innerHTML = `
+  <div style="animation:fadeUp .4s cubic-bezier(.22,1,.36,1)">
+    <!-- Side by side -->
+    <div style="display:grid;grid-template-columns:1fr 48px 1fr;gap:0;margin-bottom:24px;align-items:stretch">
+      ${[tA,tB].map((t,i)=>{
+        const tc = i===0?cA:cB;
+        const isWinner = t.id===winner.id;
+        return `<div style="background:#FFFDF9;border:1px solid #DDD5C8;border-top:3px solid ${isWinner?'#A6192E':'#DDD5C8'};border-radius:${i===0?'3px 0 0 3px':'0 3px 3px 0'};padding:24px;position:relative">
+          ${isWinner?`<div style="position:absolute;top:10px;right:10px;background:#A6192E;color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:2px;letter-spacing:.08em">WINNER</div>`:''}
+          <div style="display:flex;gap:10px;align-items:center;margin-bottom:16px">
+            <div style="width:36px;height:36px;background:${isWinner?'#F9EAEC':'#F5F0E8'};border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:700;color:${isWinner?'#A6192E':'#7A7068'};font-size:17px">${t.name[0]}</div>
+            <div>
+              <div style="font-size:16px;font-weight:600;font-family:'Cormorant Garamond',serif">${t.name}</div>
+              <div style="font-size:11px;color:#7A7068">${t.cat}</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+            <div style="background:#F5F0E8;border-radius:2px;padding:10px;text-align:center">
+              <div style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:${t.score>=90?'#A6192E':'#C9A84C'};line-height:1">${t.score}</div>
+              <div style="font-size:10px;color:#7A7068;margin-top:2px">Score</div>
+            </div>
+            <div style="background:#F5F0E8;border-radius:2px;padding:10px;text-align:center">
+              <div style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700;line-height:1.2;color:#1C1814">${t.price||'Free'}</div>
+              <div style="font-size:10px;color:#7A7068;margin-top:2px">Pricing</div>
+            </div>
+          </div>
+          <div style="height:4px;background:#EDE8E0;border-radius:2px;margin-bottom:16px;overflow:hidden">
+            <div style="height:100%;width:${t.score}%;background:${t.score>=90?'#A6192E':'#C9A84C'};border-radius:2px;transition:width 1s ease"></div>
+          </div>
+          <p style="font-size:12.5px;color:#3A3530;line-height:1.55;margin-bottom:14px">${t.description}</p>
+          ${tc.length?`<div style="border-top:1px solid #EDE8E0;padding-top:12px">
+            <div style="font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#A6192E;margin-bottom:8px">Known complaints</div>
+            ${tc.map(cc=>`<div style="display:flex;gap:6px;margin-bottom:6px;font-size:12px;color:#7A7068;line-height:1.5"><span style="color:#A6192E;flex-shrink:0">⚠</span>${cc.complaint}</div>`).join('')}
+          </div>`:'<div style="border-top:1px solid #EDE8E0;padding-top:12px;font-size:12px;color:#2D6A3F">✓ No major complaints found</div>'}
+        </div>`;
+      }).join('<div style="display:flex;align-items:center;justify-content:center;background:#F5F0E8;font-family:\'Cormorant Garamond\',serif;font-size:18px;font-weight:700;color:#DDD5C8">vs</div>')}
+    </div>
+
+    <!-- AI Verdict -->
+    <div style="background:#1C1814;border-radius:3px;padding:22px;border-left:4px solid #C9A84C">
+      <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C9A84C;margin-bottom:10px">⚡ AI Verdict</div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:17px;color:#F5F0E8;line-height:1.6;margin:0">${verdict}</p>
+    </div>
+  </div>`;
+
+  btn.disabled=false; btn.textContent='Compare →';
+  c('compare-result').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+
 let activeCat = 'All';
+
+async function askGroqFinder(query, tools, complaints){
+  const toolsSummary = tools.slice(0,12).map(t => {
+    const relatedComplaints = complaints.filter(c => c.tool.toLowerCase() === t.name.toLowerCase()).slice(0,2);
+    return `Tool: ${t.name} | Category: ${t.cat} | Score: ${t.score} | Price: ${t.price||'Free'} | Description: ${t.description} | Known complaints: ${relatedComplaints.length ? relatedComplaints.map(c=>c.complaint).join('; ') : 'None significant'}`;
+  }).join('\n');
+
+  const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${GROQ_API_KEY}` },
+    body: JSON.stringify({
+      model: 'llama3-70b-8192',
+      max_tokens: 600,
+      messages: [
+        { role: 'system', content: `You are FloMKa's AI tool advisor. You give brutally honest, complaint-aware tool recommendations to tech professionals. You have access to real user complaint data. Always recommend 2-3 tools max. Be direct, mention real complaints, highlight trade-offs. Format your response as JSON only:
+{
+  "recommendation": "one sentence summary",
+  "tools": [
+    {
+      "name": "ToolName",
+      "why": "why this tool fits the need in 1-2 sentences",
+      "watchout": "the biggest real complaint or risk",
+      "bestFor": "who this is best for",
+      "score": 95
+    }
+  ],
+  "verdict": "one honest closing sentence"
+}` },
+        { role: 'user', content: `User query: "${query}"\n\nAvailable tools data:\n${toolsSummary}` }
+      ]
+    })
+  });
+  const data = await resp.json();
+  const text = data.choices?.[0]?.message?.content || '';
+  const clean = text.replace(/```json|```/g,'').trim();
+  return JSON.parse(clean);
+}
+
+function renderFinderResult(result){
+  return `
+  <div style="animation:fadeUp .4s cubic-bezier(.22,1,.36,1)">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:16px">
+      <div style="width:6px;height:6px;background:#2D6A3F;border-radius:50%"></div>
+      <span style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#2D6A3F">AI Recommendation</span>
+    </div>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:17px;color:#3A3530;line-height:1.6;margin-bottom:20px">${result.recommendation}</p>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:18px">
+      ${result.tools.map((t,i) => `
+      <div style="background:#FFFDF9;border:1px solid #DDD5C8;border-left:3px solid ${i===0?'#A6192E':'#C9A84C'};border-radius:3px;padding:16px 20px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <div style="width:32px;height:32px;background:${i===0?'#F9EAEC':'#FBF5E6'};border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:700;color:${i===0?'#A6192E':'#A07830'};font-size:15px;flex-shrink:0">${t.name[0]}</div>
+          <div style="flex:1">
+            <div style="font-size:15px;font-weight:600;font-family:'Cormorant Garamond',serif">${t.name}</div>
+            <div style="font-size:11px;color:#7A7068">${t.bestFor}</div>
+          </div>
+          <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:${t.score>=90?'#A6192E':'#C9A84C'}">${t.score}</div>
+        </div>
+        <p style="font-size:13px;color:#3A3530;line-height:1.55;margin-bottom:6px">${t.why}</p>
+        <div style="display:flex;align-items:flex-start;gap:6px;background:#FFF5F5;border-radius:2px;padding:7px 10px">
+          <span style="color:#A6192E;font-size:12px;flex-shrink:0;margin-top:1px">⚠</span>
+          <span style="font-size:12px;color:#7A3030;line-height:1.5">${t.watchout}</span>
+        </div>
+      </div>`).join('')}
+    </div>
+    <p style="font-size:13px;color:#7A7068;font-style:italic;border-top:1px solid #EDE8E0;padding-top:14px">${result.verdict}</p>
+  </div>`;
+}
+
+async function runFinder(){
+  const input = c('finder-input');
+  const resultBox = c('finder-result');
+  const btn = c('finder-btn');
+  const q = input?.value?.trim();
+  if(!q){ toast('Tell me what you need to do', 'error'); return; }
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Thinking…';
+  resultBox.style.display = 'block';
+  resultBox.innerHTML = `<div class="loading-state" style="padding:28px"><div class="spinner spinner-dark"></div><p style="margin-top:10px;font-size:13px">Analysing tools + complaints…</p></div>`;
+
+  try {
+    const [tools, complaints] = await Promise.all([fetchTools(), fetchComplaints()]);
+    const result = await askGroqFinder(q, tools, complaints);
+    resultBox.innerHTML = renderFinderResult(result);
+  } catch(e) {
+    resultBox.innerHTML = `<div style="color:#A6192E;font-size:13px;padding:16px">Something went wrong. Try again — ${e.message}</div>`;
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = 'Find the right tool →';
+  }
+}
+
 async function renderTools(){
   const el = c('page-tools');
   el.innerHTML = `
@@ -877,7 +1575,28 @@ async function renderTools(){
     <div class="section-eyebrow" style="margin-bottom:6px"><div style="width:20px;height:1.5px;background:#A6192E"></div>Directory</div>
     <h1 style="font-size:42px;letter-spacing:-.02em;margin-bottom:8px">AI tools, ranked</h1>
     <p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#7A7068;margin-bottom:28px">Search, filter, and discover the right AI tool for every job.</p>
-    <div style="height:1.5px;background:#C9A84C;opacity:.5;margin-bottom:24px"></div>
+    <div style="height:1.5px;background:#C9A84C;opacity:.5;margin-bottom:32px"></div>
+
+    <!-- AI TOOL FINDER -->
+    <div style="background:linear-gradient(135deg,#1C1814 0%,#2A1F18 100%);border-radius:4px;padding:32px;margin-bottom:36px;border:1px solid #3A3028;position:relative;overflow:hidden">
+      <div style="position:absolute;top:-20px;right:-10px;font-family:'Cormorant Garamond',serif;font-size:160px;font-weight:700;color:#C9A84C;opacity:.05;line-height:1;pointer-events:none">AI</div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <div style="width:8px;height:8px;background:#A6192E;border-radius:50%;animation:pulse 1.8s ease-in-out infinite"></div>
+        <span style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C9A84C">FloMKa AI Finder — Powered by Groq</span>
+      </div>
+      <h2 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#F5F0E8;margin-bottom:6px;letter-spacing:-.02em">Find the right tool for your exact need</h2>
+      <p style="font-size:13px;color:rgba(255,255,255,.45);margin-bottom:22px">Describe what you're trying to do — get honest, complaint-aware recommendations in seconds.</p>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <input type="text" id="finder-input" placeholder="e.g. I need to generate SQL from plain English for my team…" style="flex:1;min-width:200px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#F5F0E8;border-radius:2px;font-size:14px" onkeydown="if(event.key==='Enter')runFinder()"/>
+        <button id="finder-btn" class="btn btn-gold" onclick="runFinder()" style="flex-shrink:0;padding:10px 22px;font-size:13.5px">Find the right tool →</button>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+        ${['Automate meeting notes','Best AI coding assistant','Generate images for ads','Summarise long PDFs','AI for customer support'].map(s=>`<button onclick="document.getElementById('finder-input').value='${s}';runFinder()" style="font-size:11px;padding:4px 10px;border:1px solid rgba(255,255,255,.15);border-radius:2px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.55);cursor:pointer;font-family:'Jost',sans-serif;transition:all .2s" onmouseover="this.style.borderColor='rgba(201,168,76,.5)';this.style.color='#C9A84C'" onmouseout="this.style.borderColor='rgba(255,255,255,.15)';this.style.color='rgba(255,255,255,.55)'">${s}</button>`).join('')}
+      </div>
+      <div id="finder-result" style="display:none;margin-top:24px;padding-top:24px;border-top:1px solid rgba(255,255,255,.1);color:#F5F0E8"></div>
+    </div>
+
+    <!-- FILTERS -->
     <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;align-items:center">
       <input type="text" id="tool-search" placeholder="Search tools…" style="max-width:300px" oninput="filterToolsUI()"/>
       <div style="display:flex;gap:6px;flex-wrap:wrap" id="cat-filters">
@@ -1493,7 +2212,7 @@ function renderFooter(){
         <p style="font-size:13px;line-height:1.7;color:#7A7068;max-width:240px;margin-bottom:18px">The pulse of AI — every single day. Track tools, complaints, and startup opportunities.</p>
       </div>
       ${[
-        {title:'Platform', links:[['Feed','home'],['Tools','tools'],['Trends','trends'],['Complaints','complaints'],['Ideas','ideas']]},
+        {title:'Platform', links:[['Feed','home'],['Executive Brief','brief'],['Tools','tools'],['Trends','trends'],['Complaints','complaints'],['Ideas','ideas'],['Compare Tools','compare']]},
         {title:'Account', links:[['Sign up free','home'],['Pro plan','pricing'],['Dashboard','dashboard']]},
         {title:'Company', links:[['Pricing','pricing'],['Submit a Tool','tools']]},
       ].map(col => `<div>
@@ -1509,6 +2228,43 @@ function renderFooter(){
   </div>`;
 }
 
+// ===================== MOBILE DRAWER =====================
+function toggleDrawer(){
+  const drawer = c('mobile-drawer');
+  const btn = c('hamburger-btn');
+  const isOpen = drawer.classList.contains('open');
+  if(isOpen){ closeDrawer(); } else { openDrawer(); }
+}
+function openDrawer(){
+  const drawer = c('mobile-drawer');
+  const btn = c('hamburger-btn');
+  drawer.classList.add('open');
+  btn.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  updateDrawerActiveLink();
+}
+function closeDrawer(){
+  const drawer = c('mobile-drawer');
+  const btn = c('hamburger-btn');
+  drawer.classList.remove('open');
+  btn.classList.remove('open');
+  document.body.style.overflow = '';
+}
+function drawerNavigate(page){
+  closeDrawer();
+  setTimeout(() => navigate(page), 200);
+}
+function updateDrawerActiveLink(){
+  document.querySelectorAll('.drawer-nav-link').forEach(l => {
+    l.classList.toggle('active', l.dataset.drawerPage === currentPage);
+  });
+}
+// Close drawer on Escape, update active link on navigate
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape'){ closeDrawer(); }
+});
+const _origNavigate = navigate;
+
 // ===================== INIT =====================
 // Close modal on Escape key
 document.addEventListener('keydown', e => {
@@ -1517,36 +2273,12 @@ document.addEventListener('keydown', e => {
   }
 });
 
-// Listen for real-time changes from Supabase
-// When admin publishes something — index.html updates automatically
-function initRealtimeSync(){
-  try {
-    sb.channel('public-changes')
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'tools' }, () => {
-        cachedTools = [];
-        if(currentPage === 'home' || currentPage === 'tools' || currentPage === 'trends') renderPage(currentPage);
-      })
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'complaints' }, () => {
-        cachedComplaints = [];
-        if(currentPage === 'home' || currentPage === 'complaints') renderPage(currentPage);
-      })
-      .on('postgres_changes', { event: '*', schema: 'public', table: 'ideas' }, () => {
-        cachedIdeas = [];
-        if(currentPage === 'home' || currentPage === 'ideas') renderPage(currentPage);
-      })
-      .subscribe();
-  } catch(e) {
-    console.warn('Realtime sync not available:', e.message);
-  }
-}
-
 async function init(){
   initTicker();
   renderFooter();
   if(darkMode) c('dark-toggle').textContent = '☀️';
   await initAuth();
   await renderPage('home');
-  initRealtimeSync();
 }
 
 init();
