@@ -4,10 +4,16 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>FloMKa — The Pulse of AI</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<meta name="description" content="Track trending AI tools, real user complaints, and startup opportunities. Intelligence for students, founders and leaders."/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23A6192E'/%3E%3Crect x='7' y='9' width='12' height='3' rx='1.5' fill='%23FAF7F2'/%3E%3Crect x='7' y='16' width='8' height='2.5' rx='1.25' fill='%23FAF7F2'/%3E%3Crect x='7' y='9' width='3' height='14' rx='1.5' fill='%23FAF7F2'/%3E%3Crect x='17' y='11' width='7' height='2.5' rx='1.25' fill='%23C9A84C'/%3E%3Crect x='17' y='16' width='4' height='2' rx='1' fill='%23C9A84C' opacity='.65'/%3E%3Crect x='17' y='21' width='8' height='2' rx='1' fill='%23C9A84C' opacity='.35'/%3E%3C/svg%3E">
 <style>
+/* ═══════════════════════════════════════════════════
+   BASE + APP STYLES  (from index.html)
+═══════════════════════════════════════════════════ */
+
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'Jost',sans-serif;background:#FAF7F2;color:#1C1814;min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s}
@@ -29,6 +35,7 @@ body.dark textarea{background:#1C1814;color:#F5F0E8;border-color:#3A3028}
 .fade-up{animation:fadeUp .6s cubic-bezier(.22,1,.36,1) both}
 .ticker-wrap{overflow:hidden;background:#1C1814;padding:8px 0;border-bottom:1px solid rgba(201,168,76,.17)}
 body.dark .ticker-wrap{background:#0a0907}
+body.dark{--sb-bg:#1C1814}
 .ticker-track{display:inline-flex;animation:ticker 55s linear infinite;white-space:nowrap}
 .live-dot{width:7px;height:7px;background:#A6192E;border-radius:50%;animation:pulse 1.8s ease-in-out infinite;display:inline-block}
 .float-card{animation:float 4s ease-in-out infinite}
@@ -223,11 +230,746 @@ body.dark .drawer-footer{border-color:#3A3028}
   .grid-2{grid-template-columns:1fr!important}
   #hero-scoreboard{margin-top:24px}
 }
+
+/* ========== LOGIN WALL ========== */
+#login-wall{
+  position:fixed;inset:0;z-index:10000;
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;overflow-y:auto;
+  background:#0A0907;
+}
+.lw-split{
+  display:grid;grid-template-columns:1fr 1fr;
+  min-height:100vh;width:100%;max-width:1100px;
+  background:#0A0907;
+}
+.lw-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:60px 56px;border-right:1px solid #1E1A16;
+}
+.lw-right{
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  padding:60px 48px;
+  background:#14110E;
+}
+.lw-form-box{
+  width:100%;max-width:380px;
+}
+.lw-social-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:12px;border-radius:3px;font-size:13.5px;font-weight:500;
+  cursor:pointer;font-family:'Jost',sans-serif;transition:all .2s;border:1px solid;
+}
+.lw-social-google{
+  background:#fff;color:#3c4043;border-color:#dadce0;
+}
+.lw-social-google:hover{background:#f8f9fa;border-color:#c6c8ca;}
+.lw-social-linkedin{
+  background:#0A66C2;color:#fff;border-color:#0A66C2;
+}
+.lw-social-linkedin:hover{background:#004182;border-color:#004182;}
+.lw-divider{
+  display:flex;align-items:center;gap:12px;margin:18px 0;
+}
+.lw-divider span{font-size:11px;color:#4A4038;white-space:nowrap;letter-spacing:.06em;text-transform:uppercase;}
+.lw-divider::before,.lw-divider::after{content:'';flex:1;height:1px;background:#1E1A16;}
+.lw-stat{border-left:2px solid #C9A84C;padding:8px 0 8px 16px;margin-bottom:18px;}
+.lw-stat-val{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#F5F0E8;line-height:1;}
+.lw-stat-label{font-size:11px;color:#4A4038;margin-top:2px;letter-spacing:.04em;}
+.lw-feature{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;}
+.lw-feature-icon{width:22px;height:22px;border-radius:2px;background:#1E1A16;border:1px solid #2E2620;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;margin-top:1px;}
+.lw-feature-text{font-size:13px;color:#8C8279;line-height:1.55;}
+.lw-feature-text strong{color:#DDD5C8;font-weight:500;}
+@media(max-width:780px){
+  .lw-split{grid-template-columns:1fr;min-height:auto;}
+  .lw-left{display:none;}
+  .lw-right{padding:40px 24px;min-height:100vh;}
+  #lw-mobile-logo{display:block!important;}
+}
+
+
+/* ═══════════════════════════════════════════════════
+   LANDING PAGE STYLES  (from landing.html)
+   Scoped to #landing-shell to avoid conflicts
+═══════════════════════════════════════════════════ */
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(253,250,246,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1180px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.nav-logo{background:none;border:none;cursor:pointer;display:flex;align-items:center}
+.nav-links{display:flex;gap:28px}
+.nav-link{background:none;border:none;font-family:'Jost',sans-serif;font-size:13px;color:var(--muted);cursor:pointer;transition:color .2s;letter-spacing:.01em;padding:4px 0;border-bottom:1.5px solid transparent}
+.nav-link:hover{color:var(--ink);border-bottom-color:var(--red)}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;padding:80px 32px;position:relative;overflow:hidden;background:linear-gradient(150deg,#FDFAF6 0%,#F5F0E8 55%,#EDE8E0 100%)}
+.hero-bg-word{position:absolute;right:-40px;top:50%;transform:translateY(-55%);font-family:'Cormorant Garamond',serif;font-size:300px;font-weight:700;color:rgba(201,168,76,.055);line-height:1;pointer-events:none;user-select:none;letter-spacing:-.04em}
+.hero-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 460px;gap:72px;align-items:center;position:relative;z-index:1;width:100%}50%{opacity:.3;transform:scale(.7)}}
+.eyebrow-row{display:flex;align-items:center;gap:8px;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:22px}
+.hero h1{font-size:62px;line-height:1.05;font-weight:700;color:var(--ink);letter-spacing:-.04em;margin-bottom:24px}
+.hero h1 em{color:var(--red);font-style:italic}
+.hero-sub{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--ink2);line-height:1.68;max-width:480px;margin-bottom:38px}
+.hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:48px}
+.hero-social{display:flex;align-items:center;gap:12px}
+.avatars{display:flex}
+.av{width:28px;height:28px;border-radius:50%;border:2px solid #fff;margin-left:-7px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600}
+.av:first-child{margin-left:0}
+
+/* 3D canvas */
+#ai3d{width:100%;height:460px;display:block;border-radius:3px;cursor:grab}
+#ai3d:active{cursor:grabbing}
+.canvas-wrap{position:relative}
+.canvas-tag{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:rgba(253,250,246,.88);padding:5px 14px;border-radius:20px;backdrop-filter:blur(8px);border:1px solid var(--line);white-space:nowrap;pointer-events:none}
+
+/* ticker */100%{transform:translateX(-50%)}}
+
+/* sections */
+section{padding:88px 32px}
+.wrap{max-width:1180px;margin:0 auto}
+.eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.gold-line{height:1.5px;width:44px;background:var(--gold);opacity:.6;margin-bottom:28px}
+.sec-h{font-size:46px;font-weight:700;color:var(--ink);line-height:1.08;letter-spacing:-.03em;margin-bottom:16px}
+.sec-p{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--muted);line-height:1.7;max-width:540px}
+
+/* problem cards */
+.prob-wrap{position:relative;height:400px}
+.prob-card{background:#fff;border:1px solid var(--line);border-radius:3px;padding:22px 24px;display:flex;gap:14px;align-items:flex-start;box-shadow:0 2px 16px rgba(28,24,20,.05);position:absolute}
+.prob-card:nth-child(1){top:0;left:0;right:36px;animation:fl1 5s ease-in-out infinite}
+.prob-card:nth-child(2){top:136px;left:28px;right:0;animation:fl2 6s ease-in-out infinite .9s}
+.prob-card:nth-child(3){top:272px;left:0;right:28px;animation:fl3 5.5s ease-in-out infinite 1.7s}
+@keyframes fl1{0%,100%{transform:translateY(0) rotate(-.4deg)}50%{transform:translateY(-10px) rotate(.4deg)}}
+@keyframes fl2{0%,100%{transform:translateY(0) rotate(.3deg)}50%{transform:translateY(-8px) rotate(-.3deg)}}
+@keyframes fl3{0%,100%{transform:translateY(0) rotate(-.2deg)}50%{transform:translateY(-11px) rotate(.2deg)}}
+.prob-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+.prob-q{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px}
+.prob-a{font-size:12px;color:var(--muted);line-height:1.55}
+
+/* audiences */
+.aud-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);margin-top:52px}
+.aud-card{padding:44px 36px;border-right:1px solid var(--line);background:#fff;position:relative;overflow:hidden;transition:background .25s}
+.aud-card:last-child{border-right:none}
+.aud-card:hover{background:var(--bg2)}
+.aud-accent{position:absolute;top:0;left:0;right:0;height:3px}
+.aud-big{font-family:'Cormorant Garamond',serif;font-size:78px;font-weight:300;color:var(--bg3);line-height:1;margin-bottom:18px;transition:color .25s}
+.aud-card:hover .aud-big{color:var(--line)}
+.aud-tag{font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:16px}
+.aud-title{font-size:23px;font-weight:700;color:var(--ink);line-height:1.25;margin-bottom:14px}
+.aud-body{font-size:13.5px;color:var(--muted);line-height:1.7;margin-bottom:26px}
+.aud-list{display:flex;flex-direction:column;gap:9px}
+.aud-item{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--ink2);line-height:1.5}
+.aud-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:6px}
+
+/* features */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:52px}
+.feat{background:#fff;padding:36px 32px;transition:background .2s}
+.feat:hover{background:var(--bg2)}
+.feat-num{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;color:var(--gold);letter-spacing:.06em;margin-bottom:14px}
+.feat-title{font-size:18px;font-weight:700;color:var(--ink);margin-bottom:10px}
+.feat-body{font-size:13px;color:var(--muted);line-height:1.7}
+
+/* why items */
+.why-item{display:flex;gap:12px;align-items:flex-start;margin-bottom:18px}
+.why-check{width:20px;height:20px;background:var(--green);border-radius:2px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;flex-shrink:0;margin-top:2px}
+.why-text-r{font-size:13.5px;color:var(--ink2);line-height:1.6}
+.why-text-r strong{color:var(--ink);font-weight:600}
+
+/* steps */
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:52px}
+.step{background:#fff;padding:40px 36px;position:relative}
+.step-n{font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:300;color:var(--bg3);line-height:1;margin-bottom:22px}
+.step h3{font-size:19px;font-weight:700;color:var(--ink);margin-bottom:12px}
+.step p{font-size:13.5px;color:var(--muted);line-height:1.7}
+.step-arr{position:absolute;top:50px;right:-16px;width:32px;height:32px;background:#fff;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--faint);z-index:2}
+.step:last-child .step-arr{display:none}
+
+/* cta strip */
+.cta-strip{background:var(--ink);padding:88px 32px;position:relative;overflow:hidden}
+.cta-strip::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 700px 500px at 65% 50%, rgba(201,168,76,.07) 0%, transparent 70%);pointer-events:none}
+.cta-inner{max-width:740px;margin:0 auto;text-align:center;position:relative;z-index:1}
+
+/* pricing */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px}
+.plan{background:#fff;border:1px solid var(--line);border-top:3px solid var(--line);border-radius:3px;padding:36px;position:relative;transition:box-shadow .25s}
+.plan:hover{box-shadow:0 8px 40px rgba(28,24,20,.09)}
+.plan-featured{border-top-color:var(--red);box-shadow:0 4px 24px rgba(166,25,46,.1)}
+.plan-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-size:9px;font-weight:700;padding:3px 14px;border-radius:20px;letter-spacing:.1em;white-space:nowrap}
+.plan-name{font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.plan-price{font-family:'Cormorant Garamond',serif;font-size:54px;font-weight:700;line-height:1;color:var(--ink);margin-bottom:4px}
+.plan-sub{font-size:12px;color:var(--faint);margin-bottom:28px}
+.pf{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--ink2);margin-bottom:10px}
+.ck{color:var(--green);font-weight:700;flex-shrink:0}
+.cx{color:var(--faint);flex-shrink:0}
+
+/* footer */
+footer{background:var(--bg2);border-top:1px solid var(--line);padding:60px 32px 32px}
+.footer-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+.fl{display:block;font-size:13px;color:var(--muted);margin-bottom:10px;cursor:pointer;background:none;border:none;font-family:'Jost',sans-serif;text-align:left;transition:color .2s}
+.fl:hover{color:var(--gold)}
+
+/* scroll reveal */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* responsive */
+@media(max-width:960px){
+  .hero-inner,.why-cols{grid-template-columns:1fr;gap:48px}
+  .hero h1{font-size:42px}
+  #ai3d{height:300px}
+  .hero-bg-word{display:none}
+  .aud-grid{grid-template-columns:1fr}
+  .aud-card{border-right:none;border-bottom:1px solid var(--line)}
+  .aud-card:last-child{border-bottom:none}
+  .feat-grid{grid-template-columns:1fr 1fr}
+  .steps-grid{grid-template-columns:1fr}
+  .step-arr{display:none}
+  .plans{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .nav-links{display:none}
+  section{padding:60px 20px}
+  .prob-wrap{height:auto;display:flex;flex-direction:column;gap:14px}
+  .prob-card{position:static;animation:none}
+}
+@media(max-width:600px){
+  .feat-grid{grid-template-columns:1fr}
+  .hero{padding:80px 20px 60px}
+  .hero h1{font-size:36px}
+}
+
+
+/* ═══════════════════════════════════════════════════
+   SHELL VISIBILITY CONTROL
+═══════════════════════════════════════════════════ */
+#landing-shell { display:block }
+#app-shell { display:none }
+body.app-mode { overflow:auto }
+
+/* Landing page uses cream bg, app uses its own bg */
+#landing-shell { background:#FDFAF6 }
+
+/* When app is active, app nav should be visible */
+#app-shell nav { display:flex }
 </style>
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23A6192E'/%3E%3Crect x='7' y='9' width='12' height='3' rx='1.5' fill='%23FAF7F2'/%3E%3Crect x='7' y='16' width='8' height='2.5' rx='1.25' fill='%23FAF7F2'/%3E%3Crect x='7' y='9' width='3' height='14' rx='1.5' fill='%23FAF7F2'/%3E%3Crect x='17' y='11' width='7' height='2.5' rx='1.25' fill='%23C9A84C'/%3E%3Crect x='17' y='16' width='4' height='2' rx='1' fill='%23C9A84C' opacity='.65'/%3E%3Crect x='17' y='21' width='8' height='2' rx='1' fill='%23C9A84C' opacity='.35'/%3E%3C/svg%3E">
 </head>
 <body>
 
+<!-- ═══ LOGIN WALL (always in DOM, shown as overlay when needed) ═══ -->
+<!-- ========== LOGIN WALL ========== -->
+<div id="login-wall" style="display:none">
+  <div class="lw-split">
+
+    <!-- LEFT: Brand / value prop -->
+    <div class="lw-left">
+      <div style="margin-bottom:40px">
+        <svg width="140" height="44" viewBox="0 0 140 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="0" y="4" width="34" height="34" rx="5" fill="#A6192E"/>
+          <rect x="8" y="11" width="16" height="3.5" rx="1.5" fill="#FAF7F2"/>
+          <rect x="8" y="19" width="11" height="3" rx="1.5" fill="#FAF7F2"/>
+          <rect x="8" y="11" width="3.5" height="22" rx="1.5" fill="#FAF7F2"/>
+          <rect x="20" y="13" width="9" height="3" rx="1.5" fill="#C9A84C"/>
+          <rect x="20" y="19" width="6" height="2.5" rx="1.25" fill="#C9A84C" opacity="0.65"/>
+          <rect x="20" y="25" width="11" height="2.5" rx="1.25" fill="#C9A84C" opacity="0.35"/>
+          <text x="42" y="27" font-family="Georgia,serif" font-size="22" font-weight="700" letter-spacing="-0.5">
+            <tspan fill="#FAF7F2">Flo</tspan><tspan fill="#E57389">M</tspan><tspan fill="#FAF7F2">K</tspan><tspan fill="#C9A84C">a</tspan>
+          </text>
+          <text x="43" y="38" font-family="Georgia,serif" font-size="7" fill="#C9A84C" letter-spacing="2">AI INTELLIGENCE</text>
+        </svg>
+      </div>
+
+      <div style="height:1.5px;width:40px;background:#C9A84C;opacity:.6;margin-bottom:28px"></div>
+
+      <h1 style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:700;color:#F5F0E8;line-height:1.08;letter-spacing:-.03em;margin-bottom:16px">
+        The pulse of AI,<br><span style="color:#C9A84C;font-style:italic">every single day.</span>
+      </h1>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:17px;color:#8C8279;line-height:1.7;margin-bottom:40px;max-width:420px">
+        Track trending tools, startup ideas, user complaints, and unsolved problems — all in one intelligence feed.
+      </p>
+
+      <!-- Stats row -->
+      <div style="display:flex;gap:32px;margin-bottom:44px;flex-wrap:wrap">
+        <div class="lw-stat">
+          <div class="lw-stat-val">2,400+</div>
+          <div class="lw-stat-label">Leaders & founders</div>
+        </div>
+        <div class="lw-stat">
+          <div class="lw-stat-val">Daily</div>
+          <div class="lw-stat-label">Fresh intelligence</div>
+        </div>
+        <div class="lw-stat">
+          <div class="lw-stat-val">10K+</div>
+          <div class="lw-stat-label">Complaints analysed</div>
+        </div>
+      </div>
+
+      <!-- Features -->
+      <div class="lw-feature">
+        <div class="lw-feature-icon">🛠</div>
+        <div class="lw-feature-text"><strong>AI Tools Directory</strong> — ranked by real user votes and complaint data, not marketing</div>
+      </div>
+      <div class="lw-feature">
+        <div class="lw-feature-icon">⚡</div>
+        <div class="lw-feature-text"><strong>Complaints Board</strong> — what users actually hate about every AI tool, right now</div>
+      </div>
+      <div class="lw-feature">
+        <div class="lw-feature-icon">💡</div>
+        <div class="lw-feature-text"><strong>Startup Ideas Radar</strong> — evidence-backed opportunities from real pain points</div>
+      </div>
+      <div class="lw-feature">
+        <div class="lw-feature-icon">★</div>
+        <div class="lw-feature-text"><strong>Executive Brief</strong> — AI-generated intelligence report personalised to your industry</div>
+      </div>
+
+      <p style="font-size:11px;color:#2E2620;margin-top:32px;letter-spacing:.04em">© 2026 FloMKa · flomka.ai</p>
+    </div>
+
+    <!-- RIGHT: Login form -->
+    <div class="lw-right">
+      <div class="lw-form-box">
+
+        <!-- Logo (mobile only) -->
+        <div style="text-align:center;margin-bottom:32px;display:none" id="lw-mobile-logo">
+          <svg width="120" height="38" viewBox="0 0 120 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="3" width="30" height="30" rx="5" fill="#A6192E"/>
+            <rect x="7" y="9" width="13" height="3" rx="1.5" fill="#FAF7F2"/>
+            <rect x="7" y="16" width="9" height="2.5" rx="1.25" fill="#FAF7F2"/>
+            <rect x="7" y="9" width="3" height="20" rx="1.5" fill="#FAF7F2"/>
+            <rect x="17" y="11" width="8" height="2.5" rx="1.25" fill="#C9A84C"/>
+            <rect x="17" y="16" width="5" height="2" rx="1" fill="#C9A84C" opacity="0.65"/>
+            <text x="36" y="24" font-family="Georgia,serif" font-size="18" font-weight="700">
+              <tspan fill="#FAF7F2">Flo</tspan><tspan fill="#E57389">M</tspan><tspan fill="#FAF7F2">K</tspan><tspan fill="#C9A84C">a</tspan>
+            </text>
+          </svg>
+        </div>
+
+        <h2 id="lw-title" style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:#F5F0E8;margin-bottom:4px;letter-spacing:-.02em">Welcome back</h2>
+        <p id="lw-subtitle" style="font-size:13px;color:#4A4038;margin-bottom:28px">Sign in to access FloMKa</p>
+
+        <!-- Social login buttons -->
+        <button class="lw-social-btn lw-social-google" onclick="signInWithGoogle()" style="margin-bottom:10px">
+          <svg width="18" height="18" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 0 1-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.962L3.964 7.294C4.672 5.163 6.656 3.58 9 3.58z" fill="#EA4335"/></svg>
+          Continue with Google
+        </button>
+        <button class="lw-social-btn lw-social-linkedin" onclick="signInWithLinkedIn()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="#fff"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          Continue with LinkedIn
+        </button>
+
+        <!-- Divider -->
+        <div class="lw-divider"><span>or sign in with email</span></div>
+
+        <!-- Email/password form -->
+        <div id="lw-wall-form" data-mode="login" style="display:flex;flex-direction:column;gap:12px">
+          <div id="lw-name-row" style="display:none">
+            <label style="font-size:11px;font-weight:600;color:#4A4038;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:5px">Full name</label>
+            <input type="text" id="lw-name" placeholder="Your name" style="width:100%;padding:10px 13px;background:#1C1814;border:1px solid #2E2620;border-radius:2px;color:#F5F0E8;font-size:13.5px;outline:none;font-family:'Jost',sans-serif;transition:border .2s" onfocus="this.style.borderColor='#C9A84C'" onblur="this.style.borderColor='#2E2620'"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:600;color:#4A4038;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:5px">Email address</label>
+            <input type="email" id="lw-email" placeholder="you@company.com" onkeydown="if(event.key==='Enter')submitLoginWall()" style="width:100%;padding:10px 13px;background:#1C1814;border:1px solid #2E2620;border-radius:2px;color:#F5F0E8;font-size:13.5px;outline:none;font-family:'Jost',sans-serif;transition:border .2s" onfocus="this.style.borderColor='#C9A84C'" onblur="this.style.borderColor='#2E2620'"/>
+          </div>
+          <div>
+            <label style="font-size:11px;font-weight:600;color:#4A4038;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:5px">Password</label>
+            <input type="password" id="lw-pw" placeholder="Min 8 characters" onkeydown="if(event.key==='Enter')submitLoginWall()" style="width:100%;padding:10px 13px;background:#1C1814;border:1px solid #2E2620;border-radius:2px;color:#F5F0E8;font-size:13.5px;outline:none;font-family:'Jost',sans-serif;transition:border .2s" onfocus="this.style.borderColor='#C9A84C'" onblur="this.style.borderColor='#2E2620'"/>
+          </div>
+
+          <div id="lw-error" style="display:none;font-size:12.5px;padding:9px 13px;border-radius:2px;background:#3A1018;color:#E57389"></div>
+
+          <button id="lw-submit" onclick="submitLoginWall()" style="width:100%;padding:13px;background:#A6192E;color:#fff;border:none;border-radius:2px;font-size:13.5px;font-weight:600;cursor:pointer;font-family:'Jost',sans-serif;letter-spacing:.02em;transition:background .2s" onmouseover="this.style.background='#8B1425'" onmouseout="this.style.background='#A6192E'">
+            Sign in →
+          </button>
+
+          <div id="lw-forgot-row" style="text-align:right;margin-top:-4px">
+            <button onclick="sendLwReset()" style="background:none;border:none;color:#4A4038;cursor:pointer;font-size:12px;font-family:'Jost',sans-serif;text-decoration:underline;transition:color .2s" onmouseover="this.style.color='#C9A84C'" onmouseout="this.style.color='#4A4038'">Forgot password?</button>
+          </div>
+        </div>
+
+        <p id="lw-switch-msg" style="text-align:center;margin-top:22px;font-size:13px;color:#4A4038">
+          No account? <button onclick="setLoginWallMode('signup')" style="background:none;border:none;color:#A6192E;font-weight:600;cursor:pointer;font-size:13px;text-decoration:underline">Sign up free</button>
+        </p>
+
+        <p style="text-align:center;font-size:11px;color:#2E2620;margin-top:28px;line-height:1.6">
+          By signing in you agree to our Terms of Service.<br>Your data is never sold or shared with advertisers.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- ========== END LOGIN WALL ========== -->
+
+<!-- ═══ LANDING SHELL (shown to unauthenticated visitors) ═══ -->
+<div id="landing-shell">
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <button class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+      <svg width="136" height="38" viewBox="0 0 136 38" fill="none">
+        <rect x="0" y="3" width="32" height="32" rx="5" fill="#A6192E"/>
+        <rect x="7" y="9" width="14" height="3.5" rx="1.5" fill="#FAF7F2"/>
+        <rect x="7" y="17" width="10" height="3" rx="1.5" fill="#FAF7F2"/>
+        <rect x="7" y="9" width="3.5" height="22" rx="1.5" fill="#FAF7F2"/>
+        <rect x="18" y="11" width="8" height="3" rx="1.5" fill="#C9A84C"/>
+        <rect x="18" y="17" width="5" height="2.5" rx="1.25" fill="#C9A84C" opacity="0.65"/>
+        <rect x="18" y="23" width="10" height="2.5" rx="1.25" fill="#C9A84C" opacity="0.35"/>
+        <text x="38" y="24" font-family="Georgia,serif" font-size="20" font-weight="700" letter-spacing="-0.5"><tspan fill="#1C1814">Flo</tspan><tspan fill="#A6192E">M</tspan><tspan fill="#1C1814">K</tspan><tspan fill="#C9A84C">a</tspan></text>
+        <text x="39" y="33" font-family="Georgia,serif" font-size="7" fill="#C9A84C" letter-spacing="2">AI INTELLIGENCE</text>
+      </svg>
+    </button>
+    <div class="nav-links">
+      <button class="nav-link" onclick="go('for-you')">Who it's for</button>
+      <button class="nav-link" onclick="go('features')">Features</button>
+      <button class="nav-link" onclick="go('how')">How it works</button>
+      <button class="nav-link" onclick="go('pricing')">Pricing</button>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn" onclick="toApp('login')">Sign in</button>
+      <button class="btn btn-red" onclick="toApp('signup')">Get started free →</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-word">AI</div>
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow-row"><span class="live-dot"></span>The AI intelligence platform</div>
+      <h1>Know what's<br>happening in AI<br><em>before anyone else.</em></h1>
+      <p class="hero-sub">FloMKa tracks every AI tool, every real user complaint, and every emerging startup opportunity — updated daily, built for people who are serious about AI.</p>
+      <div class="hero-btns">
+        <button class="btn btn-red btn-lg" onclick="toApp('signup')">Start for free — no card needed</button>
+        <button class="btn btn-lg" onclick="go('for-you')">See who it's for ↓</button>
+      </div>
+      <div class="hero-social">
+        <div class="avatars">
+          <div class="av" style="background:#F9EAEC;color:#A6192E">S</div>
+          <div class="av" style="background:#EAF4ED;color:#2D6A3F">F</div>
+          <div class="av" style="background:#FBF5E6;color:#A07830">C</div>
+          <div class="av" style="background:#EDE8E0;color:#5B3FA6">R</div>
+        </div>
+        <p style="font-size:12px;color:var(--muted)">Joined by students, founders &amp; leaders across India</p>
+      </div>
+    </div>
+    <div class="canvas-wrap">
+      <canvas id="ai3d"></canvas>
+      <div class="canvas-tag">AI knowledge graph · drag to rotate</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-bar"><div class="ticker-track" id="landing-ticker"></div></div>
+
+<!-- WHY -->
+<section style="background:#fff">
+  <div class="wrap">
+    <div class="why-cols" style="display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center">
+      <div class="prob-wrap reveal">
+        <div class="prob-card">
+          <div class="prob-icon">😤</div>
+          <div>
+            <div class="prob-q">Which AI tool should I actually use?</div>
+            <div class="prob-a">500+ AI tools launch every month. Which one is genuinely worth your time and money — and which are just hype?</div>
+          </div>
+        </div>
+        <div class="prob-card">
+          <div class="prob-icon">🔍</div>
+          <div>
+            <div class="prob-q">Is there a startup idea hidden in this problem?</div>
+            <div class="prob-a">Every frustrated AI user is a data point. But where do you find the most upvoted frustrations at scale?</div>
+          </div>
+        </div>
+        <div class="prob-card">
+          <div class="prob-icon">📰</div>
+          <div>
+            <div class="prob-q">What does my team need to know this week?</div>
+            <div class="prob-a">AI news is everywhere but 90% of it is noise. What is the actual signal that should affect your decisions today?</div>
+          </div>
+        </div>
+      </div>
+      <div class="reveal" style="transition-delay:.15s">
+        <div class="eyebrow"><div style="width:20px;height:1.5px;background:var(--red)"></div>Why FloMKa exists</div>
+        <div class="gold-line"></div>
+        <h2 style="font-size:44px;font-weight:700;color:var(--ink);line-height:1.1;letter-spacing:-.03em;margin-bottom:20px">These questions deserve real answers — not more hype.</h2>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--muted);line-height:1.7;margin-bottom:28px">The AI landscape moves so fast that staying current feels like a full-time job. FloMKa does that job for you — surfacing what's real, what's rising, and what's broken.</p>
+        <div class="why-item">
+          <div class="why-check">✓</div>
+          <div class="why-text-r"><strong>No sponsored rankings.</strong> Tool scores are built from community votes, complaint data and momentum — never paid placement.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-check">✓</div>
+          <div class="why-text-r"><strong>Real complaints, not press releases.</strong> We track what users actually say on Reddit and HN — every frustration is a data point.</div>
+        </div>
+        <div class="why-item">
+          <div class="why-check">✓</div>
+          <div class="why-text-r"><strong>Actionable, not encyclopedic.</strong> Every section ends with something you can do — a tool to try, an idea to explore, a decision to make.</div>
+        </div>
+        <button class="btn btn-red" style="margin-top:10px" onclick="toApp('signup')">Get access free →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO IT'S FOR -->
+<section id="for-you" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="eyebrow"><div style="width:20px;height:1.5px;background:var(--red)"></div>Built for you</div>
+    <div class="gold-line"></div>
+    <h2 class="sec-h">One platform, three kinds of people.</h2>
+    <p class="sec-p">Whether you're learning about AI, building with it, or making decisions around it — FloMKa has exactly what you need.</p>
+    <div class="aud-grid reveal">
+      <div class="aud-card">
+        <div class="aud-accent" style="background:var(--red)"></div>
+        <div class="aud-big">01</div>
+        <span class="aud-tag">Students &amp; Learners</span>
+        <h3 class="aud-title">Learn smarter, not harder</h3>
+        <p class="aud-body">The AI tool landscape changes every week. FloMKa gives you a clear, unbiased picture of what's actually worth learning — no more wasting hours on overhyped tools that don't deliver.</p>
+        <div class="aud-list">
+          <div class="aud-item"><div class="aud-dot"></div>Honest tool directory — understand what each tool does before signing up</div>
+          <div class="aud-item"><div class="aud-dot"></div>See real user complaints so you know the trade-offs before committing</div>
+          <div class="aud-item"><div class="aud-dot"></div>Startup ideas radar to spark your next project, thesis, or side hustle</div>
+          <div class="aud-item"><div class="aud-dot"></div>Free forever for the core experience — no paywall for learning</div>
+        </div>
+      </div>
+      <div class="aud-card">
+        <div class="aud-accent" style="background:var(--gold)"></div>
+        <div class="aud-big">02</div>
+        <span class="aud-tag">Founders &amp; Builders</span>
+        <h3 class="aud-title">Find your next idea in the complaints</h3>
+        <p class="aud-body">The best startup ideas don't come from brainstorming — they come from validated frustrations. FloMKa surfaces what thousands of AI users are complaining about. Each complaint is a market gap.</p>
+        <div class="aud-list">
+          <div class="aud-item"><div class="aud-dot"></div>Evidence-backed startup ideas scored by complaint volume and recency</div>
+          <div class="aud-item"><div class="aud-dot"></div>Spot rising tools before they hit mainstream awareness</div>
+          <div class="aud-item"><div class="aud-dot"></div>AI Finder — describe your problem, get honest recs with known issues included</div>
+          <div class="aud-item"><div class="aud-dot"></div>Compare any two tools with real complaint data side by side</div>
+        </div>
+      </div>
+      <div class="aud-card">
+        <div class="aud-accent" style="background:var(--green)"></div>
+        <div class="aud-big">03</div>
+        <span class="aud-tag">CEOs &amp; Decision Makers</span>
+        <h3 class="aud-title">Board-ready intelligence in 5 minutes</h3>
+        <p class="aud-body">You don't have time to read 40 AI newsletters. The FloMKa Executive Brief gives you a daily, industry-personalised summary of what moved, what broke, and what your team should act on this week.</p>
+        <div class="aud-list">
+          <div class="aud-item"><div class="aud-dot"></div>Daily Executive Brief tailored to your sector — Tech, Fintech, Healthcare and more</div>
+          <div class="aud-item"><div class="aud-dot"></div>Risk radar — what's about to affect your operations before it hits the news</div>
+          <div class="aud-item"><div class="aud-dot"></div>Adoption signals — what top teams are switching to right now</div>
+          <div class="aud-item"><div class="aud-dot"></div>One concrete Monday action item — specific and actionable every week</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features" style="background:#fff">
+  <div class="wrap">
+    <div class="eyebrow"><div style="width:20px;height:1.5px;background:var(--red)"></div>The platform</div>
+    <div class="gold-line"></div>
+    <h2 class="sec-h">Six sections. One feed. All signal.</h2>
+    <p class="sec-p">Every part of FloMKa is built around the same principle — give you real data, not marketing copy.</p>
+    <div class="feat-grid reveal">
+      <div class="feat">
+        <div class="feat-num">01 · Tools</div>
+        <h3 class="feat-title">AI Tools Directory</h3>
+        <p class="feat-body">Every major AI tool ranked by a composite score built from community votes, complaint weight, and week-on-week momentum. Filter by category, search by use case. No paid rankings — ever.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-num">02 · Complaints</div>
+        <h3 class="feat-title">Real User Complaints</h3>
+        <p class="feat-body">We track what users are actually saying on Reddit, HackerNews and developer forums — sorted by upvote count. See the biggest frustrations with any AI tool before you commit to it.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-num">03 · Ideas</div>
+        <h3 class="feat-title">Startup Ideas Radar</h3>
+        <p class="feat-body">Every idea is reverse-engineered from a real complaint — with the problem, the opportunity, the evidence, and a confidence score. The best startup ideas come from the most-upvoted user pain.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-num">04 · Brief</div>
+        <h3 class="feat-title">Executive Brief</h3>
+        <p class="feat-body">A daily AI-generated intelligence report personalised to your industry. Risk radar, adoption signals, opportunity map, and one concrete action item. Forward it directly to your leadership team.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-num">05 · Trends</div>
+        <h3 class="feat-title">Trends Dashboard</h3>
+        <p class="feat-body">Six-week momentum charts for every major tool. See what's rising, what's plateauing, and category-level momentum scores so you catch macro shifts weeks before they become obvious.</p>
+      </div>
+      <div class="feat">
+        <div class="feat-num">06 · Finder</div>
+        <h3 class="feat-title">AI Tool Finder</h3>
+        <p class="feat-body">Describe exactly what you need — "generate SQL from plain English for my non-technical team" — and get honest, complaint-aware recommendations. Not just what works, but what to watch out for too.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW -->
+<section id="how" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="eyebrow"><div style="width:20px;height:1.5px;background:var(--red)"></div>How it works</div>
+    <div class="gold-line"></div>
+    <h2 class="sec-h">Up and running in under a minute.</h2>
+    <p class="sec-p">No configuration, no lengthy onboarding. Sign in and you're immediately inside.</p>
+    <div class="steps-grid reveal">
+      <div class="step">
+        <div class="step-arr">→</div>
+        <div class="step-n">01</div>
+        <h3>Create your free account</h3>
+        <p>Sign up with Google, LinkedIn, or email — no credit card needed. Takes about 20 seconds and you're in immediately. The whole platform is available the moment you sign up.</p>
+      </div>
+      <div class="step">
+        <div class="step-arr">→</div>
+        <div class="step-n">02</div>
+        <h3>Set your industry context</h3>
+        <p>Tell FloMKa what sector you're in. Your Executive Brief and AI Finder recommendations get personalised to your exact context automatically — no manual configuration needed.</p>
+      </div>
+      <div class="step">
+        <div class="step-n">03</div>
+        <h3>Get your daily intelligence</h3>
+        <p>Check the feed each morning. Five focused minutes to understand what moved, what broke, and what to build or adopt next. That is the entire workflow — every day.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMMITMENT -->
+<section style="background:#fff">
+  <div class="wrap" style="max-width:700px;text-align:center">
+    <div class="eyebrow" style="justify-content:center"><div style="width:20px;height:1.5px;background:var(--red)"></div>Our commitment</div>
+    <div class="gold-line" style="margin-left:auto;margin-right:auto"></div>
+    <h2 style="font-size:46px;font-weight:700;color:var(--ink);line-height:1.08;letter-spacing:-.03em;margin-bottom:18px">We never accept money to<br><em style="color:var(--red);font-style:italic">influence what you see.</em></h2>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--muted);line-height:1.7;margin-bottom:36px">FloMKa is built on the belief that the AI industry needs one honest source of truth. No sponsored tool rankings. No paid placement. No advertiser influence. Our scores come from real users, real complaints, and real momentum data — and that will never change.</p>
+    <button class="btn btn-red btn-lg" onclick="toApp('signup')">Join FloMKa — it's free →</button>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-strip">
+  <div class="cta-inner">
+    <div style="width:40px;height:2px;background:var(--gold);margin:0 auto 28px"></div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:700;color:#F5F0E8;letter-spacing:-.03em;line-height:1.08;margin-bottom:16px">Get AI intelligence<br><span style="color:var(--gold);font-style:italic">delivered daily.</span></h2>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:rgba(255,255,255,.42);line-height:1.7;max-width:460px;margin:0 auto 36px">Trending tools, real complaints, startup ideas — free, 5 minutes a day. Join founders, students and leaders across India.</p>
+    <div style="display:flex;gap:8px;max-width:400px;margin:0 auto 14px">
+      <input type="email" id="landing-nl-email" placeholder="your@email.com" style="flex:1;padding:12px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:2px;color:#F5F0E8;font-family:'Jost',sans-serif;font-size:13.5px;outline:none;transition:border .2s" onfocus="this.style.borderColor='rgba(201,168,76,.6)'" onblur="this.style.borderColor='rgba(255,255,255,.15)'" onkeydown="if(event.key==='Enter')nlSub()"/>
+      <button class="btn btn-gold" style="flex-shrink:0;padding:12px 20px;font-size:13.5px" onclick="nlSub()">Subscribe</button>
+    </div>
+    <p style="font-size:11px;color:rgba(255,255,255,.2);letter-spacing:.04em;margin-bottom:32px">No spam. Unsubscribe anytime.</p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-red btn-lg" onclick="toApp('signup')">Create free account →</button>
+      <button class="btn btn-lg" style="border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.5)" onmouseover="this.style.borderColor='rgba(255,255,255,.5)';this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,.2)';this.style.color='rgba(255,255,255,.5)'" onclick="toApp('login')">Sign in</button>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<section id="pricing" style="background:#fff">
+  <div class="wrap">
+    <div class="eyebrow"><div style="width:20px;height:1.5px;background:var(--red)"></div>Pricing</div>
+    <div class="gold-line"></div>
+    <h2 class="sec-h">Start free. No tricks.</h2>
+    <p class="sec-p">The core experience is free forever. Pro is launching soon — join the waitlist for founding member pricing.</p>
+    <div class="plans reveal">
+      <div class="plan">
+        <div class="plan-name">Free</div>
+        <div class="plan-price">₹0</div>
+        <div class="plan-sub">forever · no credit card</div>
+        <div style="height:1px;background:var(--line);margin-bottom:22px"></div>
+        <div class="pf"><span class="ck">✓</span>Full tools directory</div>
+        <div class="pf"><span class="ck">✓</span>Complaints board preview</div>
+        <div class="pf"><span class="ck">✓</span>Trend score preview</div>
+        <div class="pf"><span class="ck">✓</span>3 saved tools</div>
+        <div class="pf"><span class="ck">✓</span>Weekly newsletter</div>
+        <div class="pf"><span class="cx">✕</span><span style="color:var(--faint)">Full startup ideas feed</span></div>
+        <div class="pf"><span class="cx">✕</span><span style="color:var(--faint)">Executive Brief</span></div>
+        <div class="pf"><span class="cx">✕</span><span style="color:var(--faint)">Trend alerts</span></div>
+        <button class="btn btn-red" style="width:100%;margin-top:24px;padding:12px;font-size:13.5px;justify-content:center" onclick="toApp('signup')">Get started free →</button>
+      </div>
+      <div class="plan plan-featured">
+        <div class="plan-badge">MOST POPULAR · COMING SOON</div>
+        <div class="plan-name" style="color:var(--red)">Pro</div>
+        <div class="plan-price">₹750</div>
+        <div class="plan-sub">per month · founding price</div>
+        <div style="height:1px;background:var(--line);margin-bottom:22px"></div>
+        <div class="pf"><span class="ck">✓</span>Everything in Free</div>
+        <div class="pf"><span class="ck">✓</span>Full complaints board</div>
+        <div class="pf"><span class="ck">✓</span>Complete startup ideas radar</div>
+        <div class="pf"><span class="ck">✓</span>Daily Executive Brief</div>
+        <div class="pf"><span class="ck">✓</span>Unlimited saved tools</div>
+        <div class="pf"><span class="ck">✓</span>Trend alerts by email</div>
+        <div class="pf"><span class="ck">✓</span>3-way tool comparison</div>
+        <button class="btn" style="width:100%;margin-top:24px;padding:12px;font-size:13.5px;justify-content:center;border-color:var(--red);color:var(--red)" onmouseover="this.style.background='var(--red)';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='var(--red)'" onclick="toApp('signup')">Join Pro waitlist →</button>
+      </div>
+      <div class="plan">
+        <div class="plan-name">API / Enterprise</div>
+        <div class="plan-price">₹8,200</div>
+        <div class="plan-sub">per month · contact us</div>
+        <div style="height:1px;background:var(--line);margin-bottom:22px"></div>
+        <div class="pf"><span class="ck">✓</span>Everything in Pro</div>
+        <div class="pf"><span class="ck">✓</span>REST API — 5,000 req/day</div>
+        <div class="pf"><span class="ck">✓</span>14 data endpoints</div>
+        <div class="pf"><span class="ck">✓</span>Webhooks &amp; real-time push</div>
+        <div class="pf"><span class="ck">✓</span>CSV &amp; JSON export</div>
+        <div class="pf"><span class="ck">✓</span>Dedicated Slack support</div>
+        <div class="pf"><span class="ck">✓</span>SLA guarantee</div>
+        <button class="btn" style="width:100%;margin-top:24px;padding:12px;font-size:13.5px;justify-content:center" onmouseover="this.style.borderColor='var(--ink)';this.style.color='var(--ink)'" onmouseout="this.style.borderColor='var(--line)';this.style.color='var(--ink2)'" onclick="toApp('signup')">Contact us →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="max-width:1180px;margin:0 auto">
+    <div class="footer-grid">
+      <div>
+        <svg width="110" height="32" viewBox="0 0 110 32" fill="none" style="margin-bottom:16px;display:block">
+          <rect x="0" y="1" width="28" height="28" rx="4" fill="#A6192E"/>
+          <rect x="6" y="7" width="12" height="3" rx="1.5" fill="#FAF7F2"/>
+          <rect x="6" y="13" width="8" height="2.5" rx="1.25" fill="#FAF7F2"/>
+          <rect x="6" y="7" width="3" height="19" rx="1.5" fill="#FAF7F2"/>
+          <rect x="15" y="9" width="7" height="2.5" rx="1.25" fill="#C9A84C"/>
+          <rect x="15" y="14" width="5" height="2" rx="1" fill="#C9A84C" opacity="0.65"/>
+          <text x="33" y="21" font-family="Georgia,serif" font-size="17" font-weight="700" letter-spacing="-0.5"><tspan fill="#1C1814">Flo</tspan><tspan fill="#A6192E">M</tspan><tspan fill="#1C1814">K</tspan><tspan fill="#C9A84C">a</tspan></text>
+        </svg>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7;max-width:200px;margin-bottom:16px">The pulse of AI — every single day.</p>
+        <p style="font-size:11px;color:var(--faint)">© 2026 FloMKa · flomka.ai · 🇮🇳</p>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:16px">Platform</div>
+        <button class="fl" onclick="toApp('signup')">Tools Directory</button>
+        <button class="fl" onclick="toApp('signup')">Complaints Board</button>
+        <button class="fl" onclick="toApp('signup')">Startup Ideas</button>
+        <button class="fl" onclick="toApp('signup')">Executive Brief</button>
+        <button class="fl" onclick="toApp('signup')">Trends</button>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:16px">For</div>
+        <button class="fl" onclick="go('for-you')">Students</button>
+        <button class="fl" onclick="go('for-you')">Founders</button>
+        <button class="fl" onclick="go('for-you')">CEOs &amp; Leaders</button>
+        <button class="fl" onclick="go('pricing')">Pricing</button>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:16px">Account</div>
+        <button class="fl" onclick="toApp('signup')">Sign up free</button>
+        <button class="fl" onclick="toApp('login')">Sign in</button>
+        <button class="fl" onclick="toApp('signup')">Join Pro waitlist</button>
+      </div>
+    </div>
+    <div style="height:1px;background:var(--line);margin-bottom:24px"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+      <span style="font-size:12px;color:var(--faint)">FloMKa never sells user data and never accepts payment to influence rankings.</span>
+      <span style="font-size:12px;color:var(--faint)">No ads · No sponsored content</span>
+    </div>
+  </div>
+</footer>
+
+<!-- toast-wrap from index.html handles all toasts -->
+</div>
+
+<!-- ═══ APP SHELL (shown after authentication) ═══ -->
+<div id="app-shell">
 <div class="ticker-wrap"><div class="ticker-track" id="ticker"></div></div>
 
 <nav>
@@ -264,7 +1006,7 @@ body.dark .drawer-footer{border-color:#3A3028}
     <div class="nav-search">
       <span class="s-icon">🔍</span>
       <input type="search" placeholder="Search tools, ideas..." id="global-search" oninput="handleSearch(this.value)"/>
-      <div id="search-drop" style="display:none;position:absolute;top:calc(100% + 6px);left:0;right:0;background:#FFFDF9;border:1px solid #DDD5C8;border-radius:4px;z-index:200;max-height:400px;overflow-y:auto;box-shadow:0 12px 36px rgba(0,0,0,.14)"></div>
+      <div id="search-drop" style="display:none;position:absolute;top:calc(100% + 6px);left:0;right:0;background:var(--sb-bg,#FFFDF9);border:1px solid #DDD5C8;border-radius:4px;z-index:200;max-height:400px;overflow-y:auto;box-shadow:0 12px 36px rgba(0,0,0,.14)"></div>
     </div>
     <div class="nav-right">
       <button id="dark-toggle" onclick="toggleDark()" title="Toggle dark mode">🌙</button>
@@ -318,8 +1060,171 @@ body.dark .drawer-footer{border-color:#3A3028}
 
 <footer id="site-footer"></footer>
 <div class="toast-wrap" id="toast-wrap"></div>
+</div>
+
+<!-- ═══ SHARED: toast area + auth modal ═══ -->
+<!-- toast-wrap from index.html handles all toasts -->
+<div id="auth-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;background:rgba(28,24,20,.72);padding:20px;overflow-y:auto"></div>
 
 <script>
+/* ═══════════════════════════════════════════════════
+   LANDING / APP VISIBILITY HELPERS
+═══════════════════════════════════════════════════ */
+
+// ── LANDING / APP VISIBILITY ──────────────────────────────────────────────
+function showLanding(){
+  const l = document.getElementById('landing-shell');
+  const a = document.getElementById('app-shell');
+  if(l) l.style.display = 'block';
+  if(a) a.style.display = 'none';
+  document.body.classList.remove('app-mode');
+}
+function hideLanding(){
+  const l = document.getElementById('landing-shell');
+  if(l) l.style.display = 'none';
+}
+function showApp(){
+  const l = document.getElementById('landing-shell');
+  const a = document.getElementById('app-shell');
+  if(l) l.style.display = 'none';
+  if(a) a.style.display = 'block';
+  document.body.classList.add('app-mode');
+}
+
+
+/* ═══════════════════════════════════════════════════
+   LANDING PAGE JS
+═══════════════════════════════════════════════════ */
+// Single-file mode: no redirect needed
+function go(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
+function toApp(mode){
+  // Hide landing, show login wall with correct mode
+  hideLanding();
+  showLoginWall();
+  setLoginWallMode(mode === 'signup' ? 'signup' : 'login');
+}
+// toast() provided by main app JS
+async function nlSub(){
+  const e=document.getElementById('landing-nl-email')?.value?.trim();
+  if(!e||!e.includes('@')){toast('Enter a valid email','warning');return;}
+  try{
+    if(typeof sb !== 'undefined') await sb.from('newsletter_subscribers').insert({email:e});
+  }catch(ex){}
+  toast('Subscribed! Now create your free account 🎉');
+  setTimeout(()=>toApp('signup'), 900);
+}
+
+// Ticker
+const H=["AI tool releases are outpacing enterprise adoption by 4× — Q1 2026","The average startup is now using 7+ AI tools with no central tracking","80% of AI tool complaints go unread by the product teams they affect","India's AI startup count doubled in 12 months — most founders cite tool confusion","Enterprise AI adoption is slowing due to lack of reliable comparative data","The AI intelligence gap between informed and uninformed teams is growing fast","AI coding tools are now cited in 60% of developer job descriptions","Cursor surpassed VS Code in developer satisfaction surveys — March 2026"];
+(()=>{const items=[...H,...H];document.getElementById('landing-ticker').innerHTML=items.map(i=>`<span style="font-size:11.5px;color:rgba(255,255,255,.48);letter-spacing:.06em;padding:0 40px">◆  ${i}</span>`).join('')})();
+
+// scroll reveal handled below
+
+// 3D AI Knowledge Graph
+(()=>{
+  const cv=document.getElementById('ai3d');
+  if(!cv)return;
+  const cx=cv.getContext('2d');
+  let W,H,nodes=[],edges=[],raf,drag=false,lx=0,ly=0,ry=0.4,rx=0.28,vy=0.003,vx=0;
+
+  const LABELS=['Tools','Search','Coding','Writing','Video','Inference','Agents','APIs','Models','Data','Voice','Vision','RAG','Fine-tune','Embeddings','Prompts','Evals','Safety','Alignment','Benchmarks'];
+
+  function resize(){
+    W=cv.clientWidth;H=cv.clientHeight;
+    cv.width=W*devicePixelRatio;cv.height=H*devicePixelRatio;
+    cx.scale(devicePixelRatio,devicePixelRatio);
+  }
+
+  function build(){
+    nodes=[];edges=[];
+    const R=Math.min(W,H)*0.33;
+    nodes.push({x:0,y:0,z:0,r:15,label:'FloMKa',type:'hub',p:0,pd:1});
+    for(let i=0;i<6;i++){
+      const a=(i/6)*Math.PI*2,tilt=(i%2===0?.3:-.3);
+      nodes.push({x:R*.4*Math.cos(a),y:R*.4*Math.sin(a)*0.6+tilt*R*.2,z:R*.4*Math.sin(a)*0.4,r:8,label:LABELS[i],type:'primary',p:Math.random()*Math.PI*2,pd:1});
+      edges.push({a:0,b:nodes.length-1,t:'p'});
+    }
+    for(let i=0;i<14;i++){
+      const θ=Math.random()*Math.PI*2,φ=Math.acos(2*Math.random()-1),r=R*(.55+Math.random()*.45);
+      nodes.push({x:r*Math.sin(φ)*Math.cos(θ),y:r*Math.sin(φ)*Math.sin(θ),z:r*Math.cos(φ),r:4+Math.random()*3,label:LABELS[6+i%14],type:'sec',p:Math.random()*Math.PI*2,pd:Math.random()>.5?1:-1});
+      edges.push({a:1+Math.floor(Math.random()*6),b:nodes.length-1,t:'s'});
+    }
+    for(let i=0;i<7;i++){const a=7+~~(Math.random()*14),b=7+~~(Math.random()*14);if(a!==b)edges.push({a,b,t:'t'})}
+  }
+
+  function proj(x,y,z){
+    const cy2=Math.cos(ry),sy=Math.sin(ry);
+    const x1=x*cy2-z*sy,z1=x*sy+z*cy2;
+    const cx2=Math.cos(rx),sx=Math.sin(rx);
+    const y2=y*cx2-z1*sx,z2=y*sx+z1*cx2;
+    const f=580,s=f/(f+z2);
+    return{sx:W/2+x1*s,sy:H/2+y2*s,sc:s,z:z2};
+  }
+
+  function draw(){
+    cx.clearRect(0,0,W,H);
+    nodes.forEach(n=>{n.p+=.022*n.pd;if(n.p>Math.PI*2)n.p-=Math.PI*2});
+    const pr=nodes.map(n=>({...n,...proj(n.x,n.y,n.z)}));
+
+    // edges
+    edges.forEach(e=>{
+      const a=pr[e.a],b=pr[e.b];if(!a||!b)return;
+      const d=Math.max(0,(.5-Math.abs(a.z/380))*(.5-Math.abs(b.z/380))+.1);
+      cx.beginPath();cx.moveTo(a.sx,a.sy);cx.lineTo(b.sx,b.sy);
+      cx.strokeStyle=e.t==='p'?`rgba(166,25,46,${d*.8})`:e.t==='s'?`rgba(201,168,76,${d*.5})`:`rgba(180,169,158,${d*.3})`;
+      cx.lineWidth=e.t==='p'?.9:.45;cx.stroke();
+    });
+
+    // nodes sorted by z
+    [...pr].sort((a,b)=>a.z-b.z).forEach(n=>{
+      const pf=.86+.14*Math.sin(n.p),r=n.r*n.sc*pf;
+      const dp=Math.max(0,Math.min(1,(n.z+380)/760));
+
+      if(n.type!=='sec'){
+        const g=cx.createRadialGradient(n.sx,n.sy,0,n.sx,n.sy,r*3.5);
+        g.addColorStop(0,n.type==='hub'?'rgba(166,25,46,0.22)':'rgba(201,168,76,0.18)');
+        g.addColorStop(1,'rgba(0,0,0,0)');
+        cx.beginPath();cx.arc(n.sx,n.sy,r*3.5,0,Math.PI*2);cx.fillStyle=g;cx.fill();
+      }
+
+      cx.beginPath();cx.arc(n.sx,n.sy,r,0,Math.PI*2);
+      cx.fillStyle=n.type==='hub'?`rgba(166,25,46,${.65+.3*dp})`:n.type==='primary'?`rgba(201,168,76,${.5+.4*dp})`:`rgba(180,169,158,${.28+.3*dp})`;
+      cx.fill();
+
+      if(n.type==='hub'){cx.beginPath();cx.arc(n.sx,n.sy,r+5,0,Math.PI*2);cx.strokeStyle='rgba(166,25,46,0.25)';cx.lineWidth=1;cx.stroke()}
+
+      if((n.type==='hub'||n.type==='primary')&&dp>.25){
+        const fs=Math.max(9,10*n.sc);
+        cx.font=`${n.type==='hub'?'600 ':''}${fs}px 'Jost',sans-serif`;
+        cx.fillStyle=`rgba(58,53,48,${.45+.45*dp})`;
+        cx.textAlign='center';
+        cx.fillText(n.label,n.sx,n.sy+r+11*n.sc);
+      }
+    });
+
+    // decorative orbit ring
+    cx.beginPath();
+    cx.ellipse(W/2,H/2,Math.min(W,H)*.4,Math.min(W,H)*.12,ry*.25,0,Math.PI*2);
+    cx.strokeStyle='rgba(201,168,76,0.07)';cx.lineWidth=1;cx.stroke();
+
+    if(!drag){ry+=vy;rx+=vx;vx*=.97}
+    raf=requestAnimationFrame(draw);
+  }
+
+  cv.addEventListener('mousedown',e=>{drag=true;lx=e.clientX;ly=e.clientY});
+  window.addEventListener('mouseup',()=>drag=false);
+  window.addEventListener('mousemove',e=>{if(!drag)return;ry+=(e.clientX-lx)*.008;rx+=(e.clientY-ly)*.008;lx=e.clientX;ly=e.clientY});
+  cv.addEventListener('touchstart',e=>{drag=true;lx=e.touches[0].clientX;ly=e.touches[0].clientY},{passive:true});
+  cv.addEventListener('touchend',()=>drag=false,{passive:true});
+  cv.addEventListener('touchmove',e=>{if(!drag)return;ry+=(e.touches[0].clientX-lx)*.008;rx+=(e.touches[0].clientY-ly)*.008;lx=e.touches[0].clientX;ly=e.touches[0].clientY},{passive:true});
+
+  const ro=new ResizeObserver(()=>{cancelAnimationFrame(raf);resize();build();draw()});
+  ro.observe(cv);resize();build();draw();
+})();
+
+/* ═══════════════════════════════════════════════════
+   APP JS  (Supabase, SPA routing, all features)
+═══════════════════════════════════════════════════ */
 // ===================== SUPABASE INIT =====================
 const SUPABASE_URL = 'https://yshheaikixdqundqboiv.supabase.co';
 const SUPABASE_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlzaGhlYWlraXhkcXVuZHFib2l2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM5OTE3NDIsImV4cCI6MjA4OTU2Nzc0Mn0.9gsyaIv_IQDkQKwiYfmx1a5JT67Km7KURYCNR_D1QIE';
@@ -328,6 +1233,14 @@ const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
 
 // Razorpay Key (replace with your actual key)
 const RAZORPAY_KEY = 'rzp_test_YourKeyHere';
+
+// Groq API Key (replace with your actual Groq key from console.groq.com)
+const GROQ_API_KEY = 'YOUR_GROQ_API_KEY_HERE';
+
+// ===================== UTILS (early) =====================
+function esc(str){ 
+  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); 
+}
 
 // ===================== STATE =====================
 let currentPage = 'home';
@@ -377,6 +1290,10 @@ function timeAgo(dateStr){
 }
 function navigate(page){
   currentPage = page;
+  // Clear data cache when revisiting content pages so admin changes appear
+  if(['tools','complaints','ideas','home','brief','trends'].includes(page)){
+    clearCache();
+  }
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const el = c('page-' + page);
   if(el){ el.classList.add('active'); renderPage(page); }
@@ -393,12 +1310,104 @@ function toggleDark(){
 }
 
 // ===================== AUTH =====================
+function showLoginWall(){
+  const wall = c('login-wall');
+  if(wall) wall.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function hideLoginWall(){
+  const wall = c('login-wall');
+  if(wall) wall.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function setLoginWallMode(mode){
+  const isLogin = mode === 'login';
+  const title = c('lw-title');
+  const subtitle = c('lw-subtitle');
+  const nameRow = c('lw-name-row');
+  const submitBtn = c('lw-submit');
+  const switchMsg = c('lw-switch-msg');
+  const forgotRow = c('lw-forgot-row');
+  if(title) title.textContent = isLogin ? 'Welcome back' : 'Create your account';
+  if(subtitle) subtitle.textContent = isLogin ? 'Sign in to access FloMKa' : 'Free — no credit card needed';
+  if(nameRow) nameRow.style.display = isLogin ? 'none' : 'block';
+  if(submitBtn) submitBtn.textContent = isLogin ? 'Sign in →' : 'Create account →';
+  if(forgotRow) forgotRow.style.display = isLogin ? 'block' : 'none';
+  if(switchMsg) switchMsg.innerHTML = isLogin
+    ? `No account? <button onclick="setLoginWallMode('signup')" style="background:none;border:none;color:#A6192E;font-weight:600;cursor:pointer;font-size:13px;text-decoration:underline">Sign up free</button>`
+    : `Already have an account? <button onclick="setLoginWallMode('login')" style="background:none;border:none;color:#A6192E;font-weight:600;cursor:pointer;font-size:13px;text-decoration:underline">Sign in</button>`;
+  c('lw-error').style.display = 'none';
+  c('lw-wall-form').dataset.mode = mode;
+}
+
+async function signInWithGoogle(){
+  const { error } = await sb.auth.signInWithOAuth({
+    provider: 'google',
+    options: { redirectTo: window.location.href }
+  });
+  if(error) showLwError(error.message);
+}
+
+async function signInWithLinkedIn(){
+  const { error } = await sb.auth.signInWithOAuth({
+    provider: 'linkedin_oidc',
+    options: { redirectTo: window.location.href }
+  });
+  if(error) showLwError(error.message);
+}
+
+function showLwError(msg){
+  const el = c('lw-error');
+  if(el){ el.textContent = msg; el.style.display = 'block'; }
+}
+
+async function submitLoginWall(){
+  const mode = c('lw-wall-form')?.dataset.mode || 'login';
+  const name = c('lw-name')?.value?.trim() || '';
+  const email = c('lw-email')?.value?.trim() || '';
+  const pw = c('lw-pw')?.value || '';
+  if(mode === 'signup' && !name){ showLwError('Please enter your name'); return; }
+  if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showLwError('Enter a valid email address'); return; }
+  if(!pw || pw.length < 8){ showLwError('Password must be at least 8 characters'); return; }
+  const btn = c('lw-submit');
+  btn.innerHTML = '<span class="spinner"></span> Please wait…';
+  btn.disabled = true;
+  c('lw-error').style.display = 'none';
+  if(mode === 'signup'){
+    const { error } = await sb.auth.signUp({ email, password: pw, options: { data: { name } } });
+    if(error){ showLwError(error.message); btn.textContent = 'Create account →'; btn.disabled = false; return; }
+    showLwError('✓ Check your email to confirm your account, then sign in.');
+    c('lw-error').style.color = '#2D6A3F';
+    c('lw-error').style.background = '#EAF4ED';
+    btn.textContent = 'Create account →'; btn.disabled = false;
+  } else {
+    const { error } = await sb.auth.signInWithPassword({ email, password: pw });
+    if(error){ showLwError(error.message); btn.textContent = 'Sign in →'; btn.disabled = false; return; }
+  }
+}
+
+async function sendLwReset(){
+  const email = c('lw-email')?.value?.trim();
+  if(!email){ showLwError('Enter your email first'); return; }
+  const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin });
+  if(error){ showLwError(error.message); return; }
+  showLwError('✓ Reset link sent — check your inbox.');
+  c('lw-error').style.color = '#2D6A3F';
+  c('lw-error').style.background = '#EAF4ED';
+}
+
 async function initAuth(){
   const { data: { session } } = await sb.auth.getSession();
   if(session?.user){
     currentUser = session.user;
     await loadProfile();
     await loadUserInteractions();
+    hideLoginWall();
+    showApp();
+  } else {
+    showLanding();
   }
   renderNavAuth();
 
@@ -406,20 +1415,32 @@ async function initAuth(){
     if(event === 'SIGNED_IN' && session?.user){
       currentUser = session.user;
       await loadProfile();
+      try {
+        await sb.from('profiles').upsert({
+          id: currentUser.id,
+          email: currentUser.email,
+          name: currentUser.user_metadata?.name || currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || 'User',
+          plan: currentProfile?.plan || 'free',
+          updated_at: new Date().toISOString()
+        }, { onConflict: 'id', ignoreDuplicates: true });
+      } catch(e) { console.warn('Profile upsert skipped:', e.message); }
       await loadUserInteractions();
+      hideLoginWall();
+      showApp();
       renderNavAuth();
       closeModal('auth-modal');
       document.body.style.overflow = '';
-      toast(`Welcome to FloMKa, ${currentProfile?.name || 'friend'}! 🎉`);
-      setTimeout(() => navigate('dashboard'), 400);
+      toast('Welcome to FloMKa, ' + (currentProfile?.name?.split(' ')[0] || 'friend') + '! 🎉');
+      await renderPage('home');
     } else if(event === 'SIGNED_OUT'){
       currentUser = null;
       currentProfile = null;
       userVotes = new Set();
       userSaves = new Set();
+      showLanding();
+      setLoginWallMode('login');
       renderNavAuth();
-      navigate('home');
-      toast('Signed out successfully');
+      toast('Signed out');
     }
   });
 }
@@ -474,8 +1495,7 @@ function renderNavAuth(){
   } else {
     el.innerHTML = `
       <div style="display:flex;gap:8px">
-        <button class="btn btn-sm" onclick="openAuth('login')">Sign in</button>
-        <button class="btn btn-sm btn-red" onclick="openWaitlist()">Join Waitlist 🚀</button>
+        <button class="btn btn-sm btn-gold" onclick="showLoginWall();setLoginWallMode('signup')">Join free →</button>
       </div>`;
   }
 }
@@ -570,6 +1590,7 @@ async function sendReset(){
 
 async function logout(){
   await sb.auth.signOut();
+  // login wall shown via onAuthStateChange SIGNED_OUT handler
 }
 
 function closeModal(id){ 
@@ -579,7 +1600,7 @@ function closeModal(id){
 
 // ===================== VOTES & SAVES =====================
 async function handleVote(itemId, itemType, el){
-  if(!currentUser){ openAuth('login'); toast('Sign in to vote', 'warning'); return; }
+  if(!currentUser){ showLoginWall(); toast('Sign in to vote', 'warning'); return; }
   const cnt = el.querySelector('.vote-cnt');
   const currentVal = parseInt(cnt?.textContent || 0);
   const hasVoted = userVotes.has(itemId);
@@ -602,7 +1623,7 @@ async function handleVote(itemId, itemType, el){
 }
 
 async function handleSave(slug, el){
-  if(!currentUser){ openAuth('login'); toast('Sign in to save tools', 'warning'); return; }
+  if(!currentUser){ showLoginWall(); toast('Sign in to save tools', 'warning'); return; }
   const hasSaved = userSaves.has(slug);
   // Optimistic UI update
   if(hasSaved){
@@ -723,7 +1744,7 @@ function handleSearch(q){
   if(tools.length){
     html += `<div style="padding:6px 14px 3px;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7A7068">Tools</div>`;
     tools.forEach(t => {
-      html += `<div onclick="navigate('tools');closeSearch()" style="padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center" onmouseover="this.style.background='#F5F0E8'" onmouseout="this.style.background='transparent'">
+      html += `<div onclick="navigate('tools');closeSearch()" style="padding:10px 14px;cursor:pointer;display:flex;gap:10px;align-items:center" onmouseover="this.style.background='rgba(0,0,0,0.05)'" onmouseout="this.style.background='transparent'">
         <div style="width:30px;height:30px;background:#F9EAEC;border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-weight:700;color:#A6192E;font-size:14px">${t.name[0]}</div>
         <div><div style="font-size:13.5px;font-weight:500">${t.name}</div><div style="font-size:11px;color:#7A7068">${t.cat} — Score ${t.score}</div></div></div>`;
     });
@@ -731,7 +1752,7 @@ function handleSearch(q){
   if(complaints.length){
     html += `<div style="padding:6px 14px 3px;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#7A7068;border-top:1px solid #EDE8E0">Complaints</div>`;
     complaints.forEach(comp => {
-      html += `<div onclick="navigate('complaints');closeSearch()" style="padding:10px 14px;cursor:pointer;display:flex;gap:8px;align-items:flex-start" onmouseover="this.style.background='#F5F0E8'" onmouseout="this.style.background='transparent'">
+      html += `<div onclick="navigate('complaints');closeSearch()" style="padding:10px 14px;cursor:pointer;display:flex;gap:8px;align-items:flex-start" onmouseover="this.style.background='rgba(0,0,0,0.05)'" onmouseout="this.style.background='transparent'">
         <span style="color:#A6192E">⚠</span><div><div style="font-size:13px;font-weight:500">${comp.tool}</div><div style="font-size:11px;color:#7A7068">${comp.complaint.slice(0,55)}</div></div></div>`;
     });
   }
@@ -827,8 +1848,8 @@ async function renderHome(){
         <div style="background:#1C1814;border-radius:3px;padding:14px 16px;margin-bottom:28px;border:1px solid #3A3028">
           <div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#C9A84C;margin-bottom:8px">⚡ AI Tool Finder</div>
           <div style="display:flex;gap:8px">
-            <input type="text" id="hero-finder-input" placeholder="What do you need to do with AI?" style="flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#F5F0E8;font-size:13px" onkeydown="if(event.key==='Enter'){navigate('tools');setTimeout(()=>{document.getElementById('finder-input').value=this.value;runFinder()},300)}"/>
-            <button class="btn btn-gold" style="flex-shrink:0;font-size:12px;padding:8px 14px" onclick="const v=document.getElementById('hero-finder-input').value;if(v){navigate('tools');setTimeout(()=>{document.getElementById('finder-input').value=v;runFinder()},300)}">Ask AI →</button>
+            <input type="text" id="hero-finder-input" placeholder="What do you need to do with AI?" style="flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#F5F0E8;font-size:13px" onkeydown="if(event.key==='Enter'){const v=this.value;navigate('tools');setTimeout(()=>{const fi=document.getElementById('finder-input');if(fi){fi.value=v;runFinder();}},600)}"/>
+            <button class="btn btn-gold" style="flex-shrink:0;font-size:12px;padding:8px 14px" onclick="const v=document.getElementById('hero-finder-input').value;if(v){navigate('tools');setTimeout(()=>{const fi=document.getElementById('finder-input');if(fi){fi.value=v;runFinder();}},600)}">Ask AI →</button>
           </div>
         </div>
         <div class="hero-stats">
@@ -904,7 +1925,7 @@ async function renderHome(){
               <span class="tag">${comp.cat}</span>
               <span style="margin-left:auto;font-size:11px;color:#7A7068">${timeAgo(comp.created_at)}</span>
             </div>
-            <p style="font-size:13.5px;color:#3A3530;line-height:1.6">${comp.complaint}</p>
+            <p style="font-size:13.5px;color:#3A3530;line-height:1.6">${esc(comp.complaint)}</p>
           </div>
           <button class="btn btn-sm ${userVotes.has(comp.id)?'voted':''}" onclick="handleVote('${comp.id}','complaint',this)">▲ <span class="vote-cnt">${comp.votes}</span></button>
         </div>`).join('')}
@@ -928,7 +1949,7 @@ async function renderHome(){
               <span class="tag">${idea.cat}</span>
               <span style="font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:2px;background:#EAF4ED;color:#2D6A3F;margin-left:auto">Score ${idea.score}</span>
             </div>
-            <p class="idea-problem">"${idea.problem}"</p>
+            <p class="idea-problem">"${esc(idea.problem)}"</p>
             <div class="divider"></div>
             <p class="idea-opp">${idea.opportunity}</p>
             <p style="font-size:11.5px;color:#7A7068;margin-bottom:14px">${idea.evidence}</p>
@@ -1082,6 +2103,8 @@ function changeIndustry(val){
 function showMethodology(){
   const m = c('auth-modal');
   m.style.display = 'flex';
+  m.style.alignItems = 'flex-start';
+  m.style.justifyContent = 'center';
   document.body.style.overflow = 'hidden';
   m.innerHTML = `<div class="modal-wrap"><div class="modal" style="max-width:520px">
     <button class="modal-close" onclick="closeModal('auth-modal')">✕</button>
@@ -1148,6 +2171,10 @@ async function generateBrief(){
   const topIdea = ideas[0];
   const risingTools = tools.filter(t=>t.trend==='up').slice(0,3).map(t=>`${t.name} (+${t.change})`).join(', ');
 
+  if(!GROQ_API_KEY || GROQ_API_KEY === 'YOUR_GROQ_API_KEY_HERE'){
+    renderBriefFallback(tools, complaints, ideas);
+    return;
+  }
   try {
     const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method:'POST',
@@ -1168,11 +2195,17 @@ async function generateBrief(){
         ]
       })
     });
+    if(!resp.ok){
+      const errData = await resp.json().catch(()=>({}));
+      throw new Error(errData.error?.message || `HTTP ${resp.status}`);
+    }
     const data = await resp.json();
     const text = data.choices?.[0]?.message?.content || '';
+    if(!text) throw new Error('Empty response from AI');
     const brief = JSON.parse(text.replace(/```json|```/g,'').trim());
     renderBriefContent(brief, tools, complaints, ideas);
   } catch(e){
+    console.warn('Brief AI error:', e.message);
     renderBriefFallback(tools, complaints, ideas);
   }
 }
@@ -1372,8 +2405,8 @@ async function renderCompare(){
     <!-- Quick picks -->
     <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px">
       <span style="font-size:11px;color:#7A7068;padding-top:5px">Quick compare:</span>
-      ${[['t1','t2','Cursor vs Perplexity'],['t1','t3','Cursor vs Groq'],['t2','t4','Perplexity vs Claude']].map(([a,b,label])=>`
-      <button onclick="quickCompare('${a}','${b}')" style="font-size:11.5px;padding:4px 12px;border:1px solid #DDD5C8;border-radius:2px;background:#FFFDF9;color:#3A3530;cursor:pointer;font-family:'Jost',sans-serif;transition:all .2s" onmouseover="this.style.borderColor='#A6192E';this.style.color='#A6192E'" onmouseout="this.style.borderColor='#DDD5C8';this.style.color='#3A3530'">${label}</button>`).join('')}
+      ${[['Cursor','Perplexity'],['Cursor','Groq'],['Perplexity','Claude']].map(([a,b])=>`
+      <button onclick="quickCompareByName('${a}','${b}')" style="font-size:11.5px;padding:4px 12px;border:1px solid #DDD5C8;border-radius:2px;background:#FFFDF9;color:#3A3530;cursor:pointer;font-family:'Jost',sans-serif;transition:all .2s" onmouseover="this.style.borderColor='#A6192E';this.style.color='#A6192E'" onmouseout="this.style.borderColor='#DDD5C8';this.style.color='#3A3530'">${a} vs ${b}</button>`).join('')}
     </div>
 
     <div id="compare-result"></div>
@@ -1384,6 +2417,16 @@ function quickCompare(aId, bId){
   const sa = c('compare-a'), sb2 = c('compare-b');
   if(sa) sa.value = aId;
   if(sb2) sb2.value = bId;
+  runCompare();
+}
+
+function quickCompareByName(nameA, nameB){
+  const tA = cachedTools.find(t => t.name.toLowerCase() === nameA.toLowerCase());
+  const tB = cachedTools.find(t => t.name.toLowerCase() === nameB.toLowerCase());
+  if(!tA || !tB){ toast('These tools are not in the directory yet', 'warning'); return; }
+  const sa = c('compare-a'), sb2 = c('compare-b');
+  if(sa) sa.value = tA.id;
+  if(sb2) sb2.value = tB.id;
   runCompare();
 }
 
@@ -1406,6 +2449,7 @@ async function runCompare(){
   const cB = complaints.filter(c=>c.tool.toLowerCase()===tB.name.toLowerCase()).slice(0,2);
 
   let verdict = '';
+  if(GROQ_API_KEY && GROQ_API_KEY !== 'YOUR_GROQ_API_KEY_HERE'){
   try {
     const resp = await fetch('https://api.groq.com/openai/v1/chat/completions',{
       method:'POST',
@@ -1421,6 +2465,7 @@ async function runCompare(){
     const d = await resp.json();
     verdict = d.choices?.[0]?.message?.content || '';
   } catch(e){ verdict = `${tA.name} leads on score (${tA.score} vs ${tB.score}). Choose based on your specific use case and budget.`; }
+  } else { verdict = `${tA.name} leads on score (${tA.score} vs ${tB.score}). Configure a Groq API key to get AI-powered verdicts.`; }
 
   const winner = tA.score >= tB.score ? tA : tB;
   const result = c('compare-result');
@@ -1478,6 +2523,9 @@ async function runCompare(){
 let activeCat = 'All';
 
 async function askGroqFinder(query, tools, complaints){
+  if(!GROQ_API_KEY || GROQ_API_KEY === 'YOUR_GROQ_API_KEY_HERE'){
+    throw new Error('Groq API key not configured. Add your key to enable AI recommendations.');
+  }
   const toolsSummary = tools.slice(0,12).map(t => {
     const relatedComplaints = complaints.filter(c => c.tool.toLowerCase() === t.name.toLowerCase()).slice(0,2);
     return `Tool: ${t.name} | Category: ${t.cat} | Score: ${t.score} | Price: ${t.price||'Free'} | Description: ${t.description} | Known complaints: ${relatedComplaints.length ? relatedComplaints.map(c=>c.complaint).join('; ') : 'None significant'}`;
@@ -1758,7 +2806,7 @@ async function renderComplaints(){
           <span class="tag">${comp.cat}</span>
           <span style="margin-left:auto;font-size:11px;color:#7A7068">${comp.source} · ${timeAgo(comp.created_at)}</span>
         </div>
-        <p style="font-size:14px;color:#3A3530;line-height:1.65">${comp.complaint}</p>
+        <p style="font-size:14px;color:#3A3530;line-height:1.65">${esc(comp.complaint)}</p>
       </div>
       <button class="btn btn-sm ${userVotes.has(comp.id)?'voted':''}" onclick="handleVote('${comp.id}','complaint',this)">▲ <span class="vote-cnt">${comp.votes}</span></button>
     </div>`).join('');
@@ -1802,7 +2850,7 @@ async function renderIdeas(){
         <span style="font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:2px;background:#EAF4ED;color:#2D6A3F;margin-left:auto">Score ${idea.score}/100</span>
       </div>
       <div class="uppercase" style="margin-bottom:4px">Problem</div>
-      <p class="idea-problem">"${idea.problem}"</p>
+      <p class="idea-problem">"${esc(idea.problem)}"</p>
       <div class="divider"></div>
       <div class="uppercase" style="margin-bottom:4px">Opportunity</div>
       <p class="idea-opp">${idea.opportunity}</p>
@@ -1857,7 +2905,7 @@ function renderPricing(){
         <div style="margin-bottom:24px">
           ${p.features.map(f => `<div class="plan-feature"><span class="${f.y?'check':'cross'}">${f.y?'✓':'✕'}</span><span style="color:${f.y?'#3A3530':'#7A7068'}">${f.l}</span></div>`).join('')}
         </div>
-        <button onclick="${p.price===0?`openAuth('signup')`:`openWaitlist()`}" class="btn" style="width:100%;padding:13px;border-color:${p.color};color:${p.featured?'#fff':p.color};background:${p.featured?p.color:'transparent'};font-size:13.5px;font-weight:500"
+        <button onclick="${p.price===0?'showLoginWall()':'openWaitlist()'}" class="btn" style="width:100%;padding:13px;border-color:${p.color};color:${p.featured?'#fff':p.color};background:${p.featured?p.color:'transparent'};font-size:13.5px;font-weight:500"
           onmouseover="this.style.background='${p.color}';this.style.color='#fff'"
           onmouseout="this.style.background='${p.featured?p.color:'transparent'}';this.style.color='${p.featured?'#fff':p.color}'">
           ${p.cta}
@@ -1899,7 +2947,7 @@ async function renderDashboard(){
     el.innerHTML = `<div style="text-align:center;padding:80px 24px">
       <h2 style="font-size:28px;margin-bottom:8px">Sign in to access your dashboard</h2>
       <p class="muted" style="font-size:14px;margin-bottom:24px">Free account — no credit card required.</p>
-      <button class="btn btn-red" onclick="openAuth('login')" style="padding:12px 28px;font-size:14px">Sign in to FloMKa</button>
+      <button class="btn btn-red" onclick="showLoginWall()" style="padding:12px 28px;font-size:14px">Sign in to FloMKa</button>
     </div>`;
     return;
   }
@@ -1990,6 +3038,9 @@ async function renderDashContent(){
     setTimeout(() => {
       const canvas = c('dash-chart');
       if(!canvas) return;
+      // Destroy existing chart instance to prevent "Canvas already in use" error
+      const existingChart = Chart.getChart(canvas);
+      if(existingChart) existingChart.destroy();
       new Chart(canvas, {type:'line',data:{labels:['Jan W1','Jan W2','Feb W1','Feb W2','Mar W1','Mar W2'],datasets:[{label:'Cursor',data:[68,74,80,86,93,98],borderColor:'#A6192E',backgroundColor:'rgba(166,25,46,.08)',fill:true,tension:.4,pointRadius:3}]},options:{responsive:true,plugins:{legend:{display:false}},scales:{x:{grid:{display:false},ticks:{color:'#7A7068',font:{size:10}}},y:{min:0,max:100,grid:{color:'rgba(0,0,0,.05)'},ticks:{color:'#7A7068',font:{size:10}}}}}});
     }, 100);
 
@@ -2059,7 +3110,7 @@ async function renderDashContent(){
     el.innerHTML = `
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
       <h3 style="font-size:24px">Trend alerts</h3>
-      <button class="btn btn-red btn-sm" onclick="${currentProfile?.plan==='free'?`openWaitlist()`:`toast('Alert creation coming soon!')`}">+ New alert</button>
+      <button class="btn btn-red btn-sm" onclick="currentProfile?.plan==='free'?openWaitlist():toast('Coming soon!')">+ New alert</button>
     </div>
     ${currentProfile?.plan === 'free'
       ? `<div class="pro-nudge"><span>⚡</span><span><strong>Pro feature</strong> — upgrade to set unlimited trend alerts via email, Telegram, and Discord.</span><button class="btn btn-gold btn-sm" onclick="openWaitlist()">Join Waitlist →</button></div>`
@@ -2117,8 +3168,12 @@ async function saveSettings(){
 }
 
 async function deleteAccount(){
-  const { error } = await sb.auth.admin?.deleteUser(currentUser.id);
+  try {
+    // Delete profile data (auth user deletion requires server-side admin API)
+    if(currentUser) await sb.from('profiles').delete().eq('id', currentUser.id);
+  } catch(e) { console.warn('Profile delete error:', e.message); }
   await sb.auth.signOut();
+  toast('Account data removed. Contact support to fully delete your auth account.');
 }
 
 // ===================== HISTORY HELPERS =====================
@@ -2259,16 +3314,10 @@ function updateDrawerActiveLink(){
     l.classList.toggle('active', l.dataset.drawerPage === currentPage);
   });
 }
-// Close drawer on Escape, update active link on navigate
-document.addEventListener('keydown', e => {
-  if(e.key === 'Escape'){ closeDrawer(); }
-});
-const _origNavigate = navigate;
-
-// ===================== INIT =====================
-// Close modal on Escape key
+// Close drawer and modal on Escape key
 document.addEventListener('keydown', e => {
   if(e.key === 'Escape'){
+    closeDrawer();
     closeModal('auth-modal');
   }
 });
@@ -2278,11 +3327,13 @@ async function init(){
   renderFooter();
   if(darkMode) c('dark-toggle').textContent = '☀️';
   await initAuth();
-  await renderPage('home');
+  if(currentUser){
+    await renderPage('home');
+  }
+  // Landing/app visibility handled by initAuth -> showLanding/showApp
 }
 
 init();
 </script>
-<div id="auth-modal" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9999;background:rgba(28,24,20,.72);align-items:center;justify-content:center;padding:20px;overflow-y:auto"></div>
 </body>
 </html>
