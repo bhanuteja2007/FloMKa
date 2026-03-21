@@ -129,6 +129,11 @@ function toast(msg, type='success'){
 function timeAgo(d){ const h=Math.floor((Date.now()-new Date(d))/3600000); return h<1?'just now':h<24?h+'h ago':Math.floor(h/24)+'d ago'; }
 function closeModal(){ c('modal-root').innerHTML=''; }
 
+// ===================== UTILS (early) =====================
+function esc(str){ 
+  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); 
+}
+
 // ===================== AUTH =====================
 async function initAdmin(){
   const { data:{ session } } = await sb.auth.getSession();
@@ -258,7 +263,7 @@ function renderAdminApp(){
     <div class="topbar">
       <div class="topbar-title" id="topbar-title">Dashboard</div>
       <div style="display:flex;gap:8px;align-items:center">
-        <span style="font-size:11px;color:#4A4038">Last sync: just now</span>
+        <span style="font-size:11px;color:#4A4038" id="last-sync-label">Last sync: just now</span>
         <button class="btn btn-sm btn-gold" onclick="loadAllData()">⟳ Refresh</button>
         <a href="index.html" target="_blank" class="btn btn-sm">View site →</a>
       </div>
@@ -289,7 +294,7 @@ function showSection(name, el){
 // ===================== LOAD DATA =====================
 async function loadAllData(){
   const [toolsRes, complaintsRes, ideasRes, subsRes, paymentsRes] = await Promise.all([
-    sb.from('tools').select('*').order('rank'),
+    sb.from('tools').select('*').order('rank', { nullsFirst: false }),
     sb.from('complaints').select('*').order('created_at', { ascending: false }),
     sb.from('ideas').select('*').order('score', { ascending: false }),
     sb.from('newsletter_subscribers').select('*').order('created_at', { ascending: false }),
@@ -301,6 +306,8 @@ async function loadAllData(){
   allSubscribers = subsRes.data || [];
   allPayments = paymentsRes.data || [];
   renderSection(currentSection);
+  const syncLabel = c('last-sync-label');
+  if(syncLabel) syncLabel.textContent = 'Last sync: ' + new Date().toLocaleTimeString('en-IN', {hour:'2-digit', minute:'2-digit'});
   toast('Data refreshed');
 }
 
@@ -328,7 +335,7 @@ function renderDashboard(){
       <div class="stat-label">Published tools</div>
     </div>
     <div class="stat-box" style="border-top-color:#C9A84C">
-      <div class="stat-num">${allComplaints.filter(c=>c.published).length}</div>
+      <div class="stat-num">${allComplaints.filter(x=>x.published).length}</div>
       <div class="stat-label">Published complaints</div>
     </div>
     <div class="stat-box" style="border-top-color:#2D6A3F">
@@ -348,11 +355,11 @@ function renderDashboard(){
         <span class="card-title">Pending complaints</span>
         <button class="btn btn-sm" onclick="showSection('complaints', document.querySelector('[data-section=complaints]'))">View all</button>
       </div>
-      ${allComplaints.filter(c=>!c.published).slice(0,5).map(comp=>`
+      ${allComplaints.filter(x=>!x.published).slice(0,5).map(comp=>`
       <div style="display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid #1E1A16">
         <div style="flex:1">
           <div style="font-size:12.5px;font-weight:500;color:#DDD5C8;margin-bottom:2px">${comp.tool}</div>
-          <div style="font-size:11.5px;color:#8C8279;line-height:1.4">${comp.complaint.slice(0,70)}…</div>
+          <div style="font-size:11.5px;color:#8C8279;line-height:1.4">${esc(comp.complaint).slice(0,70)}…</div>
         </div>
         <button class="btn btn-sm btn-green" onclick="publishItem('complaints','${comp.id}',true)">Publish</button>
       </div>`).join('') || '<div style="color:#4A4038;font-size:13px;padding:12px 0">No pending complaints</div>'}
@@ -561,8 +568,8 @@ async function updateScore(id, val){
 // ===================== COMPLAINTS =====================
 function renderComplaintsSection(){
   const el = c('section-complaints');
-  const pending = allComplaints.filter(c=>!c.published);
-  const published = allComplaints.filter(c=>c.published);
+  const pending = allComplaints.filter(x=>!x.published);
+  const published = allComplaints.filter(x=>x.published);
   el.innerHTML = `
   <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
     <div>
@@ -595,7 +602,7 @@ function complaintRow(comp, pub){
           <span style="font-size:11px;color:#4A4038">${comp.source} · ${timeAgo(comp.created_at)}</span>
           <span style="font-size:11px;color:#8C8279;margin-left:auto">${comp.votes.toLocaleString()} votes</span>
         </div>
-        <p style="font-size:13px;color:#DDD5C8;line-height:1.5">${comp.complaint}</p>
+        <p style="font-size:13px;color:#DDD5C8;line-height:1.5">${esc(comp.complaint)}</p>
       </div>
       <div style="display:flex;gap:6px;flex-shrink:0">
         ${!pub?`<button class="btn btn-sm btn-green" onclick="publishItem('complaints','${comp.id}',true)">✓ Publish</button>`:''}
@@ -636,7 +643,7 @@ function openComplaintModal(comp){
           <div class="form-group"><label>Source</label><input type="text" id="cm-source" value="${comp?.source||'reddit'}"/></div>
           <div class="form-group"><label>Initial votes</label><input type="number" id="cm-votes" value="${comp?.votes||0}"/></div>
         </div>
-        <div class="form-group"><label>Complaint text *</label><textarea id="cm-text" style="min-height:90px">${comp?.complaint||''}</textarea></div>
+        <div class="form-group"><label>Complaint text *</label><textarea id="cm-text" style="min-height:90px">${esc(comp?.complaint||"")}</textarea></div>
         <label class="toggle">
           <input type="checkbox" id="cm-pub" ${comp?.published?'checked':''}/><div class="toggle-track"></div><div class="toggle-thumb"></div>
           <span style="font-size:12.5px">Publish immediately</span>
@@ -713,7 +720,7 @@ function openIdeaModal(idea){
       </div>
       <div style="display:flex;flex-direction:column;gap:14px">
         <div class="form-group"><label>Problem statement *</label><input type="text" id="im-problem" value="${idea?.problem||''}" placeholder="The core user problem"/></div>
-        <div class="form-group"><label>Opportunity *</label><textarea id="im-opp" style="min-height:75px">${idea?.opportunity||''}</textarea></div>
+        <div class="form-group"><label>Opportunity *</label><textarea id="im-opp" style="min-height:75px">${esc(idea?.opportunity||"")}</textarea></div>
         <div class="form-group"><label>Evidence</label><input type="text" id="im-evidence" value="${idea?.evidence||''}" placeholder="e.g. 2,847 Reddit upvotes this week"/></div>
         <div class="form-grid">
           <div class="form-group"><label>Category</label><input type="text" id="im-cat" value="${idea?.cat||''}"/></div>
@@ -919,6 +926,10 @@ async function deleteItem(table, id, label){
 }
 
 // ===================== INIT =====================
+document.addEventListener('keydown', e => {
+  if(e.key === 'Escape') closeModal();
+});
+
 initAdmin();
 </script>
 </body>
