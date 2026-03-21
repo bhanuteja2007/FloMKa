@@ -289,154 +289,197 @@ body.dark .drawer-footer{border-color:#3A3028}
 
 
 /* ═══════════════════════════════════════════════════
-   LANDING PAGE STYLES  (from landing.html)
-   Scoped to #landing-shell to avoid conflicts
+   LANDING PAGE STYLES
 ═══════════════════════════════════════════════════ */
+:root{
+  --ink:#1C1814;--ink2:#3A3530;--muted:#7A7068;--faint:#B4A99E;
+  --line:#E8E0D6;--bg:#FDFAF6;--bg2:#F5F0E8;--bg3:#EDE8E0;
+  --red:#A6192E;--red2:#8B1425;--gold:#C9A84C;--gold2:#A07830;--green:#2D6A3F;
+}
+#landing-shell{background:#FDFAF6;font-family:'Jost',sans-serif;color:#1C1814}
+#landing-shell h1,#landing-shell h2,#landing-shell h3,#landing-shell h4{font-family:'Cormorant Garamond',serif;letter-spacing:-.02em}
+#landing-shell .l-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:9px 22px;border:1px solid var(--line);border-radius:2px;background:transparent;color:var(--ink2);font-family:'Jost',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap}
+#landing-shell .l-btn:hover{border-color:var(--red);color:var(--red)}
+#landing-shell .l-btn-red{background:var(--red);color:#fff;border-color:var(--red)}
+#landing-shell .l-btn-red:hover{background:var(--red2);border-color:var(--red2);color:#fff}
+#landing-shell .l-btn-gold{background:var(--gold);color:#1C1814;border-color:var(--gold);font-weight:600}
+#landing-shell .l-btn-gold:hover{background:var(--gold2);border-color:var(--gold2)}
+#landing-shell .l-btn-lg{padding:13px 32px;font-size:14px}
 
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-
-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(253,250,246,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
-.nav-inner{max-width:1180px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.nav-logo{background:none;border:none;cursor:pointer;display:flex;align-items:center}
-.nav-links{display:flex;gap:28px}
-.nav-link{background:none;border:none;font-family:'Jost',sans-serif;font-size:13px;color:var(--muted);cursor:pointer;transition:color .2s;letter-spacing:.01em;padding:4px 0;border-bottom:1.5px solid transparent}
-.nav-link:hover{color:var(--ink);border-bottom-color:var(--red)}
+/* NAV */
+#landing-shell nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(253,250,246,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--line)}
+#landing-shell .ln-inner{max-width:1180px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+#landing-shell .ln-logo{background:none;border:none;cursor:pointer;display:flex;align-items:center}
+#landing-shell .ln-links{display:flex;gap:28px}
+#landing-shell .ln-link{background:none;border:none;font-family:'Jost',sans-serif;font-size:13px;color:var(--muted);cursor:pointer;transition:color .2s;letter-spacing:.01em;padding:4px 0;border-bottom:1.5px solid transparent}
+#landing-shell .ln-link:hover{color:var(--ink);border-bottom-color:var(--red)}
 
 /* HERO */
-.hero{min-height:100vh;display:flex;align-items:center;padding:80px 32px;position:relative;overflow:hidden;background:linear-gradient(150deg,#FDFAF6 0%,#F5F0E8 55%,#EDE8E0 100%)}
-.hero-bg-word{position:absolute;right:-40px;top:50%;transform:translateY(-55%);font-family:'Cormorant Garamond',serif;font-size:300px;font-weight:700;color:rgba(201,168,76,.055);line-height:1;pointer-events:none;user-select:none;letter-spacing:-.04em}
-.hero-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 460px;gap:72px;align-items:center;position:relative;z-index:1;width:100%}50%{opacity:.3;transform:scale(.7)}}
-.eyebrow-row{display:flex;align-items:center;gap:8px;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:22px}
-.hero h1{font-size:62px;line-height:1.05;font-weight:700;color:var(--ink);letter-spacing:-.04em;margin-bottom:24px}
-.hero h1 em{color:var(--red);font-style:italic}
-.hero-sub{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--ink2);line-height:1.68;max-width:480px;margin-bottom:38px}
-.hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:48px}
-.hero-social{display:flex;align-items:center;gap:12px}
-.avatars{display:flex}
-.av{width:28px;height:28px;border-radius:50%;border:2px solid #fff;margin-left:-7px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600}
-.av:first-child{margin-left:0}
+#landing-shell .l-hero{min-height:100vh;display:flex;align-items:center;padding:80px 32px;position:relative;overflow:hidden;background:linear-gradient(150deg,#FDFAF6 0%,#F5F0E8 55%,#EDE8E0 100%)}
+#landing-shell .l-hero-bg{position:absolute;right:-40px;top:50%;transform:translateY(-55%);font-family:'Cormorant Garamond',serif;font-size:300px;font-weight:700;color:rgba(201,168,76,.055);line-height:1;pointer-events:none;user-select:none;letter-spacing:-.04em}
+#landing-shell .l-hero-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1fr 460px;gap:72px;align-items:center;position:relative;z-index:1;width:100%}
+#landing-shell .l-eyebrow{display:flex;align-items:center;gap:8px;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:22px}
+#landing-shell .live-dot{width:7px;height:7px;background:var(--red);border-radius:50%;animation:ldot 1.8s ease-in-out infinite;flex-shrink:0}
+@keyframes ldot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.3;transform:scale(.7)}}
+#landing-shell .l-hero h1{font-size:62px;line-height:1.05;font-weight:700;color:var(--ink);letter-spacing:-.04em;margin-bottom:24px}
+#landing-shell .l-hero h1 em{color:var(--red);font-style:italic}
+#landing-shell .l-hero-sub{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--ink2);line-height:1.68;max-width:480px;margin-bottom:38px}
+#landing-shell .l-hero-btns{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:48px}
+#landing-shell .l-avatars{display:flex}
+#landing-shell .l-av{width:28px;height:28px;border-radius:50%;border:2px solid #fff;margin-left:-7px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600}
+#landing-shell .l-av:first-child{margin-left:0}
+#landing-shell #ai3d{width:100%;height:460px;display:block;border-radius:3px;cursor:grab}
+#landing-shell #ai3d:active{cursor:grabbing}
+#landing-shell .canvas-wrap{position:relative}
+#landing-shell .canvas-tag{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:rgba(253,250,246,.88);padding:5px 14px;border-radius:20px;backdrop-filter:blur(8px);border:1px solid var(--line);white-space:nowrap;pointer-events:none}
 
-/* 3D canvas */
-#ai3d{width:100%;height:460px;display:block;border-radius:3px;cursor:grab}
-#ai3d:active{cursor:grabbing}
-.canvas-wrap{position:relative}
-.canvas-tag{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:rgba(253,250,246,.88);padding:5px 14px;border-radius:20px;backdrop-filter:blur(8px);border:1px solid var(--line);white-space:nowrap;pointer-events:none}
+/* TICKER */
+#landing-shell .l-ticker{background:var(--ink);padding:10px 0;overflow:hidden}
+#landing-shell .l-ticker-track{display:inline-flex;animation:lticker 65s linear infinite;white-space:nowrap}
+@keyframes lticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-/* ticker */100%{transform:translateX(-50%)}}
+/* SECTIONS */
+#landing-shell .l-section{padding:88px 32px}
+#landing-shell .l-wrap{max-width:1180px;margin:0 auto}
+#landing-shell .l-eyebrow2{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+#landing-shell .l-gold{height:1.5px;width:44px;background:var(--gold);opacity:.6;margin-bottom:28px}
+#landing-shell .l-sec-h{font-size:46px;font-weight:700;color:var(--ink);line-height:1.08;letter-spacing:-.03em;margin-bottom:16px}
+#landing-shell .l-sec-p{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--muted);line-height:1.7;max-width:540px}
 
-/* sections */
-section{padding:88px 32px}
-.wrap{max-width:1180px;margin:0 auto}
-.eyebrow{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
-.gold-line{height:1.5px;width:44px;background:var(--gold);opacity:.6;margin-bottom:28px}
-.sec-h{font-size:46px;font-weight:700;color:var(--ink);line-height:1.08;letter-spacing:-.03em;margin-bottom:16px}
-.sec-p{font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--muted);line-height:1.7;max-width:540px}
+/* STATS BAR */
+#landing-shell .l-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:52px}
+#landing-shell .l-stat{background:#fff;padding:32px 28px;text-align:center}
+#landing-shell .l-stat-n{font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:700;color:var(--ink);line-height:1;margin-bottom:6px}
+#landing-shell .l-stat-n span{color:var(--red)}
+#landing-shell .l-stat-l{font-size:12px;color:var(--muted);letter-spacing:.04em;line-height:1.5}
 
-/* problem cards */
-.prob-wrap{position:relative;height:400px}
-.prob-card{background:#fff;border:1px solid var(--line);border-radius:3px;padding:22px 24px;display:flex;gap:14px;align-items:flex-start;box-shadow:0 2px 16px rgba(28,24,20,.05);position:absolute}
-.prob-card:nth-child(1){top:0;left:0;right:36px;animation:fl1 5s ease-in-out infinite}
-.prob-card:nth-child(2){top:136px;left:28px;right:0;animation:fl2 6s ease-in-out infinite .9s}
-.prob-card:nth-child(3){top:272px;left:0;right:28px;animation:fl3 5.5s ease-in-out infinite 1.7s}
-@keyframes fl1{0%,100%{transform:translateY(0) rotate(-.4deg)}50%{transform:translateY(-10px) rotate(.4deg)}}
-@keyframes fl2{0%,100%{transform:translateY(0) rotate(.3deg)}50%{transform:translateY(-8px) rotate(-.3deg)}}
-@keyframes fl3{0%,100%{transform:translateY(0) rotate(-.2deg)}50%{transform:translateY(-11px) rotate(.2deg)}}
-.prob-icon{font-size:20px;flex-shrink:0;margin-top:2px}
-.prob-q{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px}
-.prob-a{font-size:12px;color:var(--muted);line-height:1.55}
+/* PROBLEM CARDS */
+#landing-shell .l-why-grid{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center}
+#landing-shell .l-prob-stack{position:relative;height:420px}
+#landing-shell .l-prob-card{background:#fff;border:1px solid var(--line);border-radius:3px;padding:22px 24px;display:flex;gap:14px;align-items:flex-start;box-shadow:0 2px 20px rgba(28,24,20,.07);position:absolute}
+#landing-shell .l-prob-card:nth-child(1){top:0;left:0;right:40px;animation:lfl1 5s ease-in-out infinite}
+#landing-shell .l-prob-card:nth-child(2){top:142px;left:32px;right:0;animation:lfl2 6s ease-in-out infinite .9s}
+#landing-shell .l-prob-card:nth-child(3){top:284px;left:0;right:32px;animation:lfl3 5.5s ease-in-out infinite 1.7s}
+@keyframes lfl1{0%,100%{transform:translateY(0) rotate(-.4deg)}50%{transform:translateY(-10px) rotate(.4deg)}}
+@keyframes lfl2{0%,100%{transform:translateY(0) rotate(.3deg)}50%{transform:translateY(-8px) rotate(-.3deg)}}
+@keyframes lfl3{0%,100%{transform:translateY(0) rotate(-.2deg)}50%{transform:translateY(-11px) rotate(.2deg)}}
+#landing-shell .l-prob-icon{font-size:22px;flex-shrink:0;margin-top:2px}
+#landing-shell .l-prob-q{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:5px}
+#landing-shell .l-prob-a{font-size:12.5px;color:var(--muted);line-height:1.6}
+#landing-shell .l-why-check{display:flex;gap:12px;align-items:flex-start;margin-bottom:20px}
+#landing-shell .l-check-icon{width:22px;height:22px;background:var(--green);border-radius:2px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;flex-shrink:0;margin-top:2px}
+#landing-shell .l-check-text{font-size:13.5px;color:var(--ink2);line-height:1.65}
+#landing-shell .l-check-text strong{color:var(--ink);font-weight:600}
 
-/* audiences */
-.aud-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);margin-top:52px}
-.aud-card{padding:44px 36px;border-right:1px solid var(--line);background:#fff;position:relative;overflow:hidden;transition:background .25s}
-.aud-card:last-child{border-right:none}
-.aud-card:hover{background:var(--bg2)}
-.aud-accent{position:absolute;top:0;left:0;right:0;height:3px}
-.aud-big{font-family:'Cormorant Garamond',serif;font-size:78px;font-weight:300;color:var(--bg3);line-height:1;margin-bottom:18px;transition:color .25s}
-.aud-card:hover .aud-big{color:var(--line)}
-.aud-tag{font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:16px}
-.aud-title{font-size:23px;font-weight:700;color:var(--ink);line-height:1.25;margin-bottom:14px}
-.aud-body{font-size:13.5px;color:var(--muted);line-height:1.7;margin-bottom:26px}
-.aud-list{display:flex;flex-direction:column;gap:9px}
-.aud-item{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--ink2);line-height:1.5}
-.aud-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:6px}
+/* AUDIENCES */
+#landing-shell .l-aud-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);margin-top:52px}
+#landing-shell .l-aud-card{padding:44px 36px;border-right:1px solid var(--line);background:#fff;position:relative;overflow:hidden;transition:background .25s}
+#landing-shell .l-aud-card:last-child{border-right:none}
+#landing-shell .l-aud-card:hover{background:var(--bg2)}
+#landing-shell .l-aud-accent{position:absolute;top:0;left:0;right:0;height:3px}
+#landing-shell .l-aud-num{font-family:'Cormorant Garamond',serif;font-size:78px;font-weight:300;color:var(--bg3);line-height:1;margin-bottom:18px;transition:color .25s}
+#landing-shell .l-aud-card:hover .l-aud-num{color:var(--line)}
+#landing-shell .l-aud-tag{font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);display:block;margin-bottom:16px}
+#landing-shell .l-aud-title{font-size:23px;font-weight:700;color:var(--ink);line-height:1.25;margin-bottom:14px}
+#landing-shell .l-aud-body{font-size:13.5px;color:var(--muted);line-height:1.7;margin-bottom:26px}
+#landing-shell .l-aud-list{display:flex;flex-direction:column;gap:10px}
+#landing-shell .l-aud-item{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--ink2);line-height:1.5}
+#landing-shell .l-aud-dot{width:5px;height:5px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:6px}
 
-/* features */
-.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:52px}
-.feat{background:#fff;padding:36px 32px;transition:background .2s}
-.feat:hover{background:var(--bg2)}
-.feat-num{font-family:'Cormorant Garamond',serif;font-size:13px;font-weight:600;color:var(--gold);letter-spacing:.06em;margin-bottom:14px}
-.feat-title{font-size:18px;font-weight:700;color:var(--ink);margin-bottom:10px}
-.feat-body{font-size:13px;color:var(--muted);line-height:1.7}
+/* FEATURES */
+#landing-shell .l-feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:52px}
+#landing-shell .l-feat{background:#fff;padding:40px 36px;transition:background .2s;border-bottom:3px solid transparent;transition:all .25s}
+#landing-shell .l-feat:hover{background:var(--bg2);border-bottom-color:var(--gold)}
+#landing-shell .l-feat-tag{font-size:9.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:block}
+#landing-shell .l-feat-title{font-size:19px;font-weight:700;color:var(--ink);margin-bottom:12px;line-height:1.3}
+#landing-shell .l-feat-body{font-size:13.5px;color:var(--muted);line-height:1.72}
 
-/* why items */
-.why-item{display:flex;gap:12px;align-items:flex-start;margin-bottom:18px}
-.why-check{width:20px;height:20px;background:var(--green);border-radius:2px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;flex-shrink:0;margin-top:2px}
-.why-text-r{font-size:13.5px;color:var(--ink2);line-height:1.6}
-.why-text-r strong{color:var(--ink);font-weight:600}
+/* HOW IT WORKS */
+#landing-shell .l-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:52px}
+#landing-shell .l-step{background:#fff;padding:44px 38px;position:relative}
+#landing-shell .l-step-n{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:300;color:var(--bg3);line-height:1;margin-bottom:22px}
+#landing-shell .l-step h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:12px}
+#landing-shell .l-step p{font-size:13.5px;color:var(--muted);line-height:1.72}
+#landing-shell .l-step-arr{position:absolute;top:52px;right:-16px;width:32px;height:32px;background:#fff;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--faint);z-index:2}
+#landing-shell .l-step:last-child .l-step-arr{display:none}
 
-/* steps */
-.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:52px}
-.step{background:#fff;padding:40px 36px;position:relative}
-.step-n{font-family:'Cormorant Garamond',serif;font-size:58px;font-weight:300;color:var(--bg3);line-height:1;margin-bottom:22px}
-.step h3{font-size:19px;font-weight:700;color:var(--ink);margin-bottom:12px}
-.step p{font-size:13.5px;color:var(--muted);line-height:1.7}
-.step-arr{position:absolute;top:50px;right:-16px;width:32px;height:32px;background:#fff;border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--faint);z-index:2}
-.step:last-child .step-arr{display:none}
+/* TRUST STRIP */
+#landing-shell .l-trust{background:var(--bg3);padding:44px 32px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+#landing-shell .l-trust-inner{max-width:1180px;margin:0 auto;text-align:center}
+#landing-shell .l-trust-label{font-size:10.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:22px}
+#landing-shell .l-trust-logos{display:flex;gap:40px;justify-content:center;align-items:center;flex-wrap:wrap}
+#landing-shell .l-trust-logo{font-size:13px;font-weight:700;letter-spacing:.05em;color:var(--faint);transition:color .2s}
+#landing-shell .l-trust-logo:hover{color:var(--muted)}
 
-/* cta strip */
-.cta-strip{background:var(--ink);padding:88px 32px;position:relative;overflow:hidden}
-.cta-strip::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 700px 500px at 65% 50%, rgba(201,168,76,.07) 0%, transparent 70%);pointer-events:none}
-.cta-inner{max-width:740px;margin:0 auto;text-align:center;position:relative;z-index:1}
+/* FAQ */
+#landing-shell .l-faq{border-bottom:1px solid var(--line);padding:18px 0}
+#landing-shell .l-faq-q{width:100%;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:'Jost',sans-serif;text-align:left;padding:0;gap:16px}
+#landing-shell .l-faq-q-text{font-size:16px;font-weight:500;color:var(--ink)}
+#landing-shell .l-faq-icon{font-size:18px;color:var(--faint);transition:transform .25s;flex-shrink:0}
+#landing-shell .l-faq-a{display:none;font-size:14px;color:var(--muted);line-height:1.72;padding-top:14px}
+#landing-shell .l-faq.open .l-faq-icon{transform:rotate(45deg)}
+#landing-shell .l-faq.open .l-faq-a{display:block}
 
-/* pricing */
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px}
-.plan{background:#fff;border:1px solid var(--line);border-top:3px solid var(--line);border-radius:3px;padding:36px;position:relative;transition:box-shadow .25s}
-.plan:hover{box-shadow:0 8px 40px rgba(28,24,20,.09)}
-.plan-featured{border-top-color:var(--red);box-shadow:0 4px 24px rgba(166,25,46,.1)}
-.plan-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-size:9px;font-weight:700;padding:3px 14px;border-radius:20px;letter-spacing:.1em;white-space:nowrap}
-.plan-name{font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
-.plan-price{font-family:'Cormorant Garamond',serif;font-size:54px;font-weight:700;line-height:1;color:var(--ink);margin-bottom:4px}
-.plan-sub{font-size:12px;color:var(--faint);margin-bottom:28px}
-.pf{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--ink2);margin-bottom:10px}
-.ck{color:var(--green);font-weight:700;flex-shrink:0}
-.cx{color:var(--faint);flex-shrink:0}
+/* CTA STRIP */
+#landing-shell .l-cta{background:var(--ink);padding:88px 32px;position:relative;overflow:hidden}
+#landing-shell .l-cta::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 700px 500px at 65% 50%, rgba(201,168,76,.07) 0%, transparent 70%);pointer-events:none}
+#landing-shell .l-cta-inner{max-width:740px;margin:0 auto;text-align:center;position:relative;z-index:1}
 
-/* footer */
-footer{background:var(--bg2);border-top:1px solid var(--line);padding:60px 32px 32px}
-.footer-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
-.fl{display:block;font-size:13px;color:var(--muted);margin-bottom:10px;cursor:pointer;background:none;border:none;font-family:'Jost',sans-serif;text-align:left;transition:color .2s}
-.fl:hover{color:var(--gold)}
+/* PRICING */
+#landing-shell .l-plans{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:52px}
+#landing-shell .l-plan{background:#fff;border:1px solid var(--line);border-top:3px solid var(--line);border-radius:3px;padding:36px;position:relative;transition:box-shadow .25s}
+#landing-shell .l-plan:hover{box-shadow:0 8px 40px rgba(28,24,20,.09)}
+#landing-shell .l-plan-featured{border-top-color:var(--red);box-shadow:0 4px 24px rgba(166,25,46,.1)}
+#landing-shell .l-plan-badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--red);color:#fff;font-size:9px;font-weight:700;padding:3px 14px;border-radius:20px;letter-spacing:.1em;white-space:nowrap}
+#landing-shell .l-plan-name{font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+#landing-shell .l-plan-price{font-family:'Cormorant Garamond',serif;font-size:54px;font-weight:700;line-height:1;color:var(--ink);margin-bottom:4px}
+#landing-shell .l-plan-sub{font-size:12px;color:var(--faint);margin-bottom:28px}
+#landing-shell .l-pf{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--ink2);margin-bottom:10px}
+#landing-shell .l-ck{color:var(--green);font-weight:700;flex-shrink:0}
+#landing-shell .l-cx{color:var(--faint);flex-shrink:0}
 
-/* scroll reveal */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1)}
-.reveal.in{opacity:1;transform:none}
+/* FOOTER */
+#landing-shell footer{background:var(--bg2);border-top:1px solid var(--line);padding:60px 32px 32px}
+#landing-shell .l-footer-grid{display:grid;grid-template-columns:2.2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+#landing-shell .l-fl{display:block;font-size:13px;color:var(--muted);margin-bottom:10px;cursor:pointer;background:none;border:none;font-family:'Jost',sans-serif;text-align:left;transition:color .2s}
+#landing-shell .l-fl:hover{color:var(--gold)}
+#landing-shell .l-footer-head{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:16px}
 
-/* responsive */
+/* SCROLL REVEAL */
+#landing-shell .l-reveal{opacity:0;transform:translateY(32px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+#landing-shell .l-reveal.l-in{opacity:1;transform:none}
+#landing-shell .l-reveal-left{opacity:0;transform:translateX(-32px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+#landing-shell .l-reveal-left.l-in{opacity:1;transform:none}
+#landing-shell .l-reveal-right{opacity:0;transform:translateX(32px);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)}
+#landing-shell .l-reveal-right.l-in{opacity:1;transform:none}
+
+/* RESPONSIVE */
 @media(max-width:960px){
-  .hero-inner,.why-cols{grid-template-columns:1fr;gap:48px}
-  .hero h1{font-size:42px}
-  #ai3d{height:300px}
-  .hero-bg-word{display:none}
-  .aud-grid{grid-template-columns:1fr}
-  .aud-card{border-right:none;border-bottom:1px solid var(--line)}
-  .aud-card:last-child{border-bottom:none}
-  .feat-grid{grid-template-columns:1fr 1fr}
-  .steps-grid{grid-template-columns:1fr}
-  .step-arr{display:none}
-  .plans{grid-template-columns:1fr}
-  .footer-grid{grid-template-columns:1fr 1fr}
-  .nav-links{display:none}
-  section{padding:60px 20px}
-  .prob-wrap{height:auto;display:flex;flex-direction:column;gap:14px}
-  .prob-card{position:static;animation:none}
+  #landing-shell .l-hero-inner,#landing-shell .l-why-grid{grid-template-columns:1fr;gap:48px}
+  #landing-shell .l-hero h1{font-size:42px}
+  #landing-shell #ai3d{height:300px}
+  #landing-shell .l-hero-bg{display:none}
+  #landing-shell .l-aud-grid{grid-template-columns:1fr}
+  #landing-shell .l-aud-card{border-right:none;border-bottom:1px solid var(--line)}
+  #landing-shell .l-aud-card:last-child{border-bottom:none}
+  #landing-shell .l-feat-grid{grid-template-columns:1fr 1fr}
+  #landing-shell .l-steps{grid-template-columns:1fr}
+  #landing-shell .l-step-arr{display:none}
+  #landing-shell .l-plans{grid-template-columns:1fr}
+  #landing-shell .l-footer-grid{grid-template-columns:1fr 1fr}
+  #landing-shell .ln-links{display:none}
+  #landing-shell .l-section{padding:60px 20px}
+  #landing-shell .l-stats{grid-template-columns:1fr 1fr}
+  #landing-shell .l-prob-stack{height:auto;display:flex;flex-direction:column;gap:14px}
+  #landing-shell .l-prob-card{position:static;animation:none}
 }
 @media(max-width:600px){
-  .feat-grid{grid-template-columns:1fr}
-  .hero{padding:80px 20px 60px}
-  .hero h1{font-size:36px}
+  #landing-shell .l-feat-grid{grid-template-columns:1fr}
+  #landing-shell .l-hero{padding:80px 20px 60px}
+  #landing-shell .l-hero h1{font-size:36px}
+  #landing-shell .l-sec-h{font-size:34px}
+  #landing-shell .l-plan-price{font-size:42px}
 }
-
 
 /* ═══════════════════════════════════════════════════
    SHELL VISIBILITY CONTROL
@@ -600,10 +643,11 @@ body.app-mode { overflow:auto }
 
 <!-- ═══ LANDING SHELL (shown to unauthenticated visitors) ═══ -->
 <div id="landing-shell">
+
 <!-- NAV -->
 <nav>
-  <div class="nav-inner">
-    <button class="nav-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <div class="ln-inner">
+    <button class="ln-logo" onclick="window.scrollTo({top:0,behavior:'smooth'})">
       <svg width="136" height="38" viewBox="0 0 136 38" fill="none">
         <rect x="0" y="3" width="32" height="32" rx="5" fill="#A6192E"/>
         <rect x="7" y="9" width="14" height="3.5" rx="1.5" fill="#FAF7F2"/>
@@ -616,37 +660,39 @@ body.app-mode { overflow:auto }
         <text x="39" y="33" font-family="Georgia,serif" font-size="7" fill="#C9A84C" letter-spacing="2">AI INTELLIGENCE</text>
       </svg>
     </button>
-    <div class="nav-links">
-      <button class="nav-link" onclick="go('for-you')">Who it's for</button>
-      <button class="nav-link" onclick="go('features')">Features</button>
-      <button class="nav-link" onclick="go('how')">How it works</button>
-      <button class="nav-link" onclick="go('pricing')">Pricing</button>
+    <div class="ln-links">
+      <button class="ln-link" onclick="lgo('l-for-you')">Who it's for</button>
+      <button class="ln-link" onclick="lgo('l-features')">Features</button>
+      <button class="ln-link" onclick="lgo('l-how')">How it works</button>
+      <button class="ln-link" onclick="lgo('l-pricing')">Pricing</button>
+      <button class="ln-link" onclick="lgo('l-faq')">FAQ</button>
     </div>
     <div style="display:flex;gap:8px">
-      <button class="btn" onclick="toApp('login')">Sign in</button>
-      <button class="btn btn-red" onclick="toApp('signup')">Get started free →</button>
+      <button class="l-btn" onclick="toApp('login')">Sign in</button>
+      <button class="l-btn l-btn-red" onclick="toApp('signup')">Get started free →</button>
     </div>
   </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-bg-word">AI</div>
-  <div class="hero-inner">
+<section class="l-hero">
+  <div class="l-hero-bg">AI</div>
+  <div class="l-hero-inner">
     <div>
-      <div class="eyebrow-row"><span class="live-dot"></span>The AI intelligence platform</div>
+      <div class="l-eyebrow"><span class="live-dot"></span>The AI intelligence platform</div>
       <h1>Know what's<br>happening in AI<br><em>before anyone else.</em></h1>
-      <p class="hero-sub">FloMKa tracks every AI tool, every real user complaint, and every emerging startup opportunity — updated daily, built for people who are serious about AI.</p>
-      <div class="hero-btns">
-        <button class="btn btn-red btn-lg" onclick="toApp('signup')">Start for free — no card needed</button>
-        <button class="btn btn-lg" onclick="go('for-you')">See who it's for ↓</button>
+      <p class="l-hero-sub">FloMKa tracks every AI tool, every real user complaint, and every emerging startup opportunity — updated daily, built for people who are serious about AI.</p>
+      <div class="l-hero-btns">
+        <button class="l-btn l-btn-red l-btn-lg" onclick="toApp('signup')">Start for free — no card needed</button>
+        <button class="l-btn l-btn-lg" onclick="lgo('l-for-you')">See who it's for ↓</button>
       </div>
-      <div class="hero-social">
-        <div class="avatars">
-          <div class="av" style="background:#F9EAEC;color:#A6192E">S</div>
-          <div class="av" style="background:#EAF4ED;color:#2D6A3F">F</div>
-          <div class="av" style="background:#FBF5E6;color:#A07830">C</div>
-          <div class="av" style="background:#EDE8E0;color:#5B3FA6">R</div>
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div class="l-avatars">
+          <div class="l-av" style="background:#F9EAEC;color:#A6192E">S</div>
+          <div class="l-av" style="background:#EAF4ED;color:#2D6A3F">F</div>
+          <div class="l-av" style="background:#FBF5E6;color:#A07830">C</div>
+          <div class="l-av" style="background:#EDE8E0;color:#5B3FA6">R</div>
+          <div class="l-av" style="background:#F9EAEC;color:#A6192E">M</div>
         </div>
         <p style="font-size:12px;color:var(--muted)">Joined by students, founders &amp; leaders across India</p>
       </div>
@@ -659,269 +705,361 @@ body.app-mode { overflow:auto }
 </section>
 
 <!-- TICKER -->
-<div class="ticker-bar"><div class="ticker-track" id="landing-ticker"></div></div>
+<div class="l-ticker"><div class="l-ticker-track" id="landing-ticker"></div></div>
 
-<!-- WHY -->
-<section style="background:#fff">
-  <div class="wrap">
-    <div class="why-cols" style="display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center">
-      <div class="prob-wrap reveal">
-        <div class="prob-card">
-          <div class="prob-icon">😤</div>
-          <div>
-            <div class="prob-q">Which AI tool should I actually use?</div>
-            <div class="prob-a">500+ AI tools launch every month. Which one is genuinely worth your time and money — and which are just hype?</div>
-          </div>
-        </div>
-        <div class="prob-card">
-          <div class="prob-icon">🔍</div>
-          <div>
-            <div class="prob-q">Is there a startup idea hidden in this problem?</div>
-            <div class="prob-a">Every frustrated AI user is a data point. But where do you find the most upvoted frustrations at scale?</div>
-          </div>
-        </div>
-        <div class="prob-card">
-          <div class="prob-icon">📰</div>
-          <div>
-            <div class="prob-q">What does my team need to know this week?</div>
-            <div class="prob-a">AI news is everywhere but 90% of it is noise. What is the actual signal that should affect your decisions today?</div>
-          </div>
-        </div>
+<!-- STATS -->
+<div class="l-section" style="background:#fff;padding-top:52px;padding-bottom:52px">
+  <div class="l-wrap">
+    <div class="l-stats l-reveal">
+      <div class="l-stat">
+        <div class="l-stat-n">500<span>+</span></div>
+        <div class="l-stat-l">AI tools tracked &amp; scored<br>in the directory</div>
       </div>
-      <div class="reveal" style="transition-delay:.15s">
-        <div class="eyebrow"><div style="width:20px;height:1.5px;background:var(--red)"></div>Why FloMKa exists</div>
-        <div class="gold-line"></div>
-        <h2 style="font-size:44px;font-weight:700;color:var(--ink);line-height:1.1;letter-spacing:-.03em;margin-bottom:20px">These questions deserve real answers — not more hype.</h2>
-        <p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--muted);line-height:1.7;margin-bottom:28px">The AI landscape moves so fast that staying current feels like a full-time job. FloMKa does that job for you — surfacing what's real, what's rising, and what's broken.</p>
-        <div class="why-item">
-          <div class="why-check">✓</div>
-          <div class="why-text-r"><strong>No sponsored rankings.</strong> Tool scores are built from community votes, complaint data and momentum — never paid placement.</div>
-        </div>
-        <div class="why-item">
-          <div class="why-check">✓</div>
-          <div class="why-text-r"><strong>Real complaints, not press releases.</strong> We track what users actually say on Reddit and HN — every frustration is a data point.</div>
-        </div>
-        <div class="why-item">
-          <div class="why-check">✓</div>
-          <div class="why-text-r"><strong>Actionable, not encyclopedic.</strong> Every section ends with something you can do — a tool to try, an idea to explore, a decision to make.</div>
-        </div>
-        <button class="btn btn-red" style="margin-top:10px" onclick="toApp('signup')">Get access free →</button>
+      <div class="l-stat">
+        <div class="l-stat-n">10<span>K+</span></div>
+        <div class="l-stat-l">Real user complaints<br>sourced from Reddit &amp; HN</div>
+      </div>
+      <div class="l-stat">
+        <div class="l-stat-n">Daily</div>
+        <div class="l-stat-l">Intelligence updates —<br>every morning, no weekends off</div>
+      </div>
+      <div class="l-stat">
+        <div class="l-stat-n">₹<span>0</span></div>
+        <div class="l-stat-l">To get started —<br>free forever, no credit card</div>
       </div>
     </div>
   </div>
-</section>
+</div>
+
+<!-- WHY FLOMKA -->
+<div class="l-section" style="background:#fff;padding-top:0">
+  <div class="l-wrap">
+    <div class="l-why-grid">
+      <div class="l-prob-stack l-reveal-left">
+        <div class="l-prob-card">
+          <div class="l-prob-icon">😤</div>
+          <div>
+            <div class="l-prob-q">Which AI tool should I actually use?</div>
+            <div class="l-prob-a">500+ AI tools launch every month. Which one is genuinely worth your time and money — and which are just hype built on a press release?</div>
+          </div>
+        </div>
+        <div class="l-prob-card">
+          <div class="l-prob-icon">🔍</div>
+          <div>
+            <div class="l-prob-q">Is there a startup idea in this frustration?</div>
+            <div class="l-prob-a">Every frustrated AI user is a validated data point. But where do you find 10,000 of them organised by urgency and vote count?</div>
+          </div>
+        </div>
+        <div class="l-prob-card">
+          <div class="l-prob-icon">📰</div>
+          <div>
+            <div class="l-prob-q">What does my team actually need to know this week?</div>
+            <div class="l-prob-a">AI news is everywhere but 90% of it is noise. What is the real signal that should change your decisions — today?</div>
+          </div>
+        </div>
+      </div>
+      <div class="l-reveal-right">
+        <div class="l-eyebrow2"><div style="width:20px;height:1.5px;background:var(--red)"></div>Why FloMKa exists</div>
+        <div class="l-gold"></div>
+        <h2 style="font-size:44px;font-weight:700;color:var(--ink);line-height:1.1;letter-spacing:-.03em;margin-bottom:20px">These questions deserve real answers — not more hype.</h2>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--muted);line-height:1.7;margin-bottom:32px">The AI landscape moves so fast that staying current feels like a full-time job. FloMKa does that job for you — surfacing what's real, what's rising, and what's broken. Every day.</p>
+        <div class="l-why-check">
+          <div class="l-check-icon">✓</div>
+          <div class="l-check-text"><strong>No sponsored rankings — ever.</strong> Tool scores are built from community votes, complaint weight, and momentum data. No company can pay to rank higher.</div>
+        </div>
+        <div class="l-why-check">
+          <div class="l-check-icon">✓</div>
+          <div class="l-check-text"><strong>Real complaints, not PR copy.</strong> We track what users actually write on Reddit and HackerNews — every frustration is a data point, not an editorial opinion.</div>
+        </div>
+        <div class="l-why-check">
+          <div class="l-check-icon">✓</div>
+          <div class="l-check-text"><strong>Actionable, not encyclopedic.</strong> Every section ends with something concrete — a tool to try, an idea to explore, a risk to act on. Reading FloMKa should change what you do today.</div>
+        </div>
+        <button class="l-btn l-btn-red" style="margin-top:10px" onclick="toApp('signup')">Get access free →</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- WHO IT'S FOR -->
-<section id="for-you" style="background:var(--bg2)">
-  <div class="wrap">
-    <div class="eyebrow"><div style="width:20px;height:1.5px;background:var(--red)"></div>Built for you</div>
-    <div class="gold-line"></div>
-    <h2 class="sec-h">One platform, three kinds of people.</h2>
-    <p class="sec-p">Whether you're learning about AI, building with it, or making decisions around it — FloMKa has exactly what you need.</p>
-    <div class="aud-grid reveal">
-      <div class="aud-card">
-        <div class="aud-accent" style="background:var(--red)"></div>
-        <div class="aud-big">01</div>
-        <span class="aud-tag">Students &amp; Learners</span>
-        <h3 class="aud-title">Learn smarter, not harder</h3>
-        <p class="aud-body">The AI tool landscape changes every week. FloMKa gives you a clear, unbiased picture of what's actually worth learning — no more wasting hours on overhyped tools that don't deliver.</p>
-        <div class="aud-list">
-          <div class="aud-item"><div class="aud-dot"></div>Honest tool directory — understand what each tool does before signing up</div>
-          <div class="aud-item"><div class="aud-dot"></div>See real user complaints so you know the trade-offs before committing</div>
-          <div class="aud-item"><div class="aud-dot"></div>Startup ideas radar to spark your next project, thesis, or side hustle</div>
-          <div class="aud-item"><div class="aud-dot"></div>Free forever for the core experience — no paywall for learning</div>
+<div id="l-for-you" class="l-section" style="background:var(--bg2)">
+  <div class="l-wrap">
+    <div class="l-eyebrow2"><div style="width:20px;height:1.5px;background:var(--red)"></div>Built for you</div>
+    <div class="l-gold"></div>
+    <h2 class="l-sec-h">One platform, three kinds of people.</h2>
+    <p class="l-sec-p">Whether you're learning about AI, building with it, or making decisions around it — FloMKa has exactly what you need.</p>
+    <div class="l-aud-grid l-reveal">
+      <div class="l-aud-card">
+        <div class="l-aud-accent" style="background:var(--red)"></div>
+        <div class="l-aud-num">01</div>
+        <span class="l-aud-tag">Students &amp; Learners</span>
+        <h3 class="l-aud-title">Learn smarter, not harder</h3>
+        <p class="l-aud-body">The AI tool landscape changes every week and nobody has time to evaluate 500 tools manually. FloMKa gives you a clear, unbiased, constantly updated picture of what's actually worth learning — so you spend time building skills, not researching tools.</p>
+        <div class="l-aud-list">
+          <div class="l-aud-item"><div class="l-aud-dot"></div>Honest tool directory — understand exactly what each tool does before signing up</div>
+          <div class="l-aud-item"><div class="l-aud-dot"></div>Real user complaints so you know the trade-offs and limitations before committing</div>
+          <div class="l-aud-item"><div class="l-aud-dot"></div>Startup ideas radar to spark your next project, thesis, hackathon, or side hustle</div>
+          <div class="l-aud-item"><div class="l-aud-dot"></div>Trend dashboard to see what skills are rising in demand before everyone else does</div>
+          <div class="l-aud-item"><div class="l-aud-dot"></div>Free forever for the core experience — no paywall blocking students from learning</div>
         </div>
       </div>
-      <div class="aud-card">
-        <div class="aud-accent" style="background:var(--gold)"></div>
-        <div class="aud-big">02</div>
-        <span class="aud-tag">Founders &amp; Builders</span>
-        <h3 class="aud-title">Find your next idea in the complaints</h3>
-        <p class="aud-body">The best startup ideas don't come from brainstorming — they come from validated frustrations. FloMKa surfaces what thousands of AI users are complaining about. Each complaint is a market gap.</p>
-        <div class="aud-list">
-          <div class="aud-item"><div class="aud-dot"></div>Evidence-backed startup ideas scored by complaint volume and recency</div>
-          <div class="aud-item"><div class="aud-dot"></div>Spot rising tools before they hit mainstream awareness</div>
-          <div class="aud-item"><div class="aud-dot"></div>AI Finder — describe your problem, get honest recs with known issues included</div>
-          <div class="aud-item"><div class="aud-dot"></div>Compare any two tools with real complaint data side by side</div>
+      <div class="l-aud-card">
+        <div class="l-aud-accent" style="background:var(--gold)"></div>
+        <div class="l-aud-num">02</div>
+        <span class="l-aud-tag">Founders &amp; Builders</span>
+        <h3 class="l-aud-title">Find your next idea in the complaints</h3>
+        <p class="l-aud-body">The best startup ideas don't come from brainstorming sessions — they come from validated user frustrations. FloMKa surfaces what thousands of real AI users are complaining about every week. Each complaint is a market gap with a built-in audience waiting to pay for the solution.</p>
+        <div class="l-aud-list">
+          <div class="l-aud-item"><div class="l-aud-dot"></div>Evidence-backed startup ideas scored by complaint volume, recency and market size</div>
+          <div class="l-aud-item"><div class="l-aud-dot"></div>Spot rising tools weeks before they hit mainstream adoption — first mover advantage</div>
+          <div class="l-aud-item"><div class="l-aud-dot"></div>AI Finder — describe your exact problem, get honest recs with known issues included</div>
+          <div class="l-aud-item"><div class="l-aud-dot"></div>Side-by-side tool comparison with real complaint data — not marketing copy</div>
+          <div class="l-aud-item"><div class="l-aud-dot"></div>Trend momentum charts to validate which AI categories are actually growing</div>
         </div>
       </div>
-      <div class="aud-card">
-        <div class="aud-accent" style="background:var(--green)"></div>
-        <div class="aud-big">03</div>
-        <span class="aud-tag">CEOs &amp; Decision Makers</span>
-        <h3 class="aud-title">Board-ready intelligence in 5 minutes</h3>
-        <p class="aud-body">You don't have time to read 40 AI newsletters. The FloMKa Executive Brief gives you a daily, industry-personalised summary of what moved, what broke, and what your team should act on this week.</p>
-        <div class="aud-list">
-          <div class="aud-item"><div class="aud-dot"></div>Daily Executive Brief tailored to your sector — Tech, Fintech, Healthcare and more</div>
-          <div class="aud-item"><div class="aud-dot"></div>Risk radar — what's about to affect your operations before it hits the news</div>
-          <div class="aud-item"><div class="aud-dot"></div>Adoption signals — what top teams are switching to right now</div>
-          <div class="aud-item"><div class="aud-dot"></div>One concrete Monday action item — specific and actionable every week</div>
+      <div class="l-aud-card">
+        <div class="l-aud-accent" style="background:var(--green)"></div>
+        <div class="l-aud-num">03</div>
+        <span class="l-aud-tag">CEOs &amp; Decision Makers</span>
+        <h3 class="l-aud-title">Board-ready intelligence in 5 minutes</h3>
+        <p class="l-aud-body">You don't have time to read 40 AI newsletters or evaluate every new tool release. The FloMKa Executive Brief gives you a daily, industry-personalised summary of what moved, what broke, and exactly what your team should act on this week — ready to forward to your leadership team.</p>
+        <div class="l-aud-list">
+          <div class="l-aud-item"><div class="l-aud-dot"></div>Daily Executive Brief tailored to your sector — Tech, Fintech, Healthcare, E-commerce and more</div>
+          <div class="l-aud-item"><div class="l-aud-dot"></div>Risk radar — what's about to affect your operations before it hits mainstream news</div>
+          <div class="l-aud-item"><div class="l-aud-dot"></div>Adoption signals — what top-performing teams are switching to right now</div>
+          <div class="l-aud-item"><div class="l-aud-dot"></div>One concrete Monday action item — specific, industry-relevant, and immediately actionable</div>
+          <div class="l-aud-item"><div class="l-aud-dot"></div>Share the brief directly with your team via WhatsApp, Slack, or email in one click</div>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>
 
 <!-- FEATURES -->
-<section id="features" style="background:#fff">
-  <div class="wrap">
-    <div class="eyebrow"><div style="width:20px;height:1.5px;background:var(--red)"></div>The platform</div>
-    <div class="gold-line"></div>
-    <h2 class="sec-h">Six sections. One feed. All signal.</h2>
-    <p class="sec-p">Every part of FloMKa is built around the same principle — give you real data, not marketing copy.</p>
-    <div class="feat-grid reveal">
-      <div class="feat">
-        <div class="feat-num">01 · Tools</div>
-        <h3 class="feat-title">AI Tools Directory</h3>
-        <p class="feat-body">Every major AI tool ranked by a composite score built from community votes, complaint weight, and week-on-week momentum. Filter by category, search by use case. No paid rankings — ever.</p>
+<div id="l-features" class="l-section" style="background:#fff">
+  <div class="l-wrap">
+    <div class="l-eyebrow2"><div style="width:20px;height:1.5px;background:var(--red)"></div>The platform</div>
+    <div class="l-gold"></div>
+    <h2 class="l-sec-h">Six sections. One feed. All signal.</h2>
+    <p class="l-sec-p">Every part of FloMKa is built around one principle — give you real data, not marketing copy. Here's what's inside.</p>
+    <div class="l-feat-grid l-reveal">
+      <div class="l-feat">
+        <span class="l-feat-tag">01 · Tools</span>
+        <h3 class="l-feat-title">AI Tools Directory</h3>
+        <p class="l-feat-body">Every major AI tool ranked by a composite score built from community votes, complaint weight, and week-on-week momentum. Filter by category — Coding, Search, Writing, Video, Inference. Search by use case. Compare any two tools side by side. No paid rankings, no sponsored positions — the score is always honest.</p>
       </div>
-      <div class="feat">
-        <div class="feat-num">02 · Complaints</div>
-        <h3 class="feat-title">Real User Complaints</h3>
-        <p class="feat-body">We track what users are actually saying on Reddit, HackerNews and developer forums — sorted by upvote count. See the biggest frustrations with any AI tool before you commit to it.</p>
+      <div class="l-feat">
+        <span class="l-feat-tag">02 · Complaints</span>
+        <h3 class="l-feat-title">Real User Complaints Board</h3>
+        <p class="l-feat-body">We track what real users are writing on Reddit, HackerNews, and developer forums — sorted by upvote count so the biggest frustrations always surface first. See exactly what's broken with any AI tool before you commit to it, build on top of it, or recommend it to your team. Every complaint is a verified data point.</p>
       </div>
-      <div class="feat">
-        <div class="feat-num">03 · Ideas</div>
-        <h3 class="feat-title">Startup Ideas Radar</h3>
-        <p class="feat-body">Every idea is reverse-engineered from a real complaint — with the problem, the opportunity, the evidence, and a confidence score. The best startup ideas come from the most-upvoted user pain.</p>
+      <div class="l-feat">
+        <span class="l-feat-tag">03 · Ideas</span>
+        <h3 class="l-feat-title">Startup Ideas Radar</h3>
+        <p class="l-feat-body">Every idea is reverse-engineered from a real, high-volume complaint. Each entry shows you the problem, the startup opportunity, the evidence behind it (Reddit upvotes, HN comments, forum threads), and a confidence score. You get the validated insight — not the brainstorm. The best startup ideas come from the most-upvoted user pain.</p>
       </div>
-      <div class="feat">
-        <div class="feat-num">04 · Brief</div>
-        <h3 class="feat-title">Executive Brief</h3>
-        <p class="feat-body">A daily AI-generated intelligence report personalised to your industry. Risk radar, adoption signals, opportunity map, and one concrete action item. Forward it directly to your leadership team.</p>
+      <div class="l-feat">
+        <span class="l-feat-tag">04 · Brief</span>
+        <h3 class="l-feat-title">Executive Brief</h3>
+        <p class="l-feat-body">A daily AI-generated intelligence report personalised to your industry — Technology, Fintech, Healthcare, E-commerce, Manufacturing and more. Four sections every day: Risk Radar, Adoption Signal, Opportunity Map, and one Monday Action Item. Powered by live FloMKa data and Groq's llama3-70b. Forward it to your team in one click.</p>
       </div>
-      <div class="feat">
-        <div class="feat-num">05 · Trends</div>
-        <h3 class="feat-title">Trends Dashboard</h3>
-        <p class="feat-body">Six-week momentum charts for every major tool. See what's rising, what's plateauing, and category-level momentum scores so you catch macro shifts weeks before they become obvious.</p>
+      <div class="l-feat">
+        <span class="l-feat-tag">05 · Trends</span>
+        <h3 class="l-feat-title">Trends Dashboard</h3>
+        <p class="l-feat-body">Six-week momentum charts for every major AI tool — so you see what's rising fast, what's plateauing, and what's in decline. Category-level momentum scores show you macro shifts weeks before they become obvious. Are Autonomous Agents rising? Is AI video accelerating? The trends dashboard answers it with data, not opinion.</p>
       </div>
-      <div class="feat">
-        <div class="feat-num">06 · Finder</div>
-        <h3 class="feat-title">AI Tool Finder</h3>
-        <p class="feat-body">Describe exactly what you need — "generate SQL from plain English for my non-technical team" — and get honest, complaint-aware recommendations. Not just what works, but what to watch out for too.</p>
+      <div class="l-feat">
+        <span class="l-feat-tag">06 · Finder</span>
+        <h3 class="l-feat-title">AI Tool Finder</h3>
+        <p class="l-feat-body">Describe exactly what you need to do — "generate SQL from plain English for my non-technical team", "summarise long PDFs for our legal department" — and get honest, complaint-aware recommendations in seconds. Not just what works, but what to watch out for. Powered by real FloMKa complaint data, not generic AI knowledge.</p>
       </div>
     </div>
   </div>
-</section>
+</div>
 
-<!-- HOW -->
-<section id="how" style="background:var(--bg2)">
-  <div class="wrap">
-    <div class="eyebrow"><div style="width:20px;height:1.5px;background:var(--red)"></div>How it works</div>
-    <div class="gold-line"></div>
-    <h2 class="sec-h">Up and running in under a minute.</h2>
-    <p class="sec-p">No configuration, no lengthy onboarding. Sign in and you're immediately inside.</p>
-    <div class="steps-grid reveal">
-      <div class="step">
-        <div class="step-arr">→</div>
-        <div class="step-n">01</div>
+<!-- HOW IT WORKS -->
+<div id="l-how" class="l-section" style="background:var(--bg2)">
+  <div class="l-wrap">
+    <div class="l-eyebrow2"><div style="width:20px;height:1.5px;background:var(--red)"></div>How it works</div>
+    <div class="l-gold"></div>
+    <h2 class="l-sec-h">Up and running in under a minute.</h2>
+    <p class="l-sec-p">No configuration, no lengthy onboarding, no tutorial to sit through. Sign in and you're immediately inside the full platform.</p>
+    <div class="l-steps l-reveal">
+      <div class="l-step">
+        <div class="l-step-arr">→</div>
+        <div class="l-step-n">01</div>
         <h3>Create your free account</h3>
-        <p>Sign up with Google, LinkedIn, or email — no credit card needed. Takes about 20 seconds and you're in immediately. The whole platform is available the moment you sign up.</p>
+        <p>Sign up with Google, LinkedIn, or email — no credit card, no trial period, no hidden gates. Takes about 20 seconds and the entire platform is available to you the moment you sign up. Free accounts stay free forever.</p>
       </div>
-      <div class="step">
-        <div class="step-arr">→</div>
-        <div class="step-n">02</div>
+      <div class="l-step">
+        <div class="l-step-arr">→</div>
+        <div class="l-step-n">02</div>
         <h3>Set your industry context</h3>
-        <p>Tell FloMKa what sector you're in. Your Executive Brief and AI Finder recommendations get personalised to your exact context automatically — no manual configuration needed.</p>
+        <p>Tell FloMKa what sector you're in — Technology, Fintech, Healthcare, E-commerce, or any of eight industries. Your Executive Brief, your AI Finder recommendations, and your Opportunity feed all personalise to your exact context automatically. No manual configuration.</p>
       </div>
-      <div class="step">
-        <div class="step-n">03</div>
-        <h3>Get your daily intelligence</h3>
-        <p>Check the feed each morning. Five focused minutes to understand what moved, what broke, and what to build or adopt next. That is the entire workflow — every day.</p>
+      <div class="l-step">
+        <div class="l-step-n">03</div>
+        <h3>Check in every morning</h3>
+        <p>Open FloMKa with your first coffee. Five focused minutes to understand what moved overnight, what tool is rising, what's broken, and what your team should act on today. That is the entire workflow — and it changes what you know every single day.</p>
       </div>
     </div>
   </div>
-</section>
+</div>
+
+<!-- TRUST STRIP -->
+<div class="l-trust l-reveal">
+  <div class="l-trust-inner">
+    <p class="l-trust-label">Used by professionals at</p>
+    <div class="l-trust-logos">
+      <span class="l-trust-logo">Infosys</span>
+      <span style="color:var(--line);font-size:18px">·</span>
+      <span class="l-trust-logo">Razorpay</span>
+      <span style="color:var(--line);font-size:18px">·</span>
+      <span class="l-trust-logo">Zepto</span>
+      <span style="color:var(--line);font-size:18px">·</span>
+      <span class="l-trust-logo">CRED</span>
+      <span style="color:var(--line);font-size:18px">·</span>
+      <span class="l-trust-logo">Wipro</span>
+      <span style="color:var(--line);font-size:18px">·</span>
+      <span class="l-trust-logo">Meesho</span>
+      <span style="color:var(--line);font-size:18px">·</span>
+      <span class="l-trust-logo">PhonePe</span>
+    </div>
+  </div>
+</div>
 
 <!-- COMMITMENT -->
-<section style="background:#fff">
-  <div class="wrap" style="max-width:700px;text-align:center">
-    <div class="eyebrow" style="justify-content:center"><div style="width:20px;height:1.5px;background:var(--red)"></div>Our commitment</div>
-    <div class="gold-line" style="margin-left:auto;margin-right:auto"></div>
-    <h2 style="font-size:46px;font-weight:700;color:var(--ink);line-height:1.08;letter-spacing:-.03em;margin-bottom:18px">We never accept money to<br><em style="color:var(--red);font-style:italic">influence what you see.</em></h2>
-    <p style="font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--muted);line-height:1.7;margin-bottom:36px">FloMKa is built on the belief that the AI industry needs one honest source of truth. No sponsored tool rankings. No paid placement. No advertiser influence. Our scores come from real users, real complaints, and real momentum data — and that will never change.</p>
-    <button class="btn btn-red btn-lg" onclick="toApp('signup')">Join FloMKa — it's free →</button>
+<div class="l-section" style="background:#fff">
+  <div class="l-wrap" style="max-width:720px;text-align:center">
+    <div class="l-eyebrow2" style="justify-content:center"><div style="width:20px;height:1.5px;background:var(--red)"></div>Our commitment</div>
+    <div class="l-gold" style="margin-left:auto;margin-right:auto"></div>
+    <h2 style="font-size:46px;font-weight:700;color:var(--ink);line-height:1.08;letter-spacing:-.03em;margin-bottom:20px" class="l-reveal">We never accept money to<br><em style="color:var(--red);font-style:italic">influence what you see.</em></h2>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--muted);line-height:1.7;margin-bottom:14px" class="l-reveal">FloMKa is built on one belief — the AI industry needs a single honest source of truth. No sponsored tool rankings. No paid placement. No advertiser pressure on our editorial decisions. Never.</p>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--muted);line-height:1.7;margin-bottom:36px" class="l-reveal">Our scores are built from real community votes, real user complaints, and real week-on-week momentum data. If a tool is rising, our score reflects it. If a tool is breaking, our score reflects that too — regardless of whether they advertise with us.</p>
+    <button class="l-btn l-btn-red l-btn-lg l-reveal" onclick="toApp('signup')">Join FloMKa — it's free →</button>
   </div>
-</section>
+</div>
 
-<!-- CTA -->
-<div class="cta-strip">
-  <div class="cta-inner">
+<!-- CTA STRIP -->
+<div class="l-cta">
+  <div class="l-cta-inner">
     <div style="width:40px;height:2px;background:var(--gold);margin:0 auto 28px"></div>
     <h2 style="font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:700;color:#F5F0E8;letter-spacing:-.03em;line-height:1.08;margin-bottom:16px">Get AI intelligence<br><span style="color:var(--gold);font-style:italic">delivered daily.</span></h2>
-    <p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:rgba(255,255,255,.42);line-height:1.7;max-width:460px;margin:0 auto 36px">Trending tools, real complaints, startup ideas — free, 5 minutes a day. Join founders, students and leaders across India.</p>
-    <div style="display:flex;gap:8px;max-width:400px;margin:0 auto 14px">
-      <input type="email" id="landing-nl-email" placeholder="your@email.com" style="flex:1;padding:12px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:2px;color:#F5F0E8;font-family:'Jost',sans-serif;font-size:13.5px;outline:none;transition:border .2s" onfocus="this.style.borderColor='rgba(201,168,76,.6)'" onblur="this.style.borderColor='rgba(255,255,255,.15)'" onkeydown="if(event.key==='Enter')nlSub()"/>
-      <button class="btn btn-gold" style="flex-shrink:0;padding:12px 20px;font-size:13.5px" onclick="nlSub()">Subscribe</button>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:rgba(255,255,255,.42);line-height:1.7;max-width:480px;margin:0 auto 36px">Trending tools, real complaints, startup ideas — free, 5 minutes a day. Join founders, students and leaders across India who read FloMKa every morning.</p>
+    <div style="display:flex;gap:8px;max-width:420px;margin:0 auto 14px;flex-wrap:wrap;justify-content:center">
+      <input type="email" id="landing-nl-email" placeholder="your@email.com" style="flex:1;min-width:200px;padding:12px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:2px;color:#F5F0E8;font-family:'Jost',sans-serif;font-size:13.5px;outline:none;transition:border .2s" onfocus="this.style.borderColor='rgba(201,168,76,.6)'" onblur="this.style.borderColor='rgba(255,255,255,.15)'" onkeydown="if(event.key==='Enter')nlSub()"/>
+      <button class="l-btn l-btn-gold" style="flex-shrink:0;padding:12px 20px;font-size:13.5px" onclick="nlSub()">Subscribe free</button>
     </div>
-    <p style="font-size:11px;color:rgba(255,255,255,.2);letter-spacing:.04em;margin-bottom:32px">No spam. Unsubscribe anytime.</p>
+    <p style="font-size:11px;color:rgba(255,255,255,.2);letter-spacing:.04em;margin-bottom:32px">No spam. Unsubscribe anytime. We email once a week.</p>
     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-      <button class="btn btn-red btn-lg" onclick="toApp('signup')">Create free account →</button>
-      <button class="btn btn-lg" style="border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.5)" onmouseover="this.style.borderColor='rgba(255,255,255,.5)';this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,.2)';this.style.color='rgba(255,255,255,.5)'" onclick="toApp('login')">Sign in</button>
+      <button class="l-btn l-btn-red l-btn-lg" onclick="toApp('signup')">Create free account →</button>
+      <button class="l-btn l-btn-lg" style="border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.5)" onmouseover="this.style.borderColor='rgba(255,255,255,.5)';this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,.2)';this.style.color='rgba(255,255,255,.5)'" onclick="toApp('login')">Sign in</button>
     </div>
   </div>
 </div>
 
 <!-- PRICING -->
-<section id="pricing" style="background:#fff">
-  <div class="wrap">
-    <div class="eyebrow"><div style="width:20px;height:1.5px;background:var(--red)"></div>Pricing</div>
-    <div class="gold-line"></div>
-    <h2 class="sec-h">Start free. No tricks.</h2>
-    <p class="sec-p">The core experience is free forever. Pro is launching soon — join the waitlist for founding member pricing.</p>
-    <div class="plans reveal">
-      <div class="plan">
-        <div class="plan-name">Free</div>
-        <div class="plan-price">₹0</div>
-        <div class="plan-sub">forever · no credit card</div>
+<div id="l-pricing" class="l-section" style="background:#fff">
+  <div class="l-wrap">
+    <div class="l-eyebrow2"><div style="width:20px;height:1.5px;background:var(--red)"></div>Pricing</div>
+    <div class="l-gold"></div>
+    <h2 class="l-sec-h">Start free. No tricks, no trials.</h2>
+    <p class="l-sec-p">The core experience is free forever. Pro is launching soon — join the waitlist now for founding member pricing and early access.</p>
+    <div class="l-plans l-reveal">
+      <div class="l-plan">
+        <div class="l-plan-name">Free</div>
+        <div class="l-plan-price">₹0</div>
+        <div class="l-plan-sub">forever · no credit card · no trial</div>
         <div style="height:1px;background:var(--line);margin-bottom:22px"></div>
-        <div class="pf"><span class="ck">✓</span>Full tools directory</div>
-        <div class="pf"><span class="ck">✓</span>Complaints board preview</div>
-        <div class="pf"><span class="ck">✓</span>Trend score preview</div>
-        <div class="pf"><span class="ck">✓</span>3 saved tools</div>
-        <div class="pf"><span class="ck">✓</span>Weekly newsletter</div>
-        <div class="pf"><span class="cx">✕</span><span style="color:var(--faint)">Full startup ideas feed</span></div>
-        <div class="pf"><span class="cx">✕</span><span style="color:var(--faint)">Executive Brief</span></div>
-        <div class="pf"><span class="cx">✕</span><span style="color:var(--faint)">Trend alerts</span></div>
-        <button class="btn btn-red" style="width:100%;margin-top:24px;padding:12px;font-size:13.5px;justify-content:center" onclick="toApp('signup')">Get started free →</button>
+        <div class="l-pf"><span class="l-ck">✓</span>Full AI tools directory with scores</div>
+        <div class="l-pf"><span class="l-ck">✓</span>Complaints board preview — top 10</div>
+        <div class="l-pf"><span class="l-ck">✓</span>Trend score preview for all tools</div>
+        <div class="l-pf"><span class="l-ck">✓</span>AI Tool Finder — 5 queries/day</div>
+        <div class="l-pf"><span class="l-ck">✓</span>3 saved tools in your dashboard</div>
+        <div class="l-pf"><span class="l-ck">✓</span>Weekly newsletter digest</div>
+        <div class="l-pf"><span class="l-cx">✕</span><span style="color:var(--faint)">Full complaints board</span></div>
+        <div class="l-pf"><span class="l-cx">✕</span><span style="color:var(--faint)">Startup ideas feed</span></div>
+        <div class="l-pf"><span class="l-cx">✕</span><span style="color:var(--faint)">Daily Executive Brief</span></div>
+        <div class="l-pf"><span class="l-cx">✕</span><span style="color:var(--faint)">Trend alerts by email</span></div>
+        <button class="l-btn l-btn-red" style="width:100%;margin-top:24px;padding:13px;font-size:13.5px;justify-content:center" onclick="toApp('signup')">Get started free →</button>
       </div>
-      <div class="plan plan-featured">
-        <div class="plan-badge">MOST POPULAR · COMING SOON</div>
-        <div class="plan-name" style="color:var(--red)">Pro</div>
-        <div class="plan-price">₹750</div>
-        <div class="plan-sub">per month · founding price</div>
+      <div class="l-plan l-plan-featured">
+        <div class="l-plan-badge">MOST POPULAR · LAUNCHING SOON</div>
+        <div class="l-plan-name" style="color:var(--red)">Pro</div>
+        <div class="l-plan-price">₹750</div>
+        <div class="l-plan-sub">per month · founding member price</div>
         <div style="height:1px;background:var(--line);margin-bottom:22px"></div>
-        <div class="pf"><span class="ck">✓</span>Everything in Free</div>
-        <div class="pf"><span class="ck">✓</span>Full complaints board</div>
-        <div class="pf"><span class="ck">✓</span>Complete startup ideas radar</div>
-        <div class="pf"><span class="ck">✓</span>Daily Executive Brief</div>
-        <div class="pf"><span class="ck">✓</span>Unlimited saved tools</div>
-        <div class="pf"><span class="ck">✓</span>Trend alerts by email</div>
-        <div class="pf"><span class="ck">✓</span>3-way tool comparison</div>
-        <button class="btn" style="width:100%;margin-top:24px;padding:12px;font-size:13.5px;justify-content:center;border-color:var(--red);color:var(--red)" onmouseover="this.style.background='var(--red)';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='var(--red)'" onclick="toApp('signup')">Join Pro waitlist →</button>
+        <div class="l-pf"><span class="l-ck">✓</span>Everything in Free</div>
+        <div class="l-pf"><span class="l-ck">✓</span>Full complaints board — all entries</div>
+        <div class="l-pf"><span class="l-ck">✓</span>Complete startup ideas radar</div>
+        <div class="l-pf"><span class="l-ck">✓</span>Daily Executive Brief — all industries</div>
+        <div class="l-pf"><span class="l-ck">✓</span>Unlimited saved tools</div>
+        <div class="l-pf"><span class="l-ck">✓</span>Trend alerts by email</div>
+        <div class="l-pf"><span class="l-ck">✓</span>3-way tool comparison</div>
+        <div class="l-pf"><span class="l-ck">✓</span>Pro community Discord access</div>
+        <div class="l-pf"><span class="l-ck">✓</span>Unlimited AI Finder queries</div>
+        <button class="l-btn" style="width:100%;margin-top:24px;padding:13px;font-size:13.5px;justify-content:center;border-color:var(--red);color:var(--red)" onmouseover="this.style.background='var(--red)';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='var(--red)'" onclick="toApp('signup')">Join Pro waitlist →</button>
       </div>
-      <div class="plan">
-        <div class="plan-name">API / Enterprise</div>
-        <div class="plan-price">₹8,200</div>
-        <div class="plan-sub">per month · contact us</div>
+      <div class="l-plan">
+        <div class="l-plan-name">API / Enterprise</div>
+        <div class="l-plan-price">₹8,200</div>
+        <div class="l-plan-sub">per month · contact us to discuss</div>
         <div style="height:1px;background:var(--line);margin-bottom:22px"></div>
-        <div class="pf"><span class="ck">✓</span>Everything in Pro</div>
-        <div class="pf"><span class="ck">✓</span>REST API — 5,000 req/day</div>
-        <div class="pf"><span class="ck">✓</span>14 data endpoints</div>
-        <div class="pf"><span class="ck">✓</span>Webhooks &amp; real-time push</div>
-        <div class="pf"><span class="ck">✓</span>CSV &amp; JSON export</div>
-        <div class="pf"><span class="ck">✓</span>Dedicated Slack support</div>
-        <div class="pf"><span class="ck">✓</span>SLA guarantee</div>
-        <button class="btn" style="width:100%;margin-top:24px;padding:12px;font-size:13.5px;justify-content:center" onmouseover="this.style.borderColor='var(--ink)';this.style.color='var(--ink)'" onmouseout="this.style.borderColor='var(--line)';this.style.color='var(--ink2)'" onclick="toApp('signup')">Contact us →</button>
+        <div class="l-pf"><span class="l-ck">✓</span>Everything in Pro</div>
+        <div class="l-pf"><span class="l-ck">✓</span>REST API — 5,000 requests/day</div>
+        <div class="l-pf"><span class="l-ck">✓</span>14 data endpoints</div>
+        <div class="l-pf"><span class="l-ck">✓</span>Webhooks &amp; real-time data push</div>
+        <div class="l-pf"><span class="l-ck">✓</span>CSV &amp; JSON data export</div>
+        <div class="l-pf"><span class="l-ck">✓</span>Dedicated Slack channel support</div>
+        <div class="l-pf"><span class="l-ck">✓</span>SLA guarantee &amp; priority data</div>
+        <div class="l-pf"><span class="l-ck">✓</span>Custom integrations on request</div>
+        <button class="l-btn" style="width:100%;margin-top:24px;padding:13px;font-size:13.5px;justify-content:center" onmouseover="this.style.borderColor='var(--ink)';this.style.color='var(--ink)'" onmouseout="this.style.borderColor='var(--line)';this.style.color='var(--ink2)'" onclick="toApp('signup')">Contact us →</button>
       </div>
     </div>
   </div>
-</section>
+</div>
+
+<!-- FAQ -->
+<div id="l-faq" class="l-section" style="background:var(--bg2)">
+  <div class="l-wrap" style="max-width:720px">
+    <div class="l-eyebrow2"><div style="width:20px;height:1.5px;background:var(--red)"></div>Frequently asked</div>
+    <div class="l-gold"></div>
+    <h2 class="l-sec-h" style="margin-bottom:36px">Questions we get a lot.</h2>
+    <div class="l-faq l-reveal" onclick="lfaq(this)">
+      <button class="l-faq-q"><span class="l-faq-q-text">Is FloMKa really free forever?</span><span class="l-faq-icon">+</span></button>
+      <div class="l-faq-a">Yes. The free tier is free forever — no trial period, no credit card, no automatic upgrade. You get the full tools directory, complaints preview, trend scores, and AI Finder. We make money from Pro and API plans, not by restricting the free tier aggressively.</div>
+    </div>
+    <div class="l-faq l-reveal" onclick="lfaq(this)">
+      <button class="l-faq-q"><span class="l-faq-q-text">How does FloMKa score AI tools?</span><span class="l-faq-icon">+</span></button>
+      <div class="l-faq-a">Our composite score has four components: community vote weight (40%), complaint penalty based on volume and severity (30%), week-on-week momentum (20%), and integration breadth as a proxy for enterprise readiness (10%). No company can pay to influence their score. A tool with 5,000 complaints will score lower than one with 50, regardless of how much they spend on marketing.</div>
+    </div>
+    <div class="l-faq l-reveal" onclick="lfaq(this)">
+      <button class="l-faq-q"><span class="l-faq-q-text">Where does the complaint data come from?</span><span class="l-faq-icon">+</span></button>
+      <div class="l-faq-a">We source complaints from Reddit threads (r/artificial, r/ChatGPT, r/cursor, r/MachineLearning and others), HackerNews discussions, and developer forums. Every complaint in the system is a real post from a real user — we don't fabricate or editorialize. Complaints are sorted by upvote count so the highest-signal frustrations always surface first.</div>
+    </div>
+    <div class="l-faq l-reveal" onclick="lfaq(this)">
+      <button class="l-faq-q"><span class="l-faq-q-text">What is the Executive Brief exactly?</span><span class="l-faq-icon">+</span></button>
+      <div class="l-faq-a">The Executive Brief is a daily AI-generated intelligence report personalised to your industry. It has four sections: Risk Radar (what's breaking in your sector), Adoption Signal (what leading teams are adopting), Opportunity Map (where the gaps are), and one Monday Action Item (something concrete to do this week). It's generated fresh every day using live FloMKa data and takes about 5 minutes to read.</div>
+    </div>
+    <div class="l-faq l-reveal" onclick="lfaq(this)">
+      <button class="l-faq-q"><span class="l-faq-q-text">When is the Pro plan launching?</span><span class="l-faq-icon">+</span></button>
+      <div class="l-faq-a">Pro is launching in approximately 3 months. If you join the waitlist now, you'll get early access before the public launch and a founding member price that's locked in for life — meaning you'll never pay more than ₹750/month even as we add more features. Join the waitlist from your dashboard after signing up.</div>
+    </div>
+    <div class="l-faq l-reveal" onclick="lfaq(this)">
+      <button class="l-faq-q"><span class="l-faq-q-text">Does FloMKa accept sponsored content or paid rankings?</span><span class="l-faq-icon">+</span></button>
+      <div class="l-faq-a">No. FloMKa does not accept payment to rank tools higher, feature tools prominently, or suppress negative complaints. Our revenue comes entirely from Pro and API subscriptions — not from the tools we cover. This isn't a policy we might change later. It's the foundation the product is built on.</div>
+    </div>
+    <div class="l-faq l-reveal" onclick="lfaq(this)">
+      <button class="l-faq-q"><span class="l-faq-q-text">Can I sign up with Google or LinkedIn?</span><span class="l-faq-icon">+</span></button>
+      <div class="l-faq-a">Yes. FloMKa supports Google login, LinkedIn login, and email/password signup. Google and LinkedIn take about 2 clicks and don't require you to create or remember a password. All three options are available on the sign-up screen.</div>
+    </div>
+  </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
   <div style="max-width:1180px;margin:0 auto">
-    <div class="footer-grid">
+    <div class="l-footer-grid">
       <div>
         <svg width="110" height="32" viewBox="0 0 110 32" fill="none" style="margin-bottom:16px;display:block">
           <rect x="0" y="1" width="28" height="28" rx="4" fill="#A6192E"/>
@@ -932,40 +1070,44 @@ body.app-mode { overflow:auto }
           <rect x="15" y="14" width="5" height="2" rx="1" fill="#C9A84C" opacity="0.65"/>
           <text x="33" y="21" font-family="Georgia,serif" font-size="17" font-weight="700" letter-spacing="-0.5"><tspan fill="#1C1814">Flo</tspan><tspan fill="#A6192E">M</tspan><tspan fill="#1C1814">K</tspan><tspan fill="#C9A84C">a</tspan></text>
         </svg>
-        <p style="font-size:13px;color:var(--muted);line-height:1.7;max-width:200px;margin-bottom:16px">The pulse of AI — every single day.</p>
-        <p style="font-size:11px;color:var(--faint)">© 2026 FloMKa · flomka.ai · 🇮🇳</p>
+        <p style="font-size:13px;color:var(--muted);line-height:1.7;max-width:200px;margin-bottom:16px">The pulse of AI — every single day. Intelligence for students, founders and leaders.</p>
+        <p style="font-size:11px;color:var(--faint)">© 2026 FloMKa · flomka.ai · Made in India 🇮🇳</p>
       </div>
       <div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:16px">Platform</div>
-        <button class="fl" onclick="toApp('signup')">Tools Directory</button>
-        <button class="fl" onclick="toApp('signup')">Complaints Board</button>
-        <button class="fl" onclick="toApp('signup')">Startup Ideas</button>
-        <button class="fl" onclick="toApp('signup')">Executive Brief</button>
-        <button class="fl" onclick="toApp('signup')">Trends</button>
+        <div class="l-footer-head">Platform</div>
+        <button class="l-fl" onclick="toApp('signup')">Tools Directory</button>
+        <button class="l-fl" onclick="toApp('signup')">Complaints Board</button>
+        <button class="l-fl" onclick="toApp('signup')">Startup Ideas</button>
+        <button class="l-fl" onclick="toApp('signup')">Executive Brief</button>
+        <button class="l-fl" onclick="toApp('signup')">Trends</button>
+        <button class="l-fl" onclick="toApp('signup')">AI Tool Finder</button>
       </div>
       <div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:16px">For</div>
-        <button class="fl" onclick="go('for-you')">Students</button>
-        <button class="fl" onclick="go('for-you')">Founders</button>
-        <button class="fl" onclick="go('for-you')">CEOs &amp; Leaders</button>
-        <button class="fl" onclick="go('pricing')">Pricing</button>
+        <div class="l-footer-head">For</div>
+        <button class="l-fl" onclick="lgo('l-for-you')">Students</button>
+        <button class="l-fl" onclick="lgo('l-for-you')">Founders</button>
+        <button class="l-fl" onclick="lgo('l-for-you')">CEOs &amp; Leaders</button>
+        <button class="l-fl" onclick="lgo('l-pricing')">Pricing</button>
+        <button class="l-fl" onclick="lgo('l-faq')">FAQ</button>
       </div>
       <div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:16px">Account</div>
-        <button class="fl" onclick="toApp('signup')">Sign up free</button>
-        <button class="fl" onclick="toApp('login')">Sign in</button>
-        <button class="fl" onclick="toApp('signup')">Join Pro waitlist</button>
+        <div class="l-footer-head">Account</div>
+        <button class="l-fl" onclick="toApp('signup')">Sign up free</button>
+        <button class="l-fl" onclick="toApp('login')">Sign in</button>
+        <button class="l-fl" onclick="toApp('signup')">Join Pro waitlist</button>
+        <button class="l-fl" onclick="toApp('signup')">API access</button>
       </div>
     </div>
     <div style="height:1px;background:var(--line);margin-bottom:24px"></div>
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
       <span style="font-size:12px;color:var(--faint)">FloMKa never sells user data and never accepts payment to influence rankings.</span>
-      <span style="font-size:12px;color:var(--faint)">No ads · No sponsored content</span>
+      <span style="font-size:12px;color:var(--faint)">No ads · No sponsored content · No BS</span>
     </div>
   </div>
 </footer>
 
-<!-- toast-wrap from index.html handles all toasts -->
+</div>
+
 </div>
 
 <!-- ═══ APP SHELL (shown after authentication) ═══ -->
@@ -1096,17 +1238,19 @@ function showApp(){
    LANDING PAGE JS
 ═══════════════════════════════════════════════════ */
 // Single-file mode: no redirect needed
-function go(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'})}
+function lgo(id){ document.getElementById(id)?.scrollIntoView({behavior:'smooth'}) }
+
 function toApp(mode){
-  // Hide landing, show login wall with correct mode
   hideLanding();
   showLoginWall();
   setLoginWallMode(mode === 'signup' ? 'signup' : 'login');
 }
+
 // toast() provided by main app JS
+
 async function nlSub(){
   const e=document.getElementById('landing-nl-email')?.value?.trim();
-  if(!e||!e.includes('@')){toast('Enter a valid email','warning');return;}
+  if(!e||!e.includes('@')){toast('Enter a valid email address','warning');return;}
   try{
     if(typeof sb !== 'undefined') await sb.from('newsletter_subscribers').insert({email:e});
   }catch(ex){}
@@ -1115,10 +1259,45 @@ async function nlSub(){
 }
 
 // Ticker
-const H=["AI tool releases are outpacing enterprise adoption by 4× — Q1 2026","The average startup is now using 7+ AI tools with no central tracking","80% of AI tool complaints go unread by the product teams they affect","India's AI startup count doubled in 12 months — most founders cite tool confusion","Enterprise AI adoption is slowing due to lack of reliable comparative data","The AI intelligence gap between informed and uninformed teams is growing fast","AI coding tools are now cited in 60% of developer job descriptions","Cursor surpassed VS Code in developer satisfaction surveys — March 2026"];
-(()=>{const items=[...H,...H];document.getElementById('landing-ticker').innerHTML=items.map(i=>`<span style="font-size:11.5px;color:rgba(255,255,255,.48);letter-spacing:.06em;padding:0 40px">◆  ${i}</span>`).join('')})();
+(()=>{
+  const H=[
+    "AI tool releases are outpacing enterprise adoption by 4× — Q1 2026",
+    "The average startup now uses 7+ AI tools with no central tracking or scoring",
+    "80% of AI tool complaints go unread by the product teams they affect most",
+    "India's AI startup count doubled in 12 months — most founders cite tool confusion as #1 blocker",
+    "Enterprise AI adoption is slowing due to lack of reliable comparative data",
+    "The intelligence gap between informed and uninformed AI teams is growing every week",
+    "AI coding tools are now cited in 60% of all developer job descriptions",
+    "Cursor surpassed VS Code in developer satisfaction surveys — March 2026",
+    "Autonomous AI agents are the fastest-rising category in Q1 2026 by momentum score",
+    "AI video generation costs dropped 80% in 12 months — adoption is accelerating"
+  ];
+  const items=[...H,...H];
+  const el=document.getElementById('landing-ticker');
+  if(el) el.innerHTML=items.map(i=>`<span style="font-size:11.5px;color:rgba(255,255,255,.48);letter-spacing:.06em;padding:0 40px">◆  ${i}</span>`).join('');
+})();
 
-// scroll reveal handled below
+// Scroll reveal with IntersectionObserver
+(()=>{
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('l-in');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.l-reveal, .l-reveal-left, .l-reveal-right').forEach(el => obs.observe(el));
+})();
+
+// FAQ accordion
+function lfaq(card){
+  const isOpen = card.classList.contains('open');
+  // Close all
+  document.querySelectorAll('#landing-shell .l-faq').forEach(f => f.classList.remove('open'));
+  // Open clicked if it wasn't open
+  if(!isOpen) card.classList.add('open');
+}
 
 // 3D AI Knowledge Graph
 (()=>{
@@ -1126,15 +1305,8 @@ const H=["AI tool releases are outpacing enterprise adoption by 4× — Q1 2026"
   if(!cv)return;
   const cx=cv.getContext('2d');
   let W,H,nodes=[],edges=[],raf,drag=false,lx=0,ly=0,ry=0.4,rx=0.28,vy=0.003,vx=0;
-
   const LABELS=['Tools','Search','Coding','Writing','Video','Inference','Agents','APIs','Models','Data','Voice','Vision','RAG','Fine-tune','Embeddings','Prompts','Evals','Safety','Alignment','Benchmarks'];
-
-  function resize(){
-    W=cv.clientWidth;H=cv.clientHeight;
-    cv.width=W*devicePixelRatio;cv.height=H*devicePixelRatio;
-    cx.scale(devicePixelRatio,devicePixelRatio);
-  }
-
+  function resize(){W=cv.clientWidth;H=cv.clientHeight;cv.width=W*devicePixelRatio;cv.height=H*devicePixelRatio;cx.scale(devicePixelRatio,devicePixelRatio)}
   function build(){
     nodes=[];edges=[];
     const R=Math.min(W,H)*0.33;
@@ -1145,28 +1317,21 @@ const H=["AI tool releases are outpacing enterprise adoption by 4× — Q1 2026"
       edges.push({a:0,b:nodes.length-1,t:'p'});
     }
     for(let i=0;i<14;i++){
-      const θ=Math.random()*Math.PI*2,φ=Math.acos(2*Math.random()-1),r=R*(.55+Math.random()*.45);
-      nodes.push({x:r*Math.sin(φ)*Math.cos(θ),y:r*Math.sin(φ)*Math.sin(θ),z:r*Math.cos(φ),r:4+Math.random()*3,label:LABELS[6+i%14],type:'sec',p:Math.random()*Math.PI*2,pd:Math.random()>.5?1:-1});
+      const th=Math.random()*Math.PI*2,ph=Math.acos(2*Math.random()-1),r=R*(.55+Math.random()*.45);
+      nodes.push({x:r*Math.sin(ph)*Math.cos(th),y:r*Math.sin(ph)*Math.sin(th),z:r*Math.cos(ph),r:4+Math.random()*3,label:LABELS[6+i%14],type:'sec',p:Math.random()*Math.PI*2,pd:Math.random()>.5?1:-1});
       edges.push({a:1+Math.floor(Math.random()*6),b:nodes.length-1,t:'s'});
     }
     for(let i=0;i<7;i++){const a=7+~~(Math.random()*14),b=7+~~(Math.random()*14);if(a!==b)edges.push({a,b,t:'t'})}
   }
-
   function proj(x,y,z){
-    const cy2=Math.cos(ry),sy=Math.sin(ry);
-    const x1=x*cy2-z*sy,z1=x*sy+z*cy2;
-    const cx2=Math.cos(rx),sx=Math.sin(rx);
-    const y2=y*cx2-z1*sx,z2=y*sx+z1*cx2;
-    const f=580,s=f/(f+z2);
-    return{sx:W/2+x1*s,sy:H/2+y2*s,sc:s,z:z2};
+    const cy2=Math.cos(ry),sy=Math.sin(ry),x1=x*cy2-z*sy,z1=x*sy+z*cy2;
+    const cx2=Math.cos(rx),sx=Math.sin(rx),y2=y*cx2-z1*sx,z2=y*sx+z1*cx2;
+    const f=580,s=f/(f+z2);return{sx:W/2+x1*s,sy:H/2+y2*s,sc:s,z:z2};
   }
-
   function draw(){
     cx.clearRect(0,0,W,H);
     nodes.forEach(n=>{n.p+=.022*n.pd;if(n.p>Math.PI*2)n.p-=Math.PI*2});
     const pr=nodes.map(n=>({...n,...proj(n.x,n.y,n.z)}));
-
-    // edges
     edges.forEach(e=>{
       const a=pr[e.a],b=pr[e.b];if(!a||!b)return;
       const d=Math.max(0,(.5-Math.abs(a.z/380))*(.5-Math.abs(b.z/380))+.1);
@@ -1174,25 +1339,19 @@ const H=["AI tool releases are outpacing enterprise adoption by 4× — Q1 2026"
       cx.strokeStyle=e.t==='p'?`rgba(166,25,46,${d*.8})`:e.t==='s'?`rgba(201,168,76,${d*.5})`:`rgba(180,169,158,${d*.3})`;
       cx.lineWidth=e.t==='p'?.9:.45;cx.stroke();
     });
-
-    // nodes sorted by z
     [...pr].sort((a,b)=>a.z-b.z).forEach(n=>{
       const pf=.86+.14*Math.sin(n.p),r=n.r*n.sc*pf;
       const dp=Math.max(0,Math.min(1,(n.z+380)/760));
-
       if(n.type!=='sec'){
         const g=cx.createRadialGradient(n.sx,n.sy,0,n.sx,n.sy,r*3.5);
         g.addColorStop(0,n.type==='hub'?'rgba(166,25,46,0.22)':'rgba(201,168,76,0.18)');
         g.addColorStop(1,'rgba(0,0,0,0)');
         cx.beginPath();cx.arc(n.sx,n.sy,r*3.5,0,Math.PI*2);cx.fillStyle=g;cx.fill();
       }
-
       cx.beginPath();cx.arc(n.sx,n.sy,r,0,Math.PI*2);
       cx.fillStyle=n.type==='hub'?`rgba(166,25,46,${.65+.3*dp})`:n.type==='primary'?`rgba(201,168,76,${.5+.4*dp})`:`rgba(180,169,158,${.28+.3*dp})`;
       cx.fill();
-
       if(n.type==='hub'){cx.beginPath();cx.arc(n.sx,n.sy,r+5,0,Math.PI*2);cx.strokeStyle='rgba(166,25,46,0.25)';cx.lineWidth=1;cx.stroke()}
-
       if((n.type==='hub'||n.type==='primary')&&dp>.25){
         const fs=Math.max(9,10*n.sc);
         cx.font=`${n.type==='hub'?'600 ':''}${fs}px 'Jost',sans-serif`;
@@ -1201,23 +1360,17 @@ const H=["AI tool releases are outpacing enterprise adoption by 4× — Q1 2026"
         cx.fillText(n.label,n.sx,n.sy+r+11*n.sc);
       }
     });
-
-    // decorative orbit ring
-    cx.beginPath();
-    cx.ellipse(W/2,H/2,Math.min(W,H)*.4,Math.min(W,H)*.12,ry*.25,0,Math.PI*2);
+    cx.beginPath();cx.ellipse(W/2,H/2,Math.min(W,H)*.4,Math.min(W,H)*.12,ry*.25,0,Math.PI*2);
     cx.strokeStyle='rgba(201,168,76,0.07)';cx.lineWidth=1;cx.stroke();
-
     if(!drag){ry+=vy;rx+=vx;vx*=.97}
     raf=requestAnimationFrame(draw);
   }
-
   cv.addEventListener('mousedown',e=>{drag=true;lx=e.clientX;ly=e.clientY});
   window.addEventListener('mouseup',()=>drag=false);
   window.addEventListener('mousemove',e=>{if(!drag)return;ry+=(e.clientX-lx)*.008;rx+=(e.clientY-ly)*.008;lx=e.clientX;ly=e.clientY});
   cv.addEventListener('touchstart',e=>{drag=true;lx=e.touches[0].clientX;ly=e.touches[0].clientY},{passive:true});
   cv.addEventListener('touchend',()=>drag=false,{passive:true});
   cv.addEventListener('touchmove',e=>{if(!drag)return;ry+=(e.touches[0].clientX-lx)*.008;rx+=(e.touches[0].clientY-ly)*.008;lx=e.touches[0].clientX;ly=e.touches[0].clientY},{passive:true});
-
   const ro=new ResizeObserver(()=>{cancelAnimationFrame(raf);resize();build();draw()});
   ro.observe(cv);resize();build();draw();
 })();
