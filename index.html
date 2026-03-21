@@ -1388,7 +1388,12 @@ const sb = createClient(SUPABASE_URL, SUPABASE_ANON);
 const RAZORPAY_KEY = 'rzp_test_YourKeyHere';
 
 // Groq API Key (replace with your actual Groq key from console.groq.com)
-const GROQ_API_KEY = 'YOUR_GROQ_API_KEY_HERE';
+// ─────────────────────────────────────────────────────
+// CONFIGURATION — Fill these in
+// ─────────────────────────────────────────────────────
+// Get your free Groq key at: https://console.groq.com
+// Without this key: AI Finder, Executive Brief & Compare verdict won't work
+const GROQ_API_KEY = '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';
 
 // ===================== UTILS (early) =====================
 function esc(str){ 
@@ -1443,10 +1448,8 @@ function timeAgo(dateStr){
 }
 function navigate(page){
   currentPage = page;
-  // Clear data cache when revisiting content pages so admin changes appear
-  if(['tools','complaints','ideas','home','brief','trends'].includes(page)){
-    clearCache();
-  }
+  // Always clear cache so admin changes appear immediately
+  clearCache();
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   const el = c('page-' + page);
   if(el){ el.classList.add('active'); renderPage(page); }
@@ -1830,15 +1833,17 @@ async function fetchTools(){
   try {
     const { data, error } = await sb.from('tools').select('*').eq('published', true).order('rank');
     if(error){
-      // Table doesn't exist yet — use fallback data silently
-      console.warn('DB not set up yet, using fallback tools data. Run schema.sql in Supabase to fix.');
-      cachedTools = FALLBACK_TOOLS;
+      console.warn('Tools DB error:', error.message);
+      // Only use fallback if table truly doesn't exist (42P01)
+      if(error.code === '42P01') cachedTools = FALLBACK_TOOLS;
+      else cachedTools = []; // DB exists but RLS/other error - show empty not fake data
       return cachedTools;
     }
-    cachedTools = (data && data.length > 0) ? data : FALLBACK_TOOLS;
+    // Use DB data if any exists, otherwise show empty (don't mix fake+real)
+    cachedTools = data || [];
     return cachedTools;
   } catch(e) {
-    console.warn('Tools fetch failed, using fallback:', e.message);
+    console.warn('Tools fetch failed:', e.message);
     cachedTools = FALLBACK_TOOLS;
     return cachedTools;
   }
@@ -1849,14 +1854,15 @@ async function fetchComplaints(){
   try {
     const { data, error } = await sb.from('complaints').select('*').eq('published', true).order('votes', { ascending: false });
     if(error){
-      console.warn('DB not set up yet, using fallback complaints data.');
-      cachedComplaints = FALLBACK_COMPLAINTS;
+      console.warn('Complaints DB error:', error.message);
+      if(error.code === '42P01') cachedComplaints = FALLBACK_COMPLAINTS;
+      else cachedComplaints = [];
       return cachedComplaints;
     }
-    cachedComplaints = (data && data.length > 0) ? data : FALLBACK_COMPLAINTS;
+    cachedComplaints = data || [];
     return cachedComplaints;
   } catch(e) {
-    console.warn('Complaints fetch failed, using fallback:', e.message);
+    console.warn('Complaints fetch failed:', e.message);
     cachedComplaints = FALLBACK_COMPLAINTS;
     return cachedComplaints;
   }
@@ -1867,14 +1873,15 @@ async function fetchIdeas(){
   try {
     const { data, error } = await sb.from('ideas').select('*').eq('published', true).order('score', { ascending: false });
     if(error){
-      console.warn('DB not set up yet, using fallback ideas data.');
-      cachedIdeas = FALLBACK_IDEAS;
+      console.warn('Ideas DB error:', error.message);
+      if(error.code === '42P01') cachedIdeas = FALLBACK_IDEAS;
+      else cachedIdeas = [];
       return cachedIdeas;
     }
-    cachedIdeas = (data && data.length > 0) ? data : FALLBACK_IDEAS;
+    cachedIdeas = data || [];
     return cachedIdeas;
   } catch(e) {
-    console.warn('Ideas fetch failed, using fallback:', e.message);
+    console.warn('Ideas fetch failed:', e.message);
     cachedIdeas = FALLBACK_IDEAS;
     return cachedIdeas;
   }
@@ -2762,7 +2769,13 @@ async function runFinder(){
     const result = await askGroqFinder(q, tools, complaints);
     resultBox.innerHTML = renderFinderResult(result);
   } catch(e) {
-    resultBox.innerHTML = `<div style="color:#A6192E;font-size:13px;padding:16px">Something went wrong. Try again — ${e.message}</div>`;
+    const isKeyMissing = e.message.includes('Groq API key');
+    resultBox.innerHTML = `<div style="padding:20px;border-radius:3px;background:#3A1018;border:1px solid #A6192E">
+      <div style="font-size:14px;font-weight:600;color:#E57389;margin-bottom:8px">${isKeyMissing ? '⚙️ Groq API key not configured' : '⚠️ Something went wrong'}</div>
+      <div style="font-size:13px;color:#8C8279;line-height:1.6">${isKeyMissing 
+        ? 'The AI Finder needs a Groq API key to work. Get your free key at <a href="https://console.groq.com" target="_blank" style="color:#C9A84C">console.groq.com</a>, then add it to the GROQ_API_KEY constant in the code.' 
+        : e.message}</div>
+    </div>`;
   } finally {
     btn.disabled = false;
     btn.innerHTML = 'Find the right tool →';
@@ -2827,7 +2840,14 @@ function filterToolsUI(){
   const grid = c('tools-grid');
   if(!grid) return;
   if(!filtered.length){
-    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:48px;color:#7A7068"><div style="font-size:32px;margin-bottom:12px">🔍</div><p>No tools found</p></div>`;
+    const isDbEmpty = !cachedTools.length;
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:56px 24px;color:#7A7068">
+      <div style="font-size:40px;margin-bottom:16px">${isDbEmpty ? '🛠' : '🔍'}</div>
+      <div style="font-size:16px;font-weight:500;color:#3A3530;margin-bottom:8px">${isDbEmpty ? 'No tools in the database yet' : 'No tools match your search'}</div>
+      <p style="font-size:13px;line-height:1.6">${isDbEmpty 
+        ? 'Add tools from the <strong style="color:#C9A84C">Admin Panel</strong> — they will appear here once published.' 
+        : 'Try a different search or category.'}</p>
+    </div>`;
     return;
   }
   grid.innerHTML = filtered.map(t => `
