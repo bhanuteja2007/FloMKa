@@ -240,7 +240,7 @@ body.dark .drawer-footer{border-color:#3A3028}
 }
 .lw-split{
   display:grid;grid-template-columns:1fr 1fr;
-  min-height:100vh;width:100%;max-width:1100px;
+  min-height:100dvh;min-height:100vh;width:100%;max-width:1100px;
   background:#0A0907;
 }
 .lw-left{
@@ -493,6 +493,279 @@ body.app-mode { overflow:auto }
 
 /* When app is active, app nav should be visible */
 #app-shell nav { display:flex }
+
+/* ═══════════════════════════════════════════════════
+   COMPREHENSIVE MOBILE STYLES
+   Targets: phones (≤480px), small tablets (≤640px), tablets (≤900px)
+═══════════════════════════════════════════════════ */
+
+/* ── Global mobile fixes ───────────────────────────────────────────────── */
+@media(max-width:640px){
+  /* Prevent horizontal scroll */
+  body{overflow-x:hidden}
+
+  /* Readable base font */
+  body{font-size:15px}
+
+  /* Touch-friendly buttons */
+  .btn{min-height:44px;padding:10px 16px}
+  .btn-sm{min-height:36px;padding:8px 12px}
+
+  /* Toast full-width on mobile */
+  .toast-wrap{left:12px;right:12px;bottom:16px}
+  .toast{max-width:100%}
+
+  /* Section padding */
+  .section{padding:36px 16px}
+
+  /* App hero */
+  .hero{padding:48px 16px 40px}
+  .hero h1{font-size:30px!important;line-height:1.12}
+  .hero-sub{font-size:15px!important;max-width:100%}
+  .hero-stats{gap:16px!important;flex-wrap:wrap}
+  .hero-stat-val{font-size:22px}
+  .hero-inner{gap:28px}
+
+  /* Scoreboard */
+  #hero-scoreboard{padding:18px}
+
+  /* App page padding */
+  .page > div:first-child{padding:28px 16px!important}
+  [style*="padding:48px 24px"]{padding:28px 16px!important}
+  [style*="padding:56px 24px"]{padding:28px 16px!important}
+
+  /* Cards */
+  .card{padding:16px}
+  .complaint-card{padding:14px 16px;gap:12px}
+  .complaint-votes{min-width:40px}
+  .complaint-votes-num{font-size:18px}
+
+  /* Pricing */
+  .pricing-grid{grid-template-columns:1fr!important;gap:16px}
+  .plan-price{font-size:38px}
+
+  /* Grids */
+  .grid-3,.grid-2{grid-template-columns:1fr!important;gap:12px}
+
+  /* Dashboard tabs */
+  .dash-tabs{gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .dash-tab{padding:10px 14px;font-size:12.5px;white-space:nowrap}
+
+  /* Stat cards */
+  [style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:1fr 1fr!important}
+  [style*="grid-template-columns:2fr 1fr"]{grid-template-columns:1fr!important}
+
+  /* Tool compare grid */
+  [style*="grid-template-columns:1fr 48px 1fr"]{grid-template-columns:1fr!important}
+  [style*="grid-template-columns:1fr 48px 1fr"] > *:nth-child(2){display:none}
+
+  /* Brief grid */
+  [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}
+
+  /* Footer */
+  .footer-grid{grid-template-columns:1fr!important;gap:28px}
+  footer{padding:36px 16px 24px}
+
+  /* Headings on pages */
+  h1[style*="font-size:42px"],h1[style*="font-size:40px"]{font-size:28px!important}
+  h1[style*="font-size:50px"]{font-size:32px!important}
+  h2[style*="font-size:34px"],h2[style*="font-size:32px"]{font-size:24px!important}
+  h2[style*="font-size:40px"]{font-size:26px!important}
+
+  /* Hide search in search-drop on mobile (too wide) */
+  #search-drop{width:calc(100vw - 24px)!important;left:12px!important;transform:none!important;right:12px}
+
+  /* Modal */
+  .modal{padding:24px 18px;margin:8px}
+  .modal-overlay{padding:12px}
+
+  /* Nav auth */
+  #nav-auth-area .btn-sm{display:none}
+
+  /* Idea cards */
+  .idea-card{padding:18px}
+
+  /* Loading state */
+  .loading-state{padding:32px 16px}
+}
+
+@media(max-width:480px){
+  .hero h1{font-size:26px!important}
+  .hero-stat-val{font-size:20px}
+  .section{padding:28px 14px}
+  .hero{padding:40px 14px 32px}
+
+  /* Score cards in dashboard */
+  [style*="grid-template-columns:repeat(4,1fr)"]{grid-template-columns:1fr 1fr!important}
+
+  /* Brief header flex */
+  [style*="justify-content:space-between"][style*="flex-wrap:wrap"]{flex-direction:column;align-items:flex-start!important}
+
+  /* Complaint card stacked */
+  .complaint-card{flex-direction:column;gap:10px}
+  .complaint-votes{display:flex;gap:8px;align-items:center}
+
+  /* Tool card buttons */
+  .tool-card [style*="display:flex;gap:6px;align-items:center;margin-top:auto"]{flex-wrap:wrap}
+
+  /* Finder chips wrap */
+  [style*="Best AI coding assistant"]{flex-wrap:wrap}
+}
+
+/* ── Login Wall mobile ─────────────────────────────────────────────────── */
+@media(max-width:780px){
+  #login-wall{padding:0;align-items:stretch}
+  .lw-split{min-height:100dvh}
+  .lw-right{padding:32px 20px;justify-content:flex-start;padding-top:48px}
+  .lw-form-box{max-width:100%}
+  #lw-mobile-logo{display:block!important}
+  .lw-social-btn{padding:13px}
+
+  /* Stack social buttons */
+  .lw-social-google,.lw-social-linkedin{font-size:13px}
+}
+
+/* ── App pages mobile ──────────────────────────────────────────────────── */
+@media(max-width:640px){
+  /* Brief page credibility bar */
+  #page-brief [style*="display:flex;align-items:center;gap:20px"]{flex-direction:column;align-items:flex-start;gap:12px}
+  #page-brief [style*="width:1px;height:32px"]{display:none}
+
+  /* Industry select row */
+  #page-brief [style*="display:flex;align-items:center;gap:14px"]{flex-direction:column;align-items:flex-start;gap:8px}
+  #industry-select{width:100%!important;max-width:100%!important}
+
+  /* Compare page */
+  #page-compare [style*="display:flex;gap:12px;align-items:flex-end"]{flex-direction:column}
+  #compare-btn{width:100%}
+
+  /* Trends page 2-col grid */
+  #page-trends [style*="grid-template-columns:2fr 1fr"]{grid-template-columns:1fr!important}
+
+  /* Dashboard header flex */
+  #page-dashboard [style*="display:flex;gap:18px;align-items:center"]{flex-wrap:wrap}
+  #page-dashboard [style*="display:flex;gap:8px"]:last-child{flex-direction:column;width:100%}
+  #page-dashboard .btn{width:100%;justify-content:center}
+
+  /* History table → card view */
+  #hist-grid [style*="grid-template-columns:40px 1fr 100px 80px 80px 80px 110px"]{grid-template-columns:32px 1fr auto!important}
+  #hist-grid [style*="grid-template-columns:40px 1fr 100px 80px 80px 80px 110px"] > *:nth-child(3),
+  #hist-grid [style*="grid-template-columns:40px 1fr 100px 80px 80px 80px 110px"] > *:nth-child(4),
+  #hist-grid [style*="grid-template-columns:40px 1fr 100px 80px 80px 80px 110px"] > *:nth-child(5){display:none}
+
+  /* Settings page */
+  #page-dashboard [style*="display:flex;gap:10px;margin-top:24px"]{flex-direction:column}
+
+  /* Complaints submit form */
+  #page-complaints [style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr!important}
+
+  /* Home page ticker */
+  .ticker-wrap{padding:6px 0}
+
+  /* Pro nudge */
+  .pro-nudge{flex-direction:column;gap:8px}
+  .pro-nudge .btn{width:100%;justify-content:center}
+
+  /* Compare result grid */
+  #compare-result [style*="grid-template-columns:1fr 48px 1fr"]{grid-template-columns:1fr!important;gap:12px}
+
+  /* Quick compare buttons */
+  #page-compare [style*="display:flex;gap:8px;flex-wrap:wrap"]{gap:6px}
+
+  /* Share strip */
+  #page-brief [style*="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap"]{flex-direction:column;align-items:flex-start}
+}
+
+/* ── Landing mobile ────────────────────────────────────────────────────── */
+@media(max-width:640px){
+  #landing-shell .l-section{padding:52px 16px}
+  #landing-shell .l-hero{padding:72px 16px 48px;min-height:auto}
+  #landing-shell .l-hero h1{font-size:32px!important;line-height:1.1}
+  #landing-shell .l-hero-sub{font-size:17px!important}
+  #landing-shell .l-hero-btns{flex-direction:column;gap:8px}
+  #landing-shell .l-hero-btns .l-btn{width:100%;justify-content:center}
+  #landing-shell .l-hero-inner{grid-template-columns:1fr;gap:32px}
+  #landing-shell #ai3d{height:240px!important}
+  #landing-shell .l-hero-bg{display:none}
+  #landing-shell .l-canvas-tag{font-size:9px}
+
+  /* Stats bar 2 col */
+  #landing-shell .l-stats{grid-template-columns:1fr 1fr!important}
+  #landing-shell .l-stat{padding:20px 14px}
+  #landing-shell .l-stat-n{font-size:34px}
+
+  /* Why section */
+  #landing-shell .l-why-grid{grid-template-columns:1fr;gap:32px}
+  #landing-shell .l-prob-stack{height:auto;display:flex;flex-direction:column;gap:12px}
+  #landing-shell .l-prob-card{position:static!important;animation:none!important}
+
+  /* Audience grid */
+  #landing-shell .l-aud-grid{grid-template-columns:1fr}
+  #landing-shell .l-aud-card{border-right:none;border-bottom:1px solid var(--line);padding:28px 20px}
+  #landing-shell .l-aud-card:last-child{border-bottom:none}
+  #landing-shell .l-aud-num{font-size:52px}
+
+  /* Features */
+  #landing-shell .l-feat-grid{grid-template-columns:1fr}
+  #landing-shell .l-feat{padding:24px 20px}
+
+  /* Steps */
+  #landing-shell .l-steps{grid-template-columns:1fr}
+  #landing-shell .l-step{padding:28px 20px}
+  #landing-shell .l-step-arr{display:none!important}
+
+  /* Trust logos wrap */
+  #landing-shell .l-trust-logos{gap:20px;justify-content:flex-start}
+
+  /* CTA strip */
+  #landing-shell .l-cta{padding:52px 16px}
+  #landing-shell .l-cta h2{font-size:32px!important}
+  #landing-shell .l-cta-inner [style*="display:flex;gap:8px"]{flex-direction:column}
+  #landing-shell .l-cta-inner .l-btn{width:100%;justify-content:center}
+  #landing-shell #landing-nl-email{min-width:0!important;width:100%}
+
+  /* Pricing */
+  #landing-shell .l-plans{grid-template-columns:1fr!important;gap:16px}
+  #landing-shell .l-sec-h{font-size:28px!important}
+  #landing-shell .l-plan-price{font-size:40px!important}
+  #landing-shell .l-plan{padding:24px 20px}
+
+  /* FAQ */
+  #landing-shell .l-faq-q-text{font-size:14px}
+
+  /* Commitment section */
+  #landing-shell [style*="font-size:46px"]{font-size:28px!important}
+  #landing-shell [style*="font-size:50px"]{font-size:30px!important}
+
+  /* Footer */
+  #landing-shell .l-footer-grid{grid-template-columns:1fr 1fr;gap:28px}
+  #landing-shell footer{padding:40px 16px 24px}
+
+  /* Nav */
+  #landing-shell .ln-inner{padding:0 16px;height:56px}
+  #landing-shell .ln-links{display:none!important}
+  #landing-shell .ln-inner > div:last-child{gap:6px}
+  #landing-shell .l-btn-lg{padding:10px 18px;font-size:13px}
+
+  /* Why section heading */
+  #landing-shell [style*="font-size:44px"]{font-size:28px!important}
+}
+
+/* ── Touch tap highlight removal ───────────────────────────────────────── */
+@media(hover:none){
+  .btn:hover{border-color:#DDD5C8;color:#3A3530;background:transparent}
+  .btn-red:hover{background:#A6192E;color:#fff;border-color:#A6192E}
+  .nav-link:hover{border-bottom-color:transparent;color:#3A3530}
+  * {-webkit-tap-highlight-color:rgba(0,0,0,0.05)}
+}
+
+/* ── Safe area (notch/home bar) ────────────────────────────────────────── */
+@supports(padding-bottom:env(safe-area-inset-bottom)){
+  .toast-wrap{padding-bottom:env(safe-area-inset-bottom)}
+  footer{padding-bottom:calc(28px + env(safe-area-inset-bottom))}
+  #landing-shell footer{padding-bottom:calc(32px + env(safe-area-inset-bottom))}
+}
+
 </style>
 </head>
 <body>
@@ -1110,6 +1383,27 @@ body.app-mode { overflow:auto }
 
 </div>
 
+<!-- ═══ OAUTH LOADING SCREEN (shown during Google/LinkedIn redirect) ═══ -->
+<div id="oauth-loading" style="display:none;position:fixed;inset:0;flex-direction:column;align-items:center;justify-content:center;background:#FDFAF6;z-index:99999;gap:20px">
+  <svg width="52" height="52" viewBox="0 0 32 32" fill="none">
+    <rect width="32" height="32" rx="6" fill="#A6192E"/>
+    <rect x="7" y="9" width="12" height="3" rx="1.5" fill="#FAF7F2"/>
+    <rect x="7" y="16" width="8" height="2.5" rx="1.25" fill="#FAF7F2"/>
+    <rect x="7" y="9" width="3" height="14" rx="1.5" fill="#FAF7F2"/>
+    <rect x="17" y="11" width="7" height="2.5" rx="1.25" fill="#C9A84C"/>
+    <rect x="17" y="16" width="4" height="2" rx="1" fill="#C9A84C" opacity=".65"/>
+  </svg>
+  <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#1C1814;letter-spacing:-.02em">FloMKa</div>
+    <div style="font-family:'Jost',sans-serif;font-size:13px;color:#7A7068">Signing you in…</div>
+  </div>
+  <div style="display:flex;gap:6px;margin-top:4px">
+    <div style="width:6px;height:6px;border-radius:50%;background:#A6192E;animation:ldot 1.2s ease-in-out infinite"></div>
+    <div style="width:6px;height:6px;border-radius:50%;background:#C9A84C;animation:ldot 1.2s ease-in-out infinite .2s"></div>
+    <div style="width:6px;height:6px;border-radius:50%;background:#A6192E;animation:ldot 1.2s ease-in-out infinite .4s"></div>
+  </div>
+</div>
+
 <!-- ═══ APP SHELL (shown after authentication) ═══ -->
 <div id="app-shell">
 <div class="ticker-wrap"><div class="ticker-track" id="ticker"></div></div>
@@ -1148,7 +1442,7 @@ body.app-mode { overflow:auto }
     <div class="nav-search">
       <span class="s-icon">🔍</span>
       <input type="search" placeholder="Search tools, ideas..." id="global-search" oninput="handleSearch(this.value)"/>
-      <div id="search-drop" style="display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);width:620px;background:var(--sb-bg,#FFFDF9);border:1px solid #DDD5C8;border-radius:6px;z-index:9000;max-height:520px;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.18)"></div>
+      <div id="search-drop" style="display:none;position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);width:min(620px,calc(100vw - 24px));background:var(--sb-bg,#FFFDF9);border:1px solid #DDD5C8;border-radius:6px;z-index:9000;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.18)"></div>
     </div>
     <div class="nav-right">
       <button id="dark-toggle" onclick="toggleDark()" title="Toggle dark mode">🌙</button>
@@ -1555,34 +1849,37 @@ async function sendLwReset(){
 }
 
 async function initAuth(){
-  // ── OAuth redirect detection ──────────────────────────────────────────────
-  // When Google/LinkedIn redirect back, the URL contains #access_token=...
-  // Supabase needs a moment to exchange this token before getSession() works.
-  // We detect this case and wait for onAuthStateChange instead of calling showLanding().
+  // ── Show OAuth loading overlay (safe — uses a pre-existing div, NOT innerHTML+=) ──
+  function showOAuthLoader(){
+    // Hide everything behind it
+    const ls = document.getElementById('landing-shell');
+    const as = document.getElementById('app-shell');
+    const lw = document.getElementById('login-wall');
+    if(ls) ls.style.display = 'none';
+    if(as) as.style.display = 'none';
+    if(lw) lw.style.display = 'none';
+    // Show the dedicated loader div (already in the DOM)
+    const loader = document.getElementById('oauth-loading');
+    if(loader) loader.style.display = 'flex';
+  }
+
+  function hideOAuthLoader(){
+    const loader = document.getElementById('oauth-loading');
+    if(loader) loader.style.display = 'none';
+  }
+
+  // ── Detect OAuth redirect ──────────────────────────────────────────────────
+  // Supabase sends back #access_token=... or ?code=... after OAuth login
   const hash = window.location.hash;
-  const isOAuthCallback = hash.includes('access_token') || hash.includes('error_description') ||
+  const isOAuthCallback = hash.includes('access_token') ||
+                          hash.includes('error_description') ||
                           window.location.search.includes('code=');
 
   if(isOAuthCallback){
-    // Show a loading state — don't show landing, don't show login wall
-    // Supabase is processing the token right now
-    document.getElementById('landing-shell').style.display = 'none';
-    document.getElementById('app-shell').style.display = 'none';
-    document.getElementById('login-wall').style.display = 'none';
-    document.body.style.background = '#FDFAF6';
-    document.body.innerHTML += `<div id="oauth-loading" style="position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#FDFAF6;z-index:99999;gap:16px">
-      <svg width="48" height="48" viewBox="0 0 136 38" fill="none">
-        <rect x="0" y="3" width="32" height="32" rx="5" fill="#A6192E"/>
-        <rect x="7" y="9" width="14" height="3.5" rx="1.5" fill="#FAF7F2"/>
-        <rect x="7" y="17" width="10" height="3" rx="1.5" fill="#FAF7F2"/>
-        <rect x="7" y="9" width="3.5" height="22" rx="1.5" fill="#FAF7F2"/>
-        <rect x="18" y="11" width="8" height="3" rx="1.5" fill="#C9A84C"/>
-      </svg>
-      <div style="font-family:'Jost',sans-serif;font-size:14px;color:#7A7068">Signing you in…</div>
-    </div>`;
-    // Don't call getSession yet — wait for onAuthStateChange to fire
+    // Show loading screen — DON'T call getSession yet (token not exchanged yet)
+    showOAuthLoader();
   } else {
-    // Normal page load — check session immediately
+    // Normal load — check for existing session immediately
     const { data: { session } } = await sb.auth.getSession();
     if(session?.user){
       currentUser = session.user;
@@ -1598,28 +1895,33 @@ async function initAuth(){
     }
   }
 
+  // ── Auth state listener ───────────────────────────────────────────────────
   sb.auth.onAuthStateChange(async (event, session) => {
-    // Remove OAuth loading screen if present
-    const loader = document.getElementById('oauth-loading');
-    if(loader) loader.remove();
+    hideOAuthLoader();
 
     if(event === 'SIGNED_IN' && session?.user){
-      // Clean up the OAuth hash/params from URL without triggering reload
-      if(window.location.hash.includes('access_token') || window.location.search.includes('code=')){
+      // Clean up ugly OAuth hash from URL bar
+      if(window.location.hash.includes('access_token') ||
+         window.location.search.includes('code=')){
         window.history.replaceState(null, '', window.location.pathname);
       }
 
       currentUser = session.user;
       await loadProfile();
+
+      // Ensure profile row exists in DB
       try {
         await sb.from('profiles').upsert({
           id: currentUser.id,
           email: currentUser.email,
-          name: currentUser.user_metadata?.name || currentUser.user_metadata?.full_name || currentUser.email?.split('@')[0] || 'User',
+          name: currentUser.user_metadata?.name ||
+                currentUser.user_metadata?.full_name ||
+                currentUser.email?.split('@')[0] || 'User',
           plan: currentProfile?.plan || 'free',
           updated_at: new Date().toISOString()
         }, { onConflict: 'id', ignoreDuplicates: true });
-      } catch(e) { console.warn('Profile upsert skipped:', e.message); }
+      } catch(e){ console.warn('Profile upsert skipped:', e.message); }
+
       await loadUserInteractions();
       hideLoginWall();
       showApp();
@@ -1630,7 +1932,7 @@ async function initAuth(){
       await renderPage('home');
 
     } else if(event === 'TOKEN_REFRESHED' && session?.user){
-      // Silent token refresh — don't disrupt the UI
+      // Silent background refresh — don't touch the UI
       currentUser = session.user;
 
     } else if(event === 'SIGNED_OUT'){
@@ -2229,7 +2531,7 @@ async function renderHome(){
           <button class="btn" onclick="navigate('pricing')">View pricing →</button>
           <button class="btn" style="background:#FBF5E6;color:#A07830;border-color:rgba(201,168,76,.4)" onclick="navigate('complaints')">See complaints</button>
         </div>
-        <div style="background:#1C1814;border-radius:3px;padding:14px 16px;margin-bottom:28px;border:1px solid #3A3028">
+        <div style="background:#1C1814;border-radius:3px;padding:14px 16px;margin-bottom:28px;border:1px solid #3A3028;overflow:hidden">
           <div style="font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#C9A84C;margin-bottom:8px">⚡ AI Tool Finder</div>
           <div style="display:flex;gap:8px">
             <input type="text" id="hero-finder-input" placeholder="What do you need to do with AI?" style="flex:1;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#F5F0E8;font-size:13px" onkeydown="if(event.key==='Enter'){const v=this.value;navigate('tools');setTimeout(()=>{const fi=document.getElementById('finder-input');if(fi){fi.value=v;runFinder();}},600)}"/>
@@ -2399,7 +2701,7 @@ async function renderBrief(){
   const timeStr = now.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
   const industryLabel = INDUSTRIES.find(i=>i.value===briefIndustry)?.label || 'Technology';
 
-  el.innerHTML = `<div style="max-width:860px;margin:0 auto;padding:48px 24px">
+  el.innerHTML = `<div style="max-width:860px;margin:0 auto;padding:clamp(20px,4vw,48px) clamp(16px,3vw,24px)">
 
     <!-- Credibility bar -->
     <div style="background:#F5F0E8;border:1px solid #DDD5C8;border-radius:3px;padding:12px 20px;margin-bottom:24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap">
@@ -2767,7 +3069,7 @@ async function renderCompare(){
   const el = c('page-compare');
 
   el.innerHTML = `
-  <div style="max-width:1100px;margin:0 auto;padding:48px 24px">
+  <div style="max-width:1100px;margin:0 auto;padding:clamp(20px,4vw,48px) clamp(14px,3vw,24px)">
     <div class="section-eyebrow" style="margin-bottom:6px"><div style="width:20px;height:1.5px;background:#A6192E"></div>Compare</div>
     <h1 style="font-size:42px;letter-spacing:-.02em;margin-bottom:8px">Side-by-side comparison</h1>
     <p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#7A7068;margin-bottom:28px">Pick two tools. Get the honest breakdown — scores, pricing, real complaints, and a verdict.</p>
@@ -3039,7 +3341,7 @@ async function runFinder(){
 async function renderTools(){
   const el = c('page-tools');
   el.innerHTML = `
-  <div style="max-width:1280px;margin:0 auto;padding:48px 24px">
+  <div style="max-width:1280px;margin:0 auto;padding:clamp(20px,4vw,48px) clamp(14px,3vw,24px)">
     <div class="section-eyebrow" style="margin-bottom:6px"><div style="width:20px;height:1.5px;background:#A6192E"></div>Directory</div>
     <h1 style="font-size:42px;letter-spacing:-.02em;margin-bottom:8px">AI tools, ranked</h1>
     <p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#7A7068;margin-bottom:28px">Search, filter, and discover the right AI tool for every job.</p>
@@ -3140,7 +3442,7 @@ async function renderTrends(){
   const el = c('page-trends');
   const tools = await fetchTools();
   el.innerHTML = `
-  <div style="max-width:1200px;margin:0 auto;padding:48px 24px">
+  <div style="max-width:1200px;margin:0 auto;padding:clamp(20px,4vw,48px) clamp(14px,3vw,24px)">
     <div class="section-eyebrow" style="margin-bottom:6px"><div style="width:20px;height:1.5px;background:#A6192E"></div>Trend intelligence</div>
     <h1 style="font-size:42px;letter-spacing:-.02em;margin-bottom:8px">AI trend dashboard</h1>
     <p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#7A7068;margin-bottom:28px">Momentum scores — updated daily.</p>
@@ -3202,7 +3504,7 @@ function renderTrendsChart(){
 async function renderComplaints(){
   const el = c('page-complaints');
   el.innerHTML = `
-  <div style="max-width:1100px;margin:0 auto;padding:48px 24px">
+  <div style="max-width:1100px;margin:0 auto;padding:clamp(20px,4vw,48px) clamp(14px,3vw,24px)">
     <h1 style="font-size:40px;letter-spacing:-.02em;margin-bottom:8px">What AI users are complaining about</h1>
     <p style="font-family:'Cormorant Garamond',serif;font-size:17px;color:#7A7068;margin-bottom:28px">Sourced daily from Reddit, HN, and forums. Every complaint is a validated startup opportunity.</p>
     <div style="height:1.5px;background:#C9A84C;opacity:.5;margin-bottom:28px"></div>
@@ -3261,7 +3563,7 @@ async function submitComplaint(){
 async function renderIdeas(){
   const el = c('page-ideas');
   el.innerHTML = `
-  <div style="max-width:1200px;margin:0 auto;padding:48px 24px">
+  <div style="max-width:1200px;margin:0 auto;padding:clamp(20px,4vw,48px) clamp(14px,3vw,24px)">
     <h1 style="font-size:40px;letter-spacing:-.02em;margin-bottom:8px">Startup ideas from real complaints</h1>
     <p style="font-family:'Cormorant Garamond',serif;font-size:17px;color:#7A7068;margin-bottom:28px">Every idea here is backed by actual user frustration data. Not guesswork — evidence.</p>
     <div style="height:1.5px;background:#C9A84C;opacity:.5;margin-bottom:28px"></div>
@@ -3308,7 +3610,7 @@ function renderPricing(){
     ]}
   ];
   el.innerHTML = `
-  <div style="max-width:1100px;margin:0 auto;padding:56px 24px">
+  <div style="max-width:1100px;margin:0 auto;padding:clamp(20px,4vw,56px) clamp(14px,3vw,24px)">
     <div style="text-align:center;margin-bottom:48px">
       <div style="display:inline-flex;align-items:center;gap:6px;margin-bottom:14px;font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#A6192E">
         <div style="width:16px;height:1.5px;background:#A6192E"></div>Simple pricing<div style="width:16px;height:1.5px;background:#A6192E"></div>
@@ -3382,7 +3684,7 @@ async function renderDashboard(){
   const planBadgeColor = currentProfile?.plan === 'pro' ? '#A6192E' : currentProfile?.plan === 'api' ? '#5B3FA6' : '#8C8279';
 
   el.innerHTML = `
-  <div style="max-width:1200px;margin:0 auto;padding:48px 24px">
+  <div style="max-width:1200px;margin:0 auto;padding:clamp(20px,4vw,48px) clamp(14px,3vw,24px)">
     <div style="background:linear-gradient(135deg,#F5F0E8 0%,#FFFDF9 100%);border:1px solid #DDD5C8;border-radius:4px;padding:32px;margin-bottom:36px;position:relative;overflow:hidden">
       <div style="position:absolute;top:-20px;right:-10px;font-family:'Cormorant Garamond',serif;font-size:160px;font-weight:700;color:#A6192E;opacity:.04;line-height:1;pointer-events:none">F</div>
       <div style="display:flex;gap:18px;align-items:center">
@@ -3428,7 +3730,7 @@ async function renderDashContent(){
 
   if(dashTab === 'overview'){
     el.innerHTML = `
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px">
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-bottom:32px">
       ${[
         {v: userSaves.size, l:'Tools saved', icon:'🔖', c:'#A6192E', sub:'Synced'},
         {v: userVotes.size, l:'Total votes cast', icon:'▲', c:'#C9A84C', sub:'All time'},
