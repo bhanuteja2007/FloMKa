@@ -1788,14 +1788,20 @@ function setLoginWallMode(mode){
   if(switchMsg) switchMsg.innerHTML = isLogin
     ? `No account? <button onclick="setLoginWallMode('signup')" style="background:none;border:none;color:#A6192E;font-weight:600;cursor:pointer;font-size:13px;text-decoration:underline">Sign up free</button>`
     : `Already have an account? <button onclick="setLoginWallMode('login')" style="background:none;border:none;color:#A6192E;font-weight:600;cursor:pointer;font-size:13px;text-decoration:underline">Sign in</button>`;
-  c('lw-error').style.display = 'none';
+  const errEl = c('lw-error');
+  if(errEl){
+    errEl.style.display = 'none';
+    errEl.style.color = '#E57389';
+    errEl.style.background = '#3A1018';
+    errEl.style.border = '';
+  }
   c('lw-wall-form').dataset.mode = mode;
 }
 
 async function signInWithGoogle(){
   const { error } = await sb.auth.signInWithOAuth({
     provider: 'google',
-    options: { redirectTo: window.location.href }
+    options: { redirectTo: window.location.origin }
   });
   if(error) showLwError(error.message);
 }
@@ -1803,7 +1809,7 @@ async function signInWithGoogle(){
 async function signInWithLinkedIn(){
   const { error } = await sb.auth.signInWithOAuth({
     provider: 'linkedin_oidc',
-    options: { redirectTo: window.location.href }
+    options: { redirectTo: window.location.origin }
   });
   if(error) showLwError(error.message);
 }
@@ -1828,10 +1834,16 @@ async function submitLoginWall(){
   if(mode === 'signup'){
     const { error } = await sb.auth.signUp({ email, password: pw, options: { data: { name } } });
     if(error){ showLwError(error.message); btn.textContent = 'Create account →'; btn.disabled = false; return; }
-    showLwError('✓ Check your email to confirm your account, then sign in.');
+    c('lw-error').textContent = '✓ Account created! Check your email to confirm, then sign in.';
+    c('lw-error').style.display = 'block';
     c('lw-error').style.color = '#2D6A3F';
-    c('lw-error').style.background = '#EAF4ED';
-    btn.textContent = 'Create account →'; btn.disabled = false;
+    c('lw-error').style.background = '#1A3A28';
+    c('lw-error').style.border = '1px solid rgba(45,106,63,.4)';
+    btn.textContent = 'Check your email →'; 
+    btn.style.background = '#2D6A3F';
+    btn.disabled = false;
+    // Switch to login mode after 2s so user can sign in
+    setTimeout(() => setLoginWallMode('login'), 3000);
   } else {
     const { error } = await sb.auth.signInWithPassword({ email, password: pw });
     if(error){ showLwError(error.message); btn.textContent = 'Sign in →'; btn.disabled = false; return; }
@@ -1843,7 +1855,11 @@ async function sendLwReset(){
   if(!email){ showLwError('Enter your email first'); return; }
   const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: window.location.origin });
   if(error){ showLwError(error.message); return; }
-  showLwError('✓ Reset link sent — check your inbox.');
+  c('lw-error').textContent = '✓ Password reset link sent — check your inbox.';
+  c('lw-error').style.display = 'block';
+  c('lw-error').style.color = '#2D6A3F';
+  c('lw-error').style.background = '#1A3A28';
+  c('lw-error').style.border = '1px solid rgba(45,106,63,.4)';
   c('lw-error').style.color = '#2D6A3F';
   c('lw-error').style.background = '#EAF4ED';
 }
@@ -1896,15 +1912,29 @@ async function initAuth(){
   }
 
   // ── Auth state listener ───────────────────────────────────────────────────
+  // Track if this is a fresh login (vs session restore on page load)
+  let _initialSessionHandled = false;
+
   sb.auth.onAuthStateChange(async (event, session) => {
     hideOAuthLoader();
 
+    if(event === 'INITIAL_SESSION'){
+      // Supabase fires this first on every page load
+      // We handle it in getSession() above for normal loads
+      // For OAuth callback, we handle it via SIGNED_IN below
+      _initialSessionHandled = true;
+      return;
+    }
+
     if(event === 'SIGNED_IN' && session?.user){
-      // Clean up ugly OAuth hash from URL bar
+      // Clean up OAuth hash from URL bar
       if(window.location.hash.includes('access_token') ||
          window.location.search.includes('code=')){
         window.history.replaceState(null, '', window.location.pathname);
       }
+
+      // Skip if we already have this user loaded (prevents double-render on refresh)
+      const isNewLogin = !currentUser || currentUser.id !== session.user.id;
 
       currentUser = session.user;
       await loadProfile();
@@ -1928,11 +1958,15 @@ async function initAuth(){
       renderNavAuth();
       closeModal('auth-modal');
       document.body.style.overflow = '';
-      toast('Welcome to FloMKa, ' + (currentProfile?.name?.split(' ')[0] || 'friend') + '! 🎉');
-      await renderPage('home');
+
+      // Only show welcome toast and render home for fresh logins
+      if(isNewLogin){
+        toast('Welcome to FloMKa, ' + (currentProfile?.name?.split(' ')[0] || 'friend') + '! 🎉');
+        await renderPage('home');
+      }
 
     } else if(event === 'TOKEN_REFRESHED' && session?.user){
-      // Silent background refresh — don't touch the UI
+      // Silent background token refresh — don't touch UI
       currentUser = session.user;
 
     } else if(event === 'SIGNED_OUT'){
@@ -1943,7 +1977,7 @@ async function initAuth(){
       showLanding();
       setLoginWallMode('login');
       renderNavAuth();
-      toast('Signed out');
+      toast('Signed out successfully');
     }
   });
 }
@@ -2097,7 +2131,8 @@ async function logout(){
 }
 
 function closeModal(id){ 
-  c(id).style.display = 'none'; 
+  const el = c(id);
+  if(el) el.style.display = 'none'; 
   document.body.style.overflow = '';
 }
 
@@ -4056,10 +4091,9 @@ async function init(){
   renderFooter();
   if(darkMode) c('dark-toggle').textContent = '☀️';
   await initAuth();
-  if(currentUser){
-    await renderPage('home');
-  }
-  // Landing/app visibility handled by initAuth -> showLanding/showApp
+  // renderPage is called inside initAuth for both:
+  // - Normal load with existing session (getSession path)
+  // - OAuth/email login (onAuthStateChange SIGNED_IN path)
 }
 
 init();
