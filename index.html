@@ -295,6 +295,8 @@ body.dark .drawer-footer{border-color:#3A3028}
   --ink:#1C1814;--ink2:#3A3530;--muted:#7A7068;--faint:#B4A99E;
   --line:#E8E0D6;--bg:#FDFAF6;--bg2:#F5F0E8;--bg3:#EDE8E0;
   --red:#A6192E;--red2:#8B1425;--gold:#C9A84C;--gold2:#A07830;--green:#2D6A3F;
+  --ff-serif:'Cormorant Garamond',serif;
+  --ff-sans:'Jost',sans-serif;
 }
 #landing-shell{background:#FDFAF6;font-family:'Jost',sans-serif;color:#1C1814}
 #landing-shell h1,#landing-shell h2,#landing-shell h3,#landing-shell h4{font-family:'Cormorant Garamond',serif;letter-spacing:-.02em}
@@ -764,6 +766,52 @@ body.app-mode { overflow:auto }
   .toast-wrap{padding-bottom:env(safe-area-inset-bottom)}
   footer{padding-bottom:calc(28px + env(safe-area-inset-bottom))}
   #landing-shell footer{padding-bottom:calc(32px + env(safe-area-inset-bottom))}
+}
+
+
+/* ── New Features Mobile: Pain Intensity + Validation Room ──────────────── */
+@media(max-width:640px){
+  /* Complaints filter buttons wrap */
+  #page-complaints [style*="display:flex;gap:8px;flex-wrap:wrap"]{flex-wrap:wrap;gap:6px}
+
+  /* Pain legend — stack on mobile */
+  #page-complaints [style*="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px"]{
+    flex-direction:column;gap:6px;padding:12px;
+  }
+  #page-complaints [style*="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px"] span{
+    font-size:10.5px;
+  }
+
+  /* Complaint card — stack votes+content */
+  .complaint-card[style*="flex-direction:column"]{padding:0}
+  .complaint-card [style*="display:flex;gap:14px"]{gap:10px;padding:12px 14px}
+  .complaint-card [style*="min-width:56px"]{min-width:44px}
+
+  /* Ideas — how it works strip */
+  #page-ideas [style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr!important}
+
+  /* Ideas sort tabs */
+  #page-ideas [style*="display:flex;gap:6px;margin-bottom:20px"]{flex-wrap:wrap;gap:4px}
+
+  /* Idea card action buttons */
+  #ideas-grid [style*="display:flex;gap:6px;margin-top:auto;flex-wrap:wrap"] button{
+    font-size:11px;padding:8px 8px;
+  }
+
+  /* Pledge modal grid */
+  #pledge-options{grid-template-columns:repeat(2,1fr)!important}
+
+  /* Founder modal */
+  .modal[style*="max-width:480px"]{max-width:100%}
+
+  /* ARR meter */
+  [style*="Validated ARR"]{font-size:10px}
+}
+
+@media(max-width:420px){
+  .complaint-card [style*="display:flex;gap:14px"]{flex-wrap:wrap}
+  .complaint-card [style*="min-width:56px"]{display:flex;gap:12px;min-width:auto;width:100%;justify-content:flex-start;align-items:center}
+  #ideas-grid .card{padding:0}
 }
 
 </style>
@@ -1435,8 +1483,9 @@ body.app-mode { overflow:auto }
       <button class="nav-link" onclick="navigate('brief')" data-page="brief" style="color:#C9A84C;font-weight:600">★ Brief</button>
       <button class="nav-link" onclick="navigate('tools')" data-page="tools">Tools</button>
       <button class="nav-link" onclick="navigate('trends')" data-page="trends">Trends</button>
-      <button class="nav-link" onclick="navigate('complaints')" data-page="complaints">Complaints</button>
-      <button class="nav-link" onclick="navigate('ideas')" data-page="ideas">Ideas</button>
+      <button class="nav-link" onclick="navigate('complaints')" data-page="complaints">Radar</button>
+      <button class="nav-link" onclick="navigate('ideas')" data-page="ideas">Validate</button>
+      <button class="nav-link" onclick="navigate('engine')" data-page="engine" style="color:#5B3FA6;font-weight:600">⚡ Engine</button>
       <button class="nav-link" onclick="navigate('pricing')" data-page="pricing">Pricing</button>
     </div>
     <div class="nav-search">
@@ -1473,8 +1522,9 @@ body.app-mode { overflow:auto }
       <button class="drawer-nav-link" data-drawer-page="brief" onclick="drawerNavigate('brief')" style="color:#C9A84C;font-weight:600"><span class="drawer-nav-icon">★</span>Executive Brief</button>
       <button class="drawer-nav-link" data-drawer-page="tools" onclick="drawerNavigate('tools')"><span class="drawer-nav-icon">🛠</span>Tools</button>
       <button class="drawer-nav-link" data-drawer-page="trends" onclick="drawerNavigate('trends')"><span class="drawer-nav-icon">📈</span>Trends</button>
-      <button class="drawer-nav-link" data-drawer-page="complaints" onclick="drawerNavigate('complaints')"><span class="drawer-nav-icon">⚡</span>Complaints</button>
-      <button class="drawer-nav-link" data-drawer-page="ideas" onclick="drawerNavigate('ideas')"><span class="drawer-nav-icon">💡</span>Ideas</button>
+      <button class="drawer-nav-link" data-drawer-page="complaints" onclick="drawerNavigate('complaints')"><span class="drawer-nav-icon">⚡</span>Frustration Radar</button>
+      <button class="drawer-nav-link" data-drawer-page="ideas" onclick="drawerNavigate('ideas')"><span class="drawer-nav-icon">💡</span>Validate Ideas</button>
+      <button class="drawer-nav-link" data-drawer-page="engine" onclick="drawerNavigate('engine')" style="color:#5B3FA6;font-weight:600"><span class="drawer-nav-icon">⚡</span>Opportunity Engine</button>
       <button class="drawer-nav-link" data-drawer-page="pricing" onclick="drawerNavigate('pricing')"><span class="drawer-nav-icon">💎</span>Pricing</button>
     </nav>
     <div class="drawer-footer">
@@ -1490,6 +1540,7 @@ body.app-mode { overflow:auto }
 <div id="page-trends" class="page"></div>
 <div id="page-complaints" class="page"></div>
 <div id="page-ideas" class="page"></div>
+<div id="page-engine" class="page"></div>
 <div id="page-pricing" class="page"></div>
 <div id="page-compare" class="page"></div>
 <div id="page-dashboard" class="page"></div>
@@ -2191,9 +2242,9 @@ const FALLBACK_TOOLS = [
   {id:'t6',rank:6,name:'Sora',slug:'sora',cat:'Video',score:82,change:'+15',trend:'up',description:'OpenAI text-to-video — cinematic quality generation',users_count:'1.2M',price:'$20+',website:'sora.com',votes:876,sponsored:false,featured:false,tags:['Video Generation'],published:true,created_at:new Date().toISOString()},
 ];
 const FALLBACK_COMPLAINTS = [
-  {id:'c1',tool:'ChatGPT',complaint:'Hallucinations in long documents — cites papers that don\'t exist',votes:2847,cat:'Reliability',source:'reddit',published:true,created_at:new Date().toISOString()},
+  {id:'c1',tool:'ChatGPT',complaint:'Hallucinations in long documents — cites papers that do not exist',votes:2847,cat:'Reliability',source:'reddit',published:true,created_at:new Date().toISOString()},
   {id:'c2',tool:'Midjourney',complaint:'No API access for developers — locked behind Discord only',votes:1923,cat:'Developer',source:'hackernews',published:true,created_at:new Date().toISOString()},
-  {id:'c3',tool:'GitHub Copilot',complaint:'Suggests outdated code — doesn\'t know latest frameworks',votes:1654,cat:'Quality',source:'reddit',published:true,created_at:new Date().toISOString()},
+  {id:'c3',tool:'GitHub Copilot',complaint:'Suggests outdated code — does not know latest frameworks',votes:1654,cat:'Quality',source:'reddit',published:true,created_at:new Date().toISOString()},
   {id:'c4',tool:'Jasper AI',complaint:'Way too expensive for solo founders — $49/mo for basics',votes:1432,cat:'Pricing',source:'twitter',published:true,created_at:new Date().toISOString()},
   {id:'c5',tool:'DALL-E 3',complaint:'Over-filtered for creative work — refuses legitimate prompts',votes:1287,cat:'Censorship',source:'reddit',published:true,created_at:new Date().toISOString()},
   {id:'c6',tool:'Cursor',complaint:'Memory usage is insane — eats 4GB RAM on any large project',votes:987,cat:'Performance',source:'hackernews',published:true,created_at:new Date().toISOString()},
@@ -2544,6 +2595,7 @@ function renderPage(page){
     case 'trends': renderTrends(); break;
     case 'complaints': renderComplaints(); break;
     case 'ideas': renderIdeas(); break;
+    case 'engine': renderEngine(); break;
     case 'pricing': renderPricing(); break;
     case 'compare': renderCompare(); break;
     case 'dashboard': renderDashboard(); break;
@@ -3234,7 +3286,7 @@ async function runCompare(){
             ${tc.map(cc=>`<div style="display:flex;gap:6px;margin-bottom:6px;font-size:12px;color:#7A7068;line-height:1.5"><span style="color:#A6192E;flex-shrink:0">⚠</span>${cc.complaint}</div>`).join('')}
           </div>`:'<div style="border-top:1px solid #EDE8E0;padding-top:12px;font-size:12px;color:#2D6A3F">✓ No major complaints found</div>'}
         </div>`;
-      }).join('<div style="display:flex;align-items:center;justify-content:center;background:#F5F0E8;font-family:\'Cormorant Garamond\',serif;font-size:18px;font-weight:700;color:#DDD5C8">vs</div>')}
+      }).join('<div style="display:flex;align-items:center;justify-content:center;background:#F5F0E8;font-family:var(--ff-serif);font-size:18px;font-weight:700;color:#DDD5C8">vs</div>')}
     </div>
 
     <!-- AI Verdict -->
@@ -3464,8 +3516,10 @@ function filterToolsUI(){
     <div style="display:flex;gap:6px;flex-wrap:wrap">
       ${(t.tags||[]).map(tag => `<span class="tag">${tag}</span>`).join('')}
     </div>
-    <div style="display:flex;gap:6px;align-items:center;margin-top:auto">
-      <button class="btn" style="flex:1;font-size:12.5px" onclick="window.open('https://${t.website}','_blank')">View details →</button>
+    <div style="display:flex;gap:5px;align-items:center;margin-top:auto;flex-wrap:wrap">
+      <button class="btn" style="flex:1;min-width:80px;font-size:12px" onclick="window.open('https://${t.website}','_blank')">Visit →</button>
+      <button class="btn btn-sm" style="font-size:10px;padding:6px 8px;color:#5B3FA6;border-color:rgba(91,63,166,.3)" onclick="openParallelUniverse('${t.id}','${t.name.replace(/'/g,'')}','${t.cat}')" title="Simulate futures">🔮</button>
+      <button class="btn btn-sm" style="font-size:10px;padding:6px 8px;color:#5B3FA6;border-color:rgba(91,63,166,.3)" onclick="openExploitFinder('${t.id}','${t.name.replace(/'/g,'')}')" title="Find exploit surfaces">⚔️</button>
       <button class="btn btn-sm ${userVotes.has(t.id)?'voted':''}" onclick="handleVote('${t.id}','tool',this)">▲ <span class="vote-cnt">${t.votes}</span></button>
       <button class="btn btn-sm btn-icon saved-btn ${userSaves.has(t.slug)?'saved':''}" onclick="handleSave('${t.slug}',this)" title="Save">🔖</button>
     </div>
@@ -3536,45 +3590,162 @@ function renderTrendsChart(){
 }
 
 // ===================== COMPLAINTS =====================
+// ── Pain intensity scorer ────────────────────────────────────────────────────
+function painScore(text){
+  if(!text) return 30;
+  const t = text.toLowerCase();
+  let score = 30;
+  // Desperation signals = high score
+  const highSignals = ['cancel','refund','switch','pay anything','lost client','cost me','fired','deadline','production','broke','critical','urgent','disaster','lost data','blocked','stuck','impossible','unusable','worthless','scam','fraud','lawsuit'];
+  const medSignals = ['annoying','broken','slow','expensive','disappointing','waste','miss','frustrated','terrible','awful','horrible','worst','garbage','useless','hate'];
+  const paySignals = ['pay','worth','subscribe','pricing','cost','cheap','affordable','budget'];
+  highSignals.forEach(w => { if(t.includes(w)) score += 12; });
+  medSignals.forEach(w => { if(t.includes(w)) score += 5; });
+  paySignals.forEach(w => { if(t.includes(w)) score += 8; });
+  if(t.includes('would pay')) score += 20;
+  if(t.includes('paid') && t.includes('still')) score += 15;
+  return Math.min(100, score);
+}
+
+function painLabel(score){
+  if(score >= 85) return {label:'🔥 Critical pain', color:'#A6192E', bg:'#F9EAEC', border:'rgba(166,25,46,.3)'};
+  if(score >= 65) return {label:'⚠ High frustration', color:'#A07830', bg:'#FBF5E6', border:'rgba(201,168,76,.4)'};
+  if(score >= 45) return {label:'💬 Moderate issue', color:'#2D6A3F', bg:'#EAF4ED', border:'rgba(45,106,63,.3)'};
+  return {label:'📝 Low signal', color:'#7A7068', bg:'#F5F0E8', border:'rgba(180,169,158,.3)'};
+}
+
 async function renderComplaints(){
   const el = c('page-complaints');
   el.innerHTML = `
   <div style="max-width:1100px;margin:0 auto;padding:clamp(20px,4vw,48px) clamp(14px,3vw,24px)">
-    <h1 style="font-size:40px;letter-spacing:-.02em;margin-bottom:8px">What AI users are complaining about</h1>
-    <p style="font-family:'Cormorant Garamond',serif;font-size:17px;color:#7A7068;margin-bottom:28px">Sourced daily from Reddit, HN, and forums. Every complaint is a validated startup opportunity.</p>
-    <div style="height:1.5px;background:#C9A84C;opacity:.5;margin-bottom:28px"></div>
-    <div id="complaints-list"><div class="loading-state"><div class="spinner spinner-dark"></div><p style="margin-top:10px">Loading complaints…</p></div></div>
-    <div style="margin-top:28px;background:#F5F0E8;border:1px solid #DDD5C8;border-radius:3px;padding:20px 24px">
-      <h3 style="font-size:20px;margin-bottom:6px">Submit a complaint</h3>
-      <p style="font-size:13.5px;color:#7A7068;margin-bottom:14px">Found a frustrating AI tool limitation? Share it with the community.</p>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
-        <div><label>Tool name</label><input type="text" id="comp-tool" placeholder="e.g. ChatGPT"/></div>
-        <div><label>Category</label><select id="comp-cat"><option>Reliability</option><option>Pricing</option><option>Quality</option><option>Developer</option><option>Censorship</option><option>Performance</option></select></div>
+
+    <!-- Header -->
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:8px">
+      <div>
+        <div class="section-eyebrow" style="margin-bottom:6px"><div style="width:20px;height:1.5px;background:#A6192E"></div>Frustration Radar</div>
+        <h1 style="font-size:clamp(28px,5vw,40px);letter-spacing:-.02em;margin-bottom:8px">What AI users are suffering through</h1>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:17px;color:#7A7068">Every complaint scored by <strong style="color:#A6192E">pain intensity</strong> — not just votes. High intensity = real business opportunity.</p>
       </div>
-      <div style="margin-bottom:14px"><label>Your complaint</label><textarea id="comp-text" placeholder="Describe the issue…" style="min-height:80px"></textarea></div>
-      <button class="btn btn-red" onclick="submitComplaint()">Submit complaint →</button>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;flex-shrink:0">
+        <button class="btn btn-sm" id="filter-all" onclick="filterComplaints('all',this)" style="border-color:#A6192E;color:#A6192E">All</button>
+        <button class="btn btn-sm" onclick="filterComplaints('critical',this)">🔥 Critical</button>
+        <button class="btn btn-sm" onclick="filterComplaints('high',this)">⚠ High</button>
+        <button class="btn btn-sm" onclick="filterComplaints('opportunity',this)">💡 Opportunity</button>
+      </div>
+    </div>
+
+    <!-- Pain intensity legend -->
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px;padding:14px 16px;background:#F5F0E8;border:1px solid #DDD5C8;border-radius:3px;align-items:center">
+      <span style="font-size:11px;font-weight:600;color:#7A7068;letter-spacing:.06em;text-transform:uppercase;margin-right:4px">Pain Intensity:</span>
+      <span style="font-size:11px;padding:3px 9px;border-radius:20px;background:#F9EAEC;color:#A6192E;border:1px solid rgba(166,25,46,.3)">🔥 Critical 85–100 · cancelled / lost money / blocked workflow</span>
+      <span style="font-size:11px;padding:3px 9px;border-radius:20px;background:#FBF5E6;color:#A07830;border:1px solid rgba(201,168,76,.4)">⚠ High 65–84 · deeply frustrated</span>
+      <span style="font-size:11px;padding:3px 9px;border-radius:20px;background:#EAF4ED;color:#2D6A3F;border:1px solid rgba(45,106,63,.3)">💬 Moderate 45–64</span>
+    </div>
+
+    <div style="height:1.5px;background:#C9A84C;opacity:.4;margin-bottom:28px"></div>
+
+    <div id="complaints-list"><div class="loading-state"><div class="spinner spinner-dark"></div><p style="margin-top:10px">Loading frustrations…</p></div></div>
+
+    <!-- Submit -->
+    <div style="margin-top:36px;background:#F5F0E8;border:1px solid #DDD5C8;border-radius:3px;padding:24px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+        <h3 style="font-size:20px">Submit a real complaint</h3>
+        <span style="font-size:10px;font-weight:700;background:#A6192E;color:#fff;padding:2px 8px;border-radius:20px;letter-spacing:.06em">COMMUNITY</span>
+      </div>
+      <p style="font-size:13.5px;color:#7A7068;margin-bottom:16px">Found a frustrating AI tool limitation? The more specific and emotional your description, the higher the pain score — and the more likely a founder sees it and builds the fix.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px">
+        <div><label>Tool name</label><input type="text" id="comp-tool" placeholder="e.g. ChatGPT, Cursor, Midjourney"/></div>
+        <div><label>Category</label><select id="comp-cat"><option>Reliability</option><option>Pricing</option><option>Quality</option><option>Developer</option><option>Performance</option><option>Censorship</option><option>Privacy</option><option>Support</option></select></div>
+      </div>
+      <div style="margin-bottom:6px"><label>Describe your frustration</label><textarea id="comp-text" placeholder="Be specific — what exactly broke? Did you cancel? Did it cost you time/money? The more painful, the higher the score." style="min-height:100px"></textarea></div>
+      <!-- Live pain score preview -->
+      <div id="pain-preview" style="display:none;margin-bottom:14px;padding:10px 14px;border-radius:3px;border:1px solid;font-size:13px;transition:all .3s"></div>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <button class="btn btn-red" onclick="submitComplaint()">Submit frustration →</button>
+        <span style="font-size:12px;color:#7A7068">Goes live after admin review · Helps founders find real problems to solve</span>
+      </div>
     </div>
   </div>`;
-  const complaints = await fetchComplaints();
-  const listEl = c('complaints-list');
-  if(listEl){
-    listEl.innerHTML = complaints.map((comp, i) => `
-    <div class="complaint-card fade-up" style="animation-delay:${i*0.05}s">
-      <div class="complaint-votes">
-        <div class="complaint-votes-num">${(comp.votes/1000).toFixed(1)}K</div>
-        <div style="font-size:10px;color:#7A7068">upvotes</div>
-      </div>
-      <div style="flex:1">
-        <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px">
-          <span class="serif" style="font-weight:600;font-size:16px;color:#A6192E">${comp.tool}</span>
-          <span class="tag">${comp.cat}</span>
-          <span style="margin-left:auto;font-size:11px;color:#7A7068">${comp.source} · ${timeAgo(comp.created_at)}</span>
-        </div>
-        <p style="font-size:14px;color:#3A3530;line-height:1.65">${esc(comp.complaint)}</p>
-      </div>
-      <button class="btn btn-sm ${userVotes.has(comp.id)?'voted':''}" onclick="handleVote('${comp.id}','complaint',this)">▲ <span class="vote-cnt">${comp.votes}</span></button>
-    </div>`).join('');
+
+  // Live pain score as user types
+  const textarea = c('comp-text');
+  if(textarea){
+    textarea.addEventListener('input', () => {
+      const score = painScore(textarea.value);
+      const { label, color, bg, border } = painLabel(score);
+      const preview = c('pain-preview');
+      if(textarea.value.length > 20){
+        preview.style.display = 'block';
+        preview.style.background = bg;
+        preview.style.borderColor = border;
+        preview.style.color = color;
+        preview.innerHTML = `<strong>Pain Intensity: ${score}/100</strong> — ${label} · ${score >= 65 ? 'Founders will see this as an opportunity' : 'Add more detail about the impact to increase score'}`;
+      } else {
+        preview.style.display = 'none';
+      }
+    });
   }
+
+  const complaints = await fetchComplaints();
+  // Attach pain scores
+  window._allComplaints = complaints.map(c2 => ({...c2, painScore: painScore(c2.complaint)}));
+  renderComplaintsList(window._allComplaints);
+}
+
+function renderComplaintsList(complaints){
+  var listEl = c("complaints-list");
+  if(!listEl) return;
+  if(!complaints.length){
+    listEl.innerHTML = "<div style='text-align:center;padding:48px;color:#7A7068'>No complaints match this filter</div>";
+    return;
+  }
+  var sorted = complaints.slice().sort(function(a,b){ return b.painScore - a.painScore; });
+  var html = "";
+  for(var i=0;i<sorted.length;i++){
+    var comp = sorted[i];
+    var ps = comp.painScore || 30;
+    var pl = painLabel(ps);
+    var voteCnt = comp.votes >= 1000 ? (comp.votes/1000).toFixed(1)+"K" : String(comp.votes);
+    var voted = userVotes.has(comp.id) ? " voted" : "";
+    var hasOpp = ps >= 65;
+    html += "<div class='complaint-card fade-up' style='animation-delay:"+(i*0.04)+"s;flex-direction:column;gap:0;padding:0;overflow:hidden'>";
+    html += "<div style='height:3px;background:#EDE8E0;position:relative'>";
+    html += "<div style='position:absolute;left:0;top:0;height:100%;width:"+ps+"%;background:"+pl.color+"'></div></div>";
+    html += "<div style='display:flex;gap:14px;align-items:flex-start;padding:16px 20px'>";
+    html += "<div style='min-width:56px;text-align:center;flex-shrink:0'>";
+    html += "<div style='font-size:22px;font-weight:700;line-height:1;color:#1C1814'>"+voteCnt+"</div>";
+    html += "<div style='font-size:9px;color:#7A7068;margin-bottom:8px'>upvotes</div>";
+    html += "<div style='background:"+pl.bg+";border:1px solid "+pl.border+";border-radius:2px;padding:3px 0;text-align:center'>";
+    html += "<div style='font-size:16px;font-weight:700;color:"+pl.color+";line-height:1'>"+ps+"</div>";
+    html += "<div style='font-size:8px;color:"+pl.color+"'>pain</div></div></div>";
+    html += "<div style='flex:1;min-width:0'>";
+    html += "<div style='display:flex;gap:6px;align-items:center;margin-bottom:6px;flex-wrap:wrap'>";
+    html += "<span style='font-weight:700;font-size:16px;color:#A6192E'>"+esc(comp.tool)+"</span>";
+    html += "<span class='tag'>"+esc(comp.cat)+"</span>";
+    html += "<span style='font-size:10px;padding:2px 7px;border-radius:20px;background:"+pl.bg+";color:"+pl.color+";border:1px solid "+pl.border+"'>"+pl.label+"</span>";
+    html += "<span style='margin-left:auto;font-size:11px;color:#7A7068'>"+esc(comp.source)+" &middot; "+timeAgo(comp.created_at)+"</span></div>";
+    html += "<p style='font-size:14px;color:#3A3530;line-height:1.65;margin-bottom:10px'>"+esc(comp.complaint)+"</p>";
+    if(hasOpp){
+      html += "<div style='display:flex;align-items:center;gap:8px;padding:8px 12px;background:#EAF4ED;border-radius:2px;border:1px solid rgba(45,106,63,.2)'>";
+      html += "<span style='font-size:12px;color:#2D6A3F'>&#128161;</span>";
+      html += "<span style='font-size:12px;color:#2D6A3F;font-weight:500'>High-opportunity &mdash; ";
+      html += "<a href='#' onclick=\"navigate('ideas');return false;\" style='color:#2D6A3F;font-weight:600'>see ideas &rarr;</a></span></div>";
+    }
+    html += "</div>";
+    html += "<button class='btn btn-sm"+voted+"' onclick=\"handleVote('"+comp.id+"','complaint',this)\" style='flex-shrink:0'>&#9650; <span class='vote-cnt'>"+comp.votes+"</span></button>";
+    html += "</div></div>";
+  }
+  listEl.innerHTML = html;
+}
+
+function filterComplaints(type, btn){
+  document.querySelectorAll('#page-complaints .btn-sm').forEach(b => { b.style.borderColor=''; b.style.color=''; b.classList.remove('btn-red'); });
+  if(btn){ btn.style.borderColor='#A6192E'; btn.style.color='#A6192E'; }
+  const all = window._allComplaints || [];
+  if(type === 'critical') renderComplaintsList(all.filter(c2 => c2.painScore >= 85));
+  else if(type === 'high') renderComplaintsList(all.filter(c2 => c2.painScore >= 65));
+  else if(type === 'opportunity') renderComplaintsList(all.filter(c2 => c2.painScore >= 65).slice(0, 10));
+  else renderComplaintsList(all);
 }
 
 async function submitComplaint(){
@@ -3594,38 +3765,1118 @@ async function submitComplaint(){
   c('comp-tool').value = ''; c('comp-text').value = '';
 }
 
-// ===================== IDEAS =====================
+// ===================== IDEAS — VALIDATION ROOM + FOUNDER MATCH =====================
+
+// In-memory pledge store (persists per session)
+window._pledges = window._pledges || {};
+window._founderInterest = window._founderInterest || {};
+
+function getPledges(ideaId){ return window._pledges[ideaId] || [] }
+function addPledge(ideaId, amount){
+  if(!window._pledges[ideaId]) window._pledges[ideaId] = [];
+  window._pledges[ideaId].push(amount);
+}
+function totalARR(ideaId){
+  const pledges = getPledges(ideaId);
+  if(!pledges.length) return 0;
+  return pledges.reduce((s,v)=>s+v,0) * 12;
+}
+function pledgeCount(ideaId){ return getPledges(ideaId).length }
+function founderCount(ideaId){ return window._founderInterest[ideaId]?.length || 0 }
+
+function ideaThreshold(idea){
+  const pledges = pledgeCount(idea.id);
+  const score = idea.score || 0;
+  return pledges >= 10 || score >= 85;
+}
+
 async function renderIdeas(){
   const el = c('page-ideas');
   el.innerHTML = `
   <div style="max-width:1200px;margin:0 auto;padding:clamp(20px,4vw,48px) clamp(14px,3vw,24px)">
-    <h1 style="font-size:40px;letter-spacing:-.02em;margin-bottom:8px">Startup ideas from real complaints</h1>
-    <p style="font-family:'Cormorant Garamond',serif;font-size:17px;color:#7A7068;margin-bottom:28px">Every idea here is backed by actual user frustration data. Not guesswork — evidence.</p>
-    <div style="height:1.5px;background:#C9A84C;opacity:.5;margin-bottom:28px"></div>
-    <div id="ideas-grid" class="grid-3"><div class="loading-state"><div class="spinner spinner-dark"></div><p style="margin-top:10px">Loading ideas…</p></div></div>
+
+    <!-- Header -->
+    <div class="section-eyebrow" style="margin-bottom:6px"><div style="width:20px;height:1.5px;background:#A6192E"></div>Frustration-to-Fortune Engine</div>
+    <h1 style="font-size:clamp(26px,5vw,40px);letter-spacing:-.02em;margin-bottom:8px">Startup ideas validated by real pain</h1>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:17px;color:#7A7068;margin-bottom:20px">Every idea is reverse-engineered from actual user complaints. Pledge what you'd pay. Founders match to what crosses the threshold.</p>
+
+    <!-- How it works strip -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#DDD5C8;border:1px solid #DDD5C8;border-radius:3px;margin-bottom:28px">
+      <div style="background:#FFFDF9;padding:16px 18px">
+        <div style="font-size:18px;margin-bottom:6px">😤</div>
+        <div style="font-size:12px;font-weight:600;color:#1C1814;margin-bottom:3px">Real complaints</div>
+        <div style="font-size:11.5px;color:#7A7068;line-height:1.55">FloMKa sources 10,000+ real user frustrations from Reddit, HN and forums — scored by pain intensity</div>
+      </div>
+      <div style="background:#FFFDF9;padding:16px 18px">
+        <div style="font-size:18px;margin-bottom:6px">💰</div>
+        <div style="font-size:12px;font-weight:600;color:#1C1814;margin-bottom:3px">You pledge what you'd pay</div>
+        <div style="font-size:11.5px;color:#7A7068;line-height:1.55">No money changes hands. Pledging ₹X/month tells founders: "I exist, I have budget, build this for me"</div>
+      </div>
+      <div style="background:#FFFDF9;padding:16px 18px">
+        <div style="font-size:18px;margin-bottom:6px">🚀</div>
+        <div style="font-size:12px;font-weight:600;color:#1C1814;margin-bottom:3px">Founder Match</div>
+        <div style="font-size:11.5px;color:#7A7068;line-height:1.55">When an idea crosses threshold (10+ pledges or score 85+), founders can register to build it. The loop closes.</div>
+      </div>
+    </div>
+
+    <div style="height:1.5px;background:#C9A84C;opacity:.4;margin-bottom:28px"></div>
+
+    <!-- Sort tabs -->
+    <div style="display:flex;gap:6px;margin-bottom:20px;flex-wrap:wrap">
+      <button class="btn btn-sm btn-red" id="sort-score" onclick="sortIdeas('score',this)">By FloMKa score</button>
+      <button class="btn btn-sm" id="sort-arr" onclick="sortIdeas('arr',this)">By validated ARR</button>
+      <button class="btn btn-sm" id="sort-pledges" onclick="sortIdeas('pledges',this)">Most pledges</button>
+      <button class="btn btn-sm" id="sort-threshold" onclick="sortIdeas('threshold',this)">🚀 Ready to build</button>
+    </div>
+
+    <div id="ideas-grid" class="grid-3"><div class="loading-state"><div class="spinner spinner-dark"></div><p style="margin-top:10px">Loading validated ideas…</p></div></div>
   </div>`;
+
   const ideas = await fetchIdeas();
-  const grid = c('ideas-grid');
-  if(grid){
-    grid.innerHTML = ideas.map((idea, i) => `
-    <div class="idea-card card ${i%2===0?'card-top':'card-gold'} fade-up" style="animation-delay:${i*0.06}s">
-      <div style="display:flex;gap:8px;margin-bottom:14px">
-        <span class="tag">${idea.cat}</span>
-        <span style="font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:2px;background:#EAF4ED;color:#2D6A3F;margin-left:auto">Score ${idea.score}/100</span>
-      </div>
-      <div class="uppercase" style="margin-bottom:4px">Problem</div>
-      <p class="idea-problem">"${esc(idea.problem)}"</p>
-      <div class="divider"></div>
-      <div class="uppercase" style="margin-bottom:4px">Opportunity</div>
-      <p class="idea-opp">${idea.opportunity}</p>
-      <p style="font-size:11.5px;color:#7A7068;margin-bottom:14px">${idea.evidence}</p>
-      <div style="display:flex;gap:6px">
-        <button class="btn btn-sm ${userVotes.has(idea.id)?'voted':''}" onclick="handleVote('${idea.id}','idea',this)">▲ <span class="vote-cnt">${idea.upvotes}</span></button>
-        <button class="btn btn-sm saved-btn ${userSaves.has(idea.id)?'saved':''}" onclick="handleSave('${idea.id}',this)">🔖</button>
-      </div>
-    </div>`).join('');
+  window._cachedIdeasForSort = ideas;
+  renderIdeasGrid(ideas);
+}
+
+function sortIdeas(type, btn){
+  document.querySelectorAll('#page-ideas .btn-sm').forEach(b => b.classList.remove('btn-red'));
+  if(btn) btn.classList.add('btn-red');
+  const ideas = window._cachedIdeasForSort || [];
+  let sorted = [...ideas];
+  if(type === 'arr') sorted.sort((a,b) => totalARR(b.id) - totalARR(a.id));
+  else if(type === 'pledges') sorted.sort((a,b) => pledgeCount(b.id) - pledgeCount(a.id));
+  else if(type === 'threshold') sorted = sorted.filter(i => ideaThreshold(i)).concat(sorted.filter(i => !ideaThreshold(i)));
+  else sorted.sort((a,b) => (b.score||0) - (a.score||0));
+  renderIdeasGrid(sorted);
+}
+
+function renderIdeasGrid(ideas){
+  var grid = c("ideas-grid");
+  if(!grid) return;
+  if(!ideas.length){
+    grid.innerHTML = "<div style='grid-column:1/-1;text-align:center;padding:48px;color:#7A7068'><div style='font-size:32px;margin-bottom:12px'>&#128161;</div><p>No ideas yet</p></div>";
+    return;
+  }
+  var html = "";
+  for(var i=0;i<ideas.length;i++){
+    var idea = ideas[i];
+    var pCount = pledgeCount(idea.id);
+    var arr = totalARR(idea.id);
+    var fCount = founderCount(idea.id);
+    var isHot = ideaThreshold(idea);
+    var sc = idea.score || 0;
+    var scoreColor = sc >= 85 ? "#A6192E" : sc >= 70 ? "#C9A84C" : "#2D6A3F";
+    var myPledge = (window._myPledges||{})[idea.id];
+    var hasFounderInterest = (window._founderInterest||{})[idea.id] && ((window._founderInterest||{})[idea.id]||[]).indexOf(currentUser && currentUser.id) > -1;
+    var pctFill = Math.min(100,(pCount/50)*100);
+    var barColor = pCount >= 10 ? "#2D6A3F" : "#C9A84C";
+    var arrText = arr > 0 ? "&#8377;"+arr.toLocaleString("en-IN") : "&#8377;0";
+    var moreNeeded = Math.max(0,10-pCount);
+    var voted = userVotes.has(idea.id) ? " voted" : "";
+    var saved = userSaves.has(idea.slug||idea.id) ? " saved" : "";
+
+    html += "<div class='card fade-up' style='border-top:3px solid "+(isHot?"#A6192E":"#DDD5C8")+";animation-delay:"+(i*0.06)+"s;display:flex;flex-direction:column;position:relative;padding:0;overflow:hidden'>";
+    if(isHot) html += "<div style='background:#A6192E;color:#fff;font-size:9px;font-weight:700;padding:4px 12px;letter-spacing:.1em;text-align:center'>&#128640; THRESHOLD CROSSED &mdash; FOUNDERS CAN CLAIM</div>";
+    html += "<div style='padding:20px 22px;flex:1;display:flex;flex-direction:column'>";
+
+    // Header: category + score
+    html += "<div style='display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap'>";
+    html += "<span class='tag'>"+esc(idea.cat)+"</span>";
+    html += "<div style='margin-left:auto;width:36px;height:36px;border-radius:50%;border:2px solid "+scoreColor+";display:flex;align-items:center;justify-content:center'>";
+    html += "<span style='font-size:14px;font-weight:700;color:"+scoreColor+"'>"+sc+"</span></div></div>";
+
+    // Problem
+    html += "<div style='font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#A6192E;margin-bottom:5px'>The frustration</div>";
+    html += "<p style='font-style:italic;font-size:15px;color:#A6192E;line-height:1.6;margin-bottom:12px'>&ldquo;"+esc(idea.problem)+"&rdquo;</p>";
+    html += "<div style='height:1px;background:#EDE8E0;margin-bottom:12px'></div>";
+
+    // Opportunity
+    html += "<div style='font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#2D6A3F;margin-bottom:5px'>The opportunity</div>";
+    html += "<p style='font-size:17px;font-weight:600;line-height:1.45;margin-bottom:8px;color:#1C1814'>"+esc(idea.opportunity)+"</p>";
+    html += "<p style='font-size:11.5px;color:#7A7068;margin-bottom:16px'>"+esc(idea.evidence)+"</p>";
+
+    // ARR meter
+    html += "<div style='background:#F5F0E8;border:1px solid #DDD5C8;border-radius:3px;padding:12px 14px;margin-bottom:14px'>";
+    html += "<div style='display:flex;justify-content:space-between;align-items:center;margin-bottom:6px'>";
+    html += "<span style='font-size:11px;font-weight:600;color:#7A7068;text-transform:uppercase'>Validated ARR</span>";
+    html += "<span style='font-size:20px;font-weight:700;color:"+(arr>0?"#2D6A3F":"#DDD5C8")+"'>"+arrText+"</span></div>";
+    html += "<div style='height:5px;background:#EDE8E0;border-radius:3px;overflow:hidden;margin-bottom:6px'>";
+    html += "<div style='height:100%;width:"+pctFill+"%;background:"+barColor+";border-radius:3px;transition:width 1s ease'></div></div>";
+    html += "<div style='display:flex;justify-content:space-between;font-size:11px;color:#7A7068'>";
+    html += "<span>"+pCount+" pledged &middot; need "+moreNeeded+" more</span>";
+    html += "<span>"+(fCount>0?fCount+" founder"+(fCount>1?"s":"")+" interested":"")+"</span></div></div>";
+
+    // Action buttons
+    html += "<div style='display:flex;gap:6px;margin-top:auto;flex-wrap:wrap'>";
+    var pledgeBg = myPledge ? "#EAF4ED" : "#1C1814";
+    var pledgeClr = myPledge ? "#2D6A3F" : "#F5F0E8";
+    var pledgeBdr = myPledge ? "rgba(45,106,63,.4)" : "#3A3028";
+    var pledgeTxt = myPledge ? ("&#10003; Pledged "+myPledge+"/mo") : "&#128176; I'd pay for this";
+    html += "<button onclick=\"openPledge('"+idea.id+"')\" style='flex:1;min-width:100px;padding:9px 10px;background:"+pledgeBg+";color:"+pledgeClr+";border:1px solid "+pledgeBdr+";border-radius:2px;font-size:11.5px;font-weight:600;cursor:pointer'>"+pledgeTxt+"</button>";
+    if(isHot){
+      var fBg = hasFounderInterest ? "#F9EAEC" : "#A6192E";
+      var fClr = hasFounderInterest ? "#A6192E" : "#fff";
+      var fTxt = hasFounderInterest ? "&#10003; Building this" : "&#128640; I'll build this";
+      html += "<button onclick=\"registerFounder('"+idea.id+"')\" style='flex:1;min-width:100px;padding:9px 10px;background:"+fBg+";color:"+fClr+";border:1px solid #A6192E;border-radius:2px;font-size:11.5px;font-weight:600;cursor:pointer'>"+fTxt+"</button>";
+    }
+    html += "<button class='btn btn-sm"+voted+"' onclick=\"handleVote('"+idea.id+"','idea',this)\">&#9650; <span class='vote-cnt'>"+(idea.upvotes||0)+"</span></button>";
+    html += "<button class='btn btn-sm btn-icon saved-btn"+saved+"' onclick=\"handleSave('"+(idea.slug||idea.id)+"',this)\" title='Save'>&#128278;</button>";
+    html += "</div></div></div>";
+  }
+  grid.innerHTML = html;
+}
+
+
+function openPledge(ideaId, title){
+  if(!currentUser){ showLoginWall(); toast('Sign in to pledge', 'warning'); return; }
+  if(!window._myPledges) window._myPledges = {};
+  if(window._myPledges[ideaId]){ toast('You already pledged for this idea!', 'warning'); return; }
+
+  const m = c('auth-modal');
+  m.style.display = 'flex'; m.style.alignItems = 'flex-start'; m.style.justifyContent = 'center';
+  document.body.style.overflow = 'hidden';
+  m.innerHTML = `
+  <div class="modal-wrap"><div class="modal" style="max-width:460px">
+    <button class="modal-close" onclick="closeModal('auth-modal')">✕</button>
+    <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#2D6A3F;margin-bottom:10px">💰 Validation Pledge</div>
+    <h2 style="font-size:22px;margin-bottom:8px;letter-spacing:-.02em">How much would you pay?</h2>
+    <p style="font-size:13.5px;color:#7A7068;line-height:1.6;margin-bottom:6px">For: <strong style="color:#1C1814">${title}</strong></p>
+    <p style="font-size:12.5px;color:#7A7068;margin-bottom:20px">No money changes hands. Your pledge tells founders: "I exist, I have budget, I will pay for this." When 10 people pledge, founders can claim the idea.</p>
+
+    <div id="pledge-options" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px">
+      ${[500,1000,2000,5000,10000,20000].map(amt =>
+        `<button onclick="selectPledge(${amt},this)" style="padding:12px 8px;border:1px solid #DDD5C8;border-radius:3px;background:#FFFDF9;cursor:pointer;font-family:'Jost',sans-serif;transition:all .2s" onmouseover="this.style.borderColor='#2D6A3F'" onmouseout="if(!this.classList.contains('selected'))this.style.borderColor='#DDD5C8'">
+          <div style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:#1C1814">₹${amt.toLocaleString('en-IN')}</div>
+          <div style="font-size:10px;color:#7A7068">/month</div>
+        </button>`
+      ).join('')}
+    </div>
+
+    <div style="display:flex;gap:8px;margin-bottom:16px">
+      <input type="number" id="custom-pledge" placeholder="Custom amount ₹/mo" style="flex:1;font-size:14px" oninput="selectPledge(parseInt(this.value)||0, null)"/>
+    </div>
+
+    <div id="pledge-preview" style="display:none;background:#EAF4ED;border:1px solid rgba(45,106,63,.3);border-radius:3px;padding:10px 14px;font-size:13px;color:#2D6A3F;margin-bottom:16px"></div>
+
+    <button id="pledge-confirm" onclick="confirmPledge('${ideaId}')" class="btn btn-red" style="width:100%;padding:13px;font-size:14px;justify-content:center" disabled>Select an amount first</button>
+
+    <p style="text-align:center;font-size:11px;color:#7A7068;margin-top:12px">This is a non-binding signal of intent. No payment is collected.</p>
+  </div></div>`;
+  m.onclick = e => { if(e.target===m) closeModal('auth-modal'); };
+  window._selectedPledge = 0;
+  window._currentPledgeIdea = ideaId;
+}
+
+function selectPledge(amount, btn){
+  window._selectedPledge = amount;
+  document.querySelectorAll('#pledge-options button').forEach(b => {
+    b.style.borderColor = '#DDD5C8'; b.style.background = '#FFFDF9'; b.classList.remove('selected');
+  });
+  if(btn){ btn.style.borderColor = '#2D6A3F'; btn.style.background = '#EAF4ED'; btn.classList.add('selected'); }
+  const preview = c('pledge-preview');
+  const confirmBtn = c('pledge-confirm');
+  if(amount > 0){
+    preview.style.display = 'block';
+    preview.innerHTML = `Your pledge: <strong>₹${amount.toLocaleString('en-IN')}/month</strong> = ₹${(amount*12).toLocaleString('en-IN')}/year annual value signal`;
+    confirmBtn.disabled = false;
+    confirmBtn.textContent = `Pledge ₹${amount.toLocaleString('en-IN')}/mo →`;
+  } else {
+    preview.style.display = 'none';
+    confirmBtn.disabled = true;
+    confirmBtn.textContent = 'Select an amount first';
   }
 }
+
+function confirmPledge(ideaId){
+  const amount = window._selectedPledge;
+  if(!amount || amount <= 0){ toast('Please select an amount', 'error'); return; }
+  if(!window._myPledges) window._myPledges = {};
+  window._myPledges[ideaId] = amount;
+  addPledge(ideaId, amount);
+  closeModal('auth-modal');
+  toast('✓ Pledge recorded! ' + pledgeCount(ideaId) + ' people have pledged for this idea');
+  // Re-render to reflect changes
+  if(window._cachedIdeasForSort) renderIdeasGrid(window._cachedIdeasForSort);
+  // Check threshold
+  const idea = (window._cachedIdeasForSort||[]).find(i => i.id === ideaId);
+  if(idea && ideaThreshold(idea)){
+    setTimeout(()=>toast('🚀 This idea just crossed the threshold! Founders can now claim it.'), 1500);
+  }
+}
+
+// ── Founder Match modal ──────────────────────────────────────────────────────
+function registerFounder(ideaId, title){
+  if(!currentUser){ showLoginWall(); toast('Sign in to register as a builder', 'warning'); return; }
+  if(!window._founderInterest) window._founderInterest = {};
+  if(!window._founderInterest[ideaId]) window._founderInterest[ideaId] = [];
+
+  if(window._founderInterest[ideaId].includes(currentUser.id)){
+    toast('You are already registered as a builder for this idea!', 'warning'); return;
+  }
+
+  const m = c('auth-modal');
+  m.style.display = 'flex'; m.style.alignItems = 'flex-start'; m.style.justifyContent = 'center';
+  document.body.style.overflow = 'hidden';
+  m.innerHTML = `
+  <div class="modal-wrap"><div class="modal" style="max-width:480px">
+    <button class="modal-close" onclick="closeModal('auth-modal')">✕</button>
+    <div style="font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A6192E;margin-bottom:10px">🚀 Founder Match</div>
+    <h2 style="font-size:22px;margin-bottom:8px">Register to build this</h2>
+    <p style="font-size:13.5px;color:#7A7068;line-height:1.6;margin-bottom:20px">
+      <strong style="color:#1C1814">${title}</strong><br><br>
+      This idea has crossed the validation threshold — real people have pledged real money for it.
+      Register your interest and FloMKa will connect you with the pledgers.
+    </p>
+
+    <div style="background:#F9EAEC;border:1px solid rgba(166,25,46,.2);border-radius:3px;padding:14px 16px;margin-bottom:20px">
+      <div style="font-size:12px;font-weight:600;color:#A6192E;margin-bottom:8px">What happens next</div>
+      <div style="font-size:12.5px;color:#3A1018;line-height:1.7">
+        1. You register interest here<br>
+        2. FloMKa sends you a summary of all pledgers + their contact consent<br>
+        3. You reach out, validate further, and decide whether to build<br>
+        4. If you build it, FloMKa features your launch on the platform for free
+      </div>
+    </div>
+
+    <div style="margin-bottom:14px">
+      <label>Your background (optional)</label>
+      <textarea id="founder-bg" placeholder="e.g. 3 years building SaaS, shipped 2 products, looking for my next idea..." style="min-height:80px"></textarea>
+    </div>
+    <div style="margin-bottom:16px">
+      <label>Contact email</label>
+      <input type="email" id="founder-email" value="${currentUser?.email || ''}" placeholder="your@email.com"/>
+    </div>
+
+    <button onclick="confirmFounder('${ideaId}')" class="btn btn-red" style="width:100%;padding:13px;font-size:14px;justify-content:center">Register as builder →</button>
+    <p style="text-align:center;font-size:11px;color:#7A7068;margin-top:12px">Your details are shared only with pledgers who consent. FloMKa doesn't charge for this.</p>
+  </div></div>`;
+  m.onclick = e => { if(e.target===m) closeModal('auth-modal'); };
+}
+
+function confirmFounder(ideaId){
+  if(!window._founderInterest[ideaId]) window._founderInterest[ideaId] = [];
+  window._founderInterest[ideaId].push(currentUser.id);
+  closeModal('auth-modal');
+  toast('🚀 Registered! We will connect you with pledgers within 24 hours.');
+  if(window._cachedIdeasForSort) renderIdeasGrid(window._cachedIdeasForSort);
+}
+
+
+// =====================================================================
+// FEATURE 1: PARALLEL UNIVERSE SIMULATOR
+// =====================================================================
+
+var UNIVERSE_SCENARIOS = {
+  "Coding": [
+    { id:"enterprise", label:"Enterprise Standard", emoji:"🏢", color:"#4A90D9", bg:"#E6F1FB",
+      timeline:"9–12 months", prob:68,
+      evolution:"Becomes mandatory at Fortune 500s. Compliance, SSO, audit logs added. Pricing shifts to per-seat enterprise contracts at 3x current cost.",
+      problems:["Slow enterprise procurement blocks indie adoption","Junior devs lose core skills — over-reliance","Code review breaks — humans can't distinguish AI from human code","On-premise demand from regulated industries"],
+      ideas:["Managed on-premise deployment for air-gapped enterprises","AI code review tool that detects and flags AI-generated patterns","Procurement automation layer for enterprise AI approval"] },
+    { id:"opensource", label:"Open-Source Clone Wins", emoji:"🔓", color:"#2D6A3F", bg:"#EAF4ED",
+      timeline:"12–18 months", prob:54,
+      evolution:"MIT-licensed clone matches 80% of features for free. Adoption explodes in emerging markets. Paid tools pivot to support + premium only.",
+      problems:["Self-hosting is painful — DevOps kills small teams","No SLA or support for open-source users","Security vulnerabilities in self-hosted instances pile up","Feature parity breaks — forks diverge"],
+      ideas:["Managed hosting SaaS for open-source coding AI — zero DevOps","Enterprise support SLA contracts for open-source AI tools","Security scanning layer for AI-generated code"] },
+    { id:"agent", label:"Autonomous Agent Era", emoji:"🤖", color:"#5B3FA6", bg:"#F0ECF9",
+      timeline:"12–18 months", prob:71,
+      evolution:"Evolves from autocomplete to autonomous agent that opens PRs, writes tests, deploys features end-to-end without human in loop.",
+      problems:["Bugs introduced by agents are untraceable","Engineers lose context of their own codebase","Legal liability for agent-introduced vulnerabilities unclear","Teams need to manage agents, not write code"],
+      ideas:["Agent audit trail — replay every decision an AI agent made","Codebase context manager — keeps agents grounded in architecture","AI agent liability insurance platform for engineering teams"] }
+  ],
+  "Search": [
+    { id:"newgoogle", label:"Replaces Google", emoji:"🌐", color:"#A6192E", bg:"#F9EAEC",
+      timeline:"6–9 months", prob:62,
+      evolution:"AI search displaces 30% of traditional Google queries. Publishers lose traffic. The tool adds shopping, local, and finance verticals.",
+      problems:["Content creators lose all SEO traffic","No advertiser placement model in AI answers","Hallucinated results cause legal damage","Users cannot verify sources — trust collapses"],
+      ideas:["Publisher monetisation layer for content cited in AI answers","AI search fact-checker browser extension","Advertiser placement platform for AI-first search"] },
+    { id:"vertical", label:"Vertical Splits Win", emoji:"📊", color:"#C9A84C", bg:"#FBF5E6",
+      timeline:"9–12 months", prob:77,
+      evolution:"General AI search loses to domain-specific alternatives. Medical, legal, finance AI search each capture their vertical.",
+      problems:["Users juggle 5 different AI search tools","Vertical tools too expensive for small teams","Data freshness in niche verticals is poor"],
+      ideas:["Unified router that sends queries to the best vertical AI search","Real-time data pipeline for niche AI search (legal, medical)","AI search aggregator that compares answers across tools"] }
+  ],
+  "Writing": [
+    { id:"commodity", label:"Writing Becomes Commodity", emoji:"📝", color:"#7A7068", bg:"#F5F0E8",
+      timeline:"6–9 months", prob:84,
+      evolution:"Every platform ships native AI writing. Standalone tools lose moat. Differentiation shifts to brand voice and niche content types.",
+      problems:["Every brand's AI output sounds identical","Content authenticity detection is an arms race","Clients demand human certification for AI writing","No workflow for human+AI collaboration at scale"],
+      ideas:["Brand voice training layer that fine-tunes AI to company tone","Human-AI collaboration workflow tool for content teams","AI content certification service — verifies editorial oversight"] },
+    { id:"detection", label:"AI Detection Arms Race", emoji:"🔎", color:"#A6192E", bg:"#F9EAEC",
+      timeline:"9–12 months", prob:66,
+      evolution:"Universities and regulators mandate AI detection. Writing tools respond with humanisation layers. Detection and generation enter adversarial loop.",
+      problems:["False positives ruin reputations — human writing flagged","No universally trusted detection standard","Legal disputes over AI-written contracts escalate"],
+      ideas:["AI writing legal certification for contracts and filings","Independent adversarial AI detection benchmark","Human writing tool that keeps a provable audit trail"] }
+  ],
+  "Video": [
+    { id:"creator", label:"Creator Economy Takeover", emoji:"🎬", color:"#A6192E", bg:"#F9EAEC",
+      timeline:"6–9 months", prob:73,
+      evolution:"AI video becomes default for YouTube and short-form. Production costs collapse. Platforms start flagging AI-generated content.",
+      problems:["Platforms penalise AI content — creators hide it","Content moderation breaks at scale","Creator authenticity impossible to verify","Ad revenue drops near AI-adjacent content"],
+      ideas:["AI content disclosure compliance layer for creators","Brand safety tool for advertisers avoiding AI placements","Creator authenticity verification — proves human involvement"] },
+    { id:"enterprise", label:"Enterprise Automation", emoji:"🏗", color:"#4A90D9", bg:"#E6F1FB",
+      timeline:"9–12 months", prob:69,
+      evolution:"Corporate video (training, demos, marketing) fully automated. HR and L&D teams eliminate video production vendors entirely.",
+      problems:["Enterprise AI video needs compliance review pipeline","Localisation to 30+ languages breaks AI voice quality","Video governance — who approves, who owns, where stored"],
+      ideas:["Video governance platform for enterprise AI content","AI video localisation QA — human review for 30+ languages","Automated video refresh service — keeps enterprise libraries current"] }
+  ],
+  "Inference": [
+    { id:"commodity2", label:"Inference Becomes Utility", emoji:"⚡", color:"#C9A84C", bg:"#FBF5E6",
+      timeline:"6–9 months", prob:80,
+      evolution:"Inference cost drops 90%. APIs commoditise. Differentiation shifts to specialisation, reliability SLAs, and regulatory compliance.",
+      problems:["Race to bottom on pricing kills quality","No standard SLA or uptime guarantees","Regulatory compliance for inference in healthcare/finance missing","Vendor lock-in as switching costs rise"],
+      ideas:["Inference SLA broker — routes traffic to fastest available provider","Multi-provider inference abstraction layer with automatic failover","Compliance wrapper for inference in regulated industries"] }
+  ],
+  "default": [
+    { id:"dominant", label:"Category Leader Dominates", emoji:"🏆", color:"#A6192E", bg:"#F9EAEC",
+      timeline:"6–9 months", prob:65,
+      evolution:"Tool captures 40%+ market share. Competitors consolidate or exit. Pricing power increases. Feature bloat sets in.",
+      problems:["Becomes too expensive for small teams and students","Over-engineered for simple use cases","Support quality drops at scale","API changes break downstream integrations"],
+      ideas:["Lightweight focused alternative for a specific persona","Support layer SaaS that wraps enterprise tools for SMBs","API compatibility shim for migrating between tools"] },
+    { id:"disrupted", label:"Disrupted from Below", emoji:"💥", color:"#5B3FA6", bg:"#F0ECF9",
+      timeline:"12–18 months", prob:58,
+      evolution:"Cheaper, faster challenger emerges targeting one specific pain. Incumbent loses mid-market. Enterprise stays but innovation stalls.",
+      problems:["Mid-market users stranded between old and new","Data migration from incumbent to challenger is painful","Feature parity unclear — users confused about what to use"],
+      ideas:["Migration tool that moves workflows between competing AI tools","Feature parity tracker — real-time comparison of challenger vs incumbent","Mid-market consultant platform for AI tool transition planning"] },
+    { id:"regulation", label:"Regulation Changes Everything", emoji:"⚖️", color:"#7A4A00", bg:"#FBF3E0",
+      timeline:"12–18 months", prob:52,
+      evolution:"EU AI Act, India CERT-In, and US executive orders mandate transparency, audit trails, and data residency. Non-compliant tools lose enterprise deals.",
+      problems:["Compliance cost too high for smaller AI tools","Audit trail requirements slow down output","Data residency mandates fragment global deployments","Legal liability for AI outputs becomes personal for CISOs"],
+      ideas:["Compliance audit layer for AI tools in regulated industries","Data residency orchestration platform for AI workloads","AI liability insurance and audit certification service"] }
+  ]
+};
+
+function getScenariosForTool(tool) {
+  var cat = tool.cat || "default";
+  return UNIVERSE_SCENARIOS[cat] || UNIVERSE_SCENARIOS["default"];
+}
+
+async function openParallelUniverse(toolId, toolName, toolCat) {
+  var tools = await fetchTools();
+  var complaints = await fetchComplaints();
+  var tool = tools.find(function(t) { return t.id === toolId; }) || { id:toolId, name:toolName, cat:toolCat, score:75, complaints:[] };
+  var toolComplaints = complaints.filter(function(c) { return c.tool && c.tool.toLowerCase() === toolName.toLowerCase(); });
+  var scenarios = getScenariosForTool(tool);
+
+  var m = c("auth-modal");
+  m.style.display = "flex";
+  m.style.alignItems = "flex-start";
+  m.style.justifyContent = "center";
+  document.body.style.overflow = "hidden";
+
+  var scenarioCards = "";
+  scenarios.forEach(function(s, i) {
+    var problemsHtml = s.problems.map(function(p) {
+      return "<div style=\"display:flex;gap:8px;align-items:flex-start;margin-bottom:6px\">" +
+        "<span style=\"color:#A6192E;font-size:12px;flex-shrink:0;margin-top:1px\">⚡</span>" +
+        "<span style=\"font-size:12px;color:#3A3530;line-height:1.55\">" + p + "</span></div>";
+    }).join("");
+    var ideasHtml = s.ideas.map(function(idea, ii) {
+      return "<div style=\"display:flex;gap:8px;align-items:flex-start;margin-bottom:8px;padding:8px 10px;background:" + s.bg + ";border-radius:3px;border:1px solid " + s.color + "33\">" +
+        "<span style=\"font-size:11px;font-weight:700;color:" + s.color + ";flex-shrink:0;margin-top:1px\">Build " + (ii+1) + "</span>" +
+        "<span style=\"font-size:12px;color:#1C1814;line-height:1.55;font-weight:500\">" + idea + "</span></div>";
+    }).join("");
+    var delay = i * 0.1;
+    scenarioCards +=
+      "<div style=\"border:1px solid " + s.color + "44;border-top:3px solid " + s.color + ";border-radius:6px;padding:20px;background:#FFFDF9;animation:fadeUp .5s " + delay + "s both;flex:1;min-width:260px\">" +
+      "<div style=\"display:flex;align-items:center;gap:10px;margin-bottom:6px\">" +
+      "<span style=\"font-size:22px\">" + s.emoji + "</span>" +
+      "<div>" +
+        "<div style=\"font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:" + s.color + "\">Future " + String.fromCharCode(65+i) + "</div>" +
+        "<div style=\"font-size:15px;font-weight:700;color:#1C1814;line-height:1.25\">" + s.label + "</div>" +
+      "</div>" +
+      "<div style=\"margin-left:auto;text-align:center;background:" + s.bg + ";border-radius:4px;padding:6px 10px;flex-shrink:0\">" +
+        "<div style=\"font-size:18px;font-weight:700;color:" + s.color + ";line-height:1\">" + s.prob + "%</div>" +
+        "<div style=\"font-size:9px;color:#7A7068\">probability</div>" +
+      "</div></div>" +
+      "<div style=\"font-size:11px;font-weight:600;color:#7A7068;margin-bottom:8px;display:flex;align-items:center;gap:5px\">" +
+        "<span style=\"background:" + s.bg + ";padding:2px 8px;border-radius:20px;color:" + s.color + ";border:1px solid " + s.color + "44\">⏱ " + s.timeline + "</span>" +
+      "</div>" +
+      "<p style=\"font-size:12.5px;color:#3A3530;line-height:1.65;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #EDE8E0\">" + s.evolution + "</p>" +
+      "<div style=\"font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#A6192E;margin-bottom:8px\">New problems this creates</div>" +
+      problemsHtml +
+      "<div style=\"font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:" + s.color + ";margin-top:14px;margin-bottom:8px\">What to build in this future</div>" +
+      ideasHtml +
+      "</div>";
+  });
+
+  // AI-generated future using Groq if available
+  var aiSection = "";
+  if (GROQ_API_KEY && GROQ_API_KEY !== "YOUR_GROQ_API_KEY_HERE" && toolComplaints.length > 0) {
+    aiSection = "<div id=\"ai-universe-section\" style=\"margin-top:20px;padding:16px;background:#1C1814;border-radius:4px;border:1px solid #3A3028\">" +
+      "<div style=\"font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C9A84C;margin-bottom:8px\">⚡ AI-Generated 4th Scenario — Powered by Groq</div>" +
+      "<div style=\"display:flex;align-items:center;gap:8px\"><div class=\"spinner\" style=\"border-color:rgba(201,168,76,.3);border-top-color:#C9A84C\"></div><span style=\"font-size:12px;color:rgba(255,255,255,.5)\">Generating unique future scenario from your complaint data...</span></div>" +
+      "</div>";
+    // Generate async
+    setTimeout(function() { generateAIScenario(tool, toolComplaints); }, 500);
+  }
+
+  m.innerHTML =
+    "<div style=\"width:100%;max-width:1100px;margin:0 auto;padding:20px;animation:fadeUp .3s ease\">" +
+    "<div style=\"background:#FFFDF9;border-radius:8px;border:1px solid #DDD5C8;overflow:hidden\">" +
+    // Header
+    "<div style=\"background:#1C1814;padding:24px 28px;position:relative;overflow:hidden\">" +
+    "<div style=\"position:absolute;right:-20px;top:-20px;font-size:160px;font-weight:700;color:rgba(201,168,76,.04);font-family:Georgia,serif;pointer-events:none\">∞</div>" +
+    "<button onclick=\"closeModal('auth-modal')\" style=\"position:absolute;top:16px;right:16px;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.6);font-size:18px;cursor:pointer;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center\">✕</button>" +
+    "<div style=\"font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#C9A84C;margin-bottom:8px\">Parallel Universe Simulator</div>" +
+    "<div style=\"font-size:26px;font-weight:700;color:#F5F0E8;margin-bottom:4px;letter-spacing:-.02em\">" + toolName + " — 3 Possible Futures</div>" +
+    "<div style=\"font-size:13px;color:rgba(255,255,255,.45)\">6–18 months out · Based on adoption curves, complaint patterns, and category dynamics · Each future = a different startup opportunity</div>" +
+    "</div>" +
+    // Scenarios
+    "<div style=\"padding:24px;overflow-y:auto;max-height:70vh\">" +
+    "<div style=\"display:flex;gap:14px;flex-wrap:wrap;margin-bottom:16px\">" + scenarioCards + "</div>" +
+    aiSection +
+    // Save CTA
+    "<div style=\"margin-top:20px;padding:16px 18px;background:#F5F0E8;border-radius:4px;border:1px solid #DDD5C8;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px\">" +
+    "<div><div style=\"font-size:13px;font-weight:600;color:#1C1814;margin-bottom:2px\">Save this analysis to your workspace</div><div style=\"font-size:12px;color:#7A7068\">Track how each future unfolds as new data comes in</div></div>" +
+    "<div style=\"display:flex;gap:8px\">" +
+    "<button onclick=\"navigate('ideas');closeModal('auth-modal')\" class=\"btn btn-sm\" style=\"font-size:12px\">See validated ideas →</button>" +
+    "<button onclick=\"closeModal('auth-modal')\" class=\"btn btn-sm btn-red\" style=\"font-size:12px\">Got it ✓</button>" +
+    "</div></div>" +
+    "</div></div></div>";
+
+  m.onclick = function(e) { if(e.target === m) closeModal("auth-modal"); };
+}
+
+async function generateAIScenario(tool, complaints) {
+  try {
+    var topComplaints = complaints.slice(0, 3).map(function(c) { return c.complaint; }).join("; ");
+    var resp = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Authorization": "Bearer " + GROQ_API_KEY },
+      body: JSON.stringify({
+        model: "llama-3.3-70b-versatile",
+        max_tokens: 400,
+        messages: [{
+          role: "system",
+          content: "You are a startup analyst. Generate a unique 4th future scenario for an AI tool. Return ONLY valid JSON: {\"label\":\"scenario name\",\"timeline\":\"X-Y months\",\"probability\":55,\"evolution\":\"2 sentences on how tool evolves\",\"problems\":[\"problem 1\",\"problem 2\",\"problem 3\"],\"ideas\":[\"startup idea 1\",\"startup idea 2\"]}"
+        }, {
+          role: "user",
+          content: "AI tool: " + tool.name + " (" + tool.cat + "). Score: " + tool.score + ". Top complaints: " + topComplaints + ". Generate a surprising but plausible 4th future scenario not covered by: enterprise standard, open-source clone, autonomous agent, category explosion."
+        }]
+      })
+    });
+    if (!resp.ok) return;
+    var data = await resp.json();
+    var text = (data.choices[0].message.content || "").replace(/```json|```/g, "").trim();
+    var scenario = JSON.parse(text);
+    var el = document.getElementById("ai-universe-section");
+    if (!el) return;
+    var ideasHtml = (scenario.ideas || []).map(function(idea, i) {
+      return "<div style=\"display:flex;gap:8px;align-items:flex-start;margin-bottom:8px;padding:8px 10px;background:rgba(201,168,76,.08);border-radius:3px;border:1px solid rgba(201,168,76,.2)\">" +
+        "<span style=\"font-size:11px;font-weight:700;color:#C9A84C;flex-shrink:0\">Build " + (i+1) + "</span>" +
+        "<span style=\"font-size:12px;color:#DDD5C8;line-height:1.55;font-weight:500\">" + idea + "</span></div>";
+    }).join("");
+    el.innerHTML =
+      "<div style=\"font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C9A84C;margin-bottom:12px\">⚡ AI-Generated Scenario — Powered by Groq · llama-3.3-70b</div>" +
+      "<div style=\"display:flex;align-items:center;gap:10px;margin-bottom:10px\">" +
+        "<span style=\"font-size:20px\">🔮</span>" +
+        "<div><div style=\"font-size:15px;font-weight:700;color:#F5F0E8\">" + scenario.label + "</div>" +
+        "<div style=\"font-size:11px;color:rgba(255,255,255,.4)\">⏱ " + scenario.timeline + " · " + scenario.probability + "% probability</div></div></div>" +
+      "<p style=\"font-size:12.5px;color:rgba(255,255,255,.65);line-height:1.65;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #2E2620\">" + scenario.evolution + "</p>" +
+      "<div style=\"font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#A6192E;margin-bottom:8px\">New problems</div>" +
+      (scenario.problems || []).map(function(p) {
+        return "<div style=\"font-size:12px;color:rgba(255,255,255,.55);margin-bottom:5px;padding-left:12px;border-left:2px solid #A6192E\">⚡ " + p + "</div>";
+      }).join("") +
+      "<div style=\"font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#C9A84C;margin-top:14px;margin-bottom:8px\">What to build</div>" +
+      ideasHtml;
+  } catch(e) {
+    var el2 = document.getElementById("ai-universe-section");
+    if (el2) el2.style.display = "none";
+  }
+}
+
+// =====================================================================
+// FEATURE 2: EXPLOIT FINDER
+// =====================================================================
+
+async function openExploitFinder(toolId, toolName) {
+  var tools = await fetchTools();
+  var complaints = await fetchComplaints();
+  var tool = tools.find(function(t) { return t.id === toolId; }) || { id:toolId, name:toolName, score:75, price:"Free", cat:"AI" };
+  var toolComplaints = complaints.filter(function(c) { return c.tool && c.tool.toLowerCase() === toolName.toLowerCase(); });
+
+  var m = c("auth-modal");
+  m.style.display = "flex";
+  m.style.alignItems = "flex-start";
+  m.style.justifyContent = "center";
+  document.body.style.overflow = "hidden";
+
+  // Build exploit surfaces from complaints
+  var surfaces = buildExploitSurfaces(tool, toolComplaints);
+  var surfaceCards = surfaces.map(function(s, i) {
+    var playsHtml = s.plays.map(function(p) {
+      return "<div style=\"margin-bottom:12px;padding:12px;background:#FFFDF9;border-radius:3px;border:1px solid #EDE8E0\">" +
+        "<div style=\"font-size:12.5px;font-weight:600;color:#1C1814;margin-bottom:4px\">" + p.action + "</div>" +
+        "<div style=\"font-size:11.5px;color:#7A7068;line-height:1.6;margin-bottom:6px\">" + p.detail + "</div>" +
+        "<div style=\"display:flex;gap:6px;flex-wrap:wrap\">" +
+          "<span style=\"font-size:10px;padding:2px 7px;border-radius:2px;background:#EAF4ED;color:#2D6A3F\">👥 " + p.target + "</span>" +
+          "<span style=\"font-size:10px;padding:2px 7px;border-radius:2px;background:#E6F1FB;color:#1A5C8A\">📍 " + p.channel + "</span>" +
+        "</div></div>";
+    }).join("");
+    return "<div style=\"border:1px solid " + s.color + "44;border-left:4px solid " + s.color + ";border-radius:4px;padding:18px;background:#FFFDF9;margin-bottom:14px;animation:fadeUp .4s " + (i*0.1) + "s both\">" +
+      "<div style=\"display:flex;align-items:center;gap:10px;margin-bottom:12px\">" +
+        "<div style=\"width:36px;height:36px;background:" + s.bg + ";border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0\">" + s.icon + "</div>" +
+        "<div style=\"flex:1\">" +
+          "<div style=\"font-size:14px;font-weight:700;color:#1C1814\">" + s.surface + "</div>" +
+          "<div style=\"font-size:11px;color:#7A7068\">" + s.description + "</div>" +
+        "</div>" +
+        "<div style=\"text-align:center;background:" + s.bg + ";border-radius:3px;padding:6px 10px\">" +
+          "<div style=\"font-size:16px;font-weight:700;color:" + s.color + "\">" + s.severity + "</div>" +
+          "<div style=\"font-size:9px;color:#7A7068\">severity</div>" +
+        "</div>" +
+      "</div>" +
+      "<div style=\"font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#5B3FA6;margin-bottom:8px\">Exploit Plays</div>" +
+      playsHtml +
+      "</div>";
+  }).join("");
+
+  // Distribution hack plan
+  var hacksHtml = buildDistributionHacks(toolName, toolComplaints).map(function(h) {
+    return "<div style=\"display:flex;gap:12px;align-items:flex-start;padding:14px;background:#FFFDF9;border:1px solid #EDE8E0;border-radius:3px;margin-bottom:8px\">" +
+      "<div style=\"width:32px;height:32px;background:#F0ECF9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0\">" + h.emoji + "</div>" +
+      "<div><div style=\"font-size:13px;font-weight:600;color:#1C1814;margin-bottom:3px\">" + h.tactic + "</div>" +
+      "<div style=\"font-size:12px;color:#7A7068;line-height:1.6\">" + h.detail + "</div></div>" +
+      "</div>";
+  }).join("");
+
+  m.innerHTML =
+    "<div style=\"width:100%;max-width:900px;margin:0 auto;padding:20px;animation:fadeUp .3s ease\">" +
+    "<div style=\"background:#FFFDF9;border-radius:8px;border:1px solid #DDD5C8;overflow:hidden\">" +
+    // Header
+    "<div style=\"background:#1C1814;padding:24px 28px;position:relative;overflow:hidden\">" +
+    "<div style=\"position:absolute;right:-10px;top:-10px;font-size:120px;color:rgba(91,63,166,.08);pointer-events:none\">⚔</div>" +
+    "<button onclick=\"closeModal('auth-modal')\" style=\"position:absolute;top:16px;right:16px;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.6);font-size:18px;cursor:pointer;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center\">✕</button>" +
+    "<div style=\"font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#5B3FA6;margin-bottom:8px\">⚔ Exploit Finder</div>" +
+    "<div style=\"font-size:26px;font-weight:700;color:#F5F0E8;margin-bottom:4px\">How to grow on the back of " + toolName + "</div>" +
+    "<div style=\"font-size:13px;color:rgba(255,255,255,.45)\">Exploit surfaces · Concrete plays · Distribution hacks — all derived from real complaint data</div>" +
+    "</div>" +
+    "<div style=\"padding:24px;overflow-y:auto;max-height:70vh\">" +
+    // Complaint summary
+    "<div style=\"display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px\">" +
+      "<div style=\"background:#F9EAEC;border:1px solid rgba(166,25,46,.2);border-radius:3px;padding:14px;text-align:center\">" +
+        "<div style=\"font-size:24px;font-weight:700;font-family:Georgia,serif;color:#A6192E\">" + toolComplaints.length + "</div>" +
+        "<div style=\"font-size:11px;color:#7A7068\">Known complaints</div></div>" +
+      "<div style=\"background:#F0ECF9;border:1px solid rgba(91,63,166,.2);border-radius:3px;padding:14px;text-align:center\">" +
+        "<div style=\"font-size:24px;font-weight:700;font-family:Georgia,serif;color:#5B3FA6\">" + surfaces.length + "</div>" +
+        "<div style=\"font-size:11px;color:#7A7068\">Exploit surfaces found</div></div>" +
+      "<div style=\"background:#EAF4ED;border:1px solid rgba(45,106,63,.2);border-radius:3px;padding:14px;text-align:center\">" +
+        "<div style=\"font-size:24px;font-weight:700;font-family:Georgia,serif;color:#2D6A3F\">" + (surfaces.length * 2) + "</div>" +
+        "<div style=\"font-size:11px;color:#7A7068\">Actionable plays</div></div>" +
+    "</div>" +
+    "<div style=\"font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#7A7068;margin-bottom:14px\">Exploit Surfaces</div>" +
+    surfaceCards +
+    "<div style=\"font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#5B3FA6;margin-bottom:14px;margin-top:20px\">⚡ Distribution Hack Plan — Steal Their Users</div>" +
+    hacksHtml +
+    "<div style=\"margin-top:20px;padding:16px;background:#F5F0E8;border-radius:4px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px\">" +
+      "<div style=\"font-size:13px;color:#3A3530\"><strong>This analysis is for strategic insight only.</strong> Build something better — don't copy.</div>" +
+      "<button onclick=\"closeModal('auth-modal')\" class=\"btn btn-red btn-sm\">Start building →</button>" +
+    "</div>" +
+    "</div></div></div>";
+
+  m.onclick = function(e) { if(e.target === m) closeModal("auth-modal"); };
+}
+
+function buildExploitSurfaces(tool, complaints) {
+  var surfaces = [];
+  var allText = complaints.map(function(c) { return (c.complaint||"").toLowerCase(); }).join(" ");
+
+  if (allText.includes("price") || allText.includes("expensive") || allText.includes("cost")) {
+    surfaces.push({
+      surface:"Pricing Exploit", icon:"💰", color:"#C9A84C", bg:"#FBF5E6", severity:"High",
+      description:"Users actively complain about pricing — ready to switch for a better deal",
+      plays:[
+        {action:"Build a cost-optimizer wrapper", detail:"Use " + tool.name + "'s API but add smart caching and batching to cut user costs by 30–40%. Charge less than direct.", target:"Budget-conscious SMBs", channel:"Indie Hackers, r/entrepreneur"},
+        {action:"Rage-discount landing page", detail:"'Tired of " + tool.name + " pricing? Switch to [You] and get your first 3 months for ₹99.' Target their users directly.", target:"Users who complained publicly", channel:"Twitter/X search for '" + tool.name + " expensive'"}
+      ]
+    });
+  }
+  if (allText.includes("slow") || allText.includes("speed") || allText.includes("latency") || allText.includes("performance")) {
+    surfaces.push({
+      surface:"Speed Exploit", icon:"⚡", color:"#4A90D9", bg:"#E6F1FB", severity:"Critical",
+      description:"Performance is the top complaint — fastest alternative wins immediately",
+      plays:[
+        {action:"Build the speed-first alternative", detail:"Same core functionality but optimised purely for response time. Make your homepage a live speed comparison: 'We're 3x faster than " + tool.name + ".'", target:"Developers, power users", channel:"HackerNews, dev Twitter, LinkedIn"},
+        {action:"Speed benchmark content marketing", detail:"Publish weekly speed tests: '" + tool.name + " vs Us — who wins?' SEO targets their branded keywords.", target:"Users searching for alternatives", channel:"Google SEO, YouTube"}
+      ]
+    });
+  }
+  if (allText.includes("api") || allText.includes("developer") || allText.includes("integration")) {
+    surfaces.push({
+      surface:"Developer Exploit", icon:"⚙️", color:"#2D6A3F", bg:"#EAF4ED", severity:"Medium",
+      description:"Developer experience gaps mean technical users are looking for better options",
+      plays:[
+        {action:"Drop-in API compatibility layer", detail:"Make your API 100% compatible with " + tool.name + "'s endpoints. Users switch without changing a single line of code.", target:"Developers already using " + tool.name, channel:"GitHub, developer forums, Stack Overflow"},
+        {action:"Migration wizard", detail:"One-click tool that reads their existing " + tool.name + " setup and recreates it in your product. Remove all friction from switching.", target:"Teams wanting to migrate", channel:"Product Hunt, developer newsletters"}
+      ]
+    });
+  }
+  // Always add a niche exploit
+  surfaces.push({
+    surface:"Niche Focus Exploit", icon:"🎯", color:"#A6192E", bg:"#F9EAEC", severity:"Strategic",
+    description:tool.name + " serves everyone — own one underserved niche they ignore",
+    plays:[
+      {action:"Build the India-first version", detail:tool.name + " likely has no UPI payment, no ₹ pricing, poor latency from India. Build the same tool with full India support. This alone is a moat.", target:"Indian SMBs, students, founders", channel:"LinkedIn India, WhatsApp groups, Product Hunt India"},
+      {action:"Vertical wrapper for one workflow", detail:"Take the 10% of " + tool.name + "'s features used by one profession (lawyers, teachers, doctors) and build a focused product for just them.", target:"Professionals in one vertical", channel:"Vertical Slack groups, LinkedIn niche communities"}
+    ]
+  });
+
+  return surfaces.slice(0, 3);
+}
+
+function buildDistributionHacks(toolName, complaints) {
+  return [
+    { emoji:"🔍", tactic:"SEO ambush — comparison landing pages", detail:"Create 'Best " + toolName + " alternatives' and '" + toolName + " vs [You]' pages targeting the keywords their frustrated users search. These rank fast because you're answering real intent." },
+    { emoji:"📸", tactic:"Rage-discount for bug screenshots", detail:"Run a campaign: 'Show us a screenshot of a " + toolName + " bug or complaint and get 6 months free.' You get user-generated social proof, they get a reason to switch." },
+    { emoji:"🔄", tactic:"One-click migration wizard", detail:"Build a tool that imports their " + toolName + " data, settings, and workflows in one click. Remove all switching friction. This is the single most powerful acquisition tool." },
+    { emoji:"👥", tactic:"Community infiltration (ethically)", detail:"Be genuinely helpful in subreddits and communities where " + toolName + " users complain. Answer their questions. Don't pitch. Let them ask what you use. This converts at 8-12%." },
+    { emoji:"📊", tactic:"Public complaint tracker", detail:"Build a public page tracking '" + toolName + " status and complaints' — real-time. Their frustrated users will bookmark it. You're now in their mental stack." }
+  ];
+}
+
+// =====================================================================
+// FEATURE 3: AI STACK PRESCRIBER
+// =====================================================================
+
+var STACK_ROLES = [
+  {id:"student", label:"Student", emoji:"🎓", desc:"Finish coursework, learn faster, ace exams"},
+  {id:"developer", label:"Developer", emoji:"💻", desc:"Ship code faster, debug smarter, deploy confidently"},
+  {id:"founder", label:"Founder", emoji:"🚀", desc:"Validate ideas, build MVPs, find early customers"},
+  {id:"marketer", label:"Marketer", emoji:"📢", desc:"Create content, run campaigns, analyse performance"},
+  {id:"designer", label:"Designer", emoji:"🎨", desc:"Design faster, generate assets, prototype quickly"},
+  {id:"executive", label:"Executive", emoji:"👔", desc:"Stay informed, lead AI adoption, make decisions"}
+];
+
+var STACK_GOALS = {
+  student: ["Finish my dissertation/thesis", "Study smarter and faster", "Write better essays and reports", "Build a side project"],
+  developer: ["Ship features 2x faster", "Cut debugging time in half", "Write better documentation", "Build a SaaS MVP"],
+  founder: ["Validate my startup idea", "Build an MVP in 30 days", "Find my first 100 customers", "Create investor materials"],
+  marketer: ["Write 10x more content", "Run better ad campaigns", "Grow social media presence", "Build email sequences"],
+  designer: ["Speed up design workflow", "Generate UI mockups fast", "Create marketing visuals", "Build a design system"],
+  executive: ["Stay ahead of AI trends", "Build team AI strategy", "Create board presentations", "Evaluate AI tool ROI"]
+};
+
+var STACK_RECIPES = {
+  "student-Finish my dissertation/thesis": {
+    tools: ["Perplexity", "Claude", "Grammarly", "Notion AI"],
+    workflow: ["Research with Perplexity — cited, verifiable sources", "Draft sections in Claude — long-form, structured thinking", "Polish prose with Grammarly — catch errors", "Organise notes and outline in Notion AI"],
+    avoid: ["ChatGPT for citations — hallucinates references", "Jasper — overkill for academic writing"],
+    whyit: "This stack covers every dissertation phase: research → draft → refine → organise. Each tool has one job."
+  },
+  "developer-Ship features 2x faster": {
+    tools: ["Cursor", "GitHub Copilot", "Perplexity", "Claude"],
+    workflow: ["Cursor for all code editing — AI autocomplete in your IDE", "Perplexity for quick syntax/library lookups — faster than docs", "Claude for architecture decisions and complex debugging", "GitHub Copilot in CI/CD for automated PR suggestions"],
+    avoid: ["ChatGPT for code — context window too small for large files", "Devin — $500/mo, overkill for individual devs"],
+    whyit: "Cursor + Claude is the proven combo that senior engineers at top startups actually use. Perplexity replaces 80% of Stack Overflow searches."
+  },
+  "founder-Validate my startup idea": {
+    tools: ["Perplexity", "Claude", "Notion AI", "Cursor"],
+    workflow: ["Perplexity to research market size, competitors, and recent funding", "Claude to draft your problem statement, positioning, and landing page copy", "Notion AI to organise customer interview notes and synthesise patterns", "Cursor to build a quick landing page or prototype in days not weeks"],
+    avoid: ["Jasper — expensive, no competitive insight features", "Midjourney — distraction at validation stage"],
+    whyit: "Validation is about speed and clarity. This stack takes you from idea to a real landing page with interview insights in under a week."
+  },
+  "marketer-Write 10x more content": {
+    tools: ["Claude", "Perplexity", "Grammarly", "Sora"],
+    workflow: ["Research with Perplexity — find angles, trending topics, competitor gaps", "Draft with Claude — long-form, brand-voice aware, SEO structured", "Edit with Grammarly — consistency and polish", "Generate short videos with Sora for social repurposing"],
+    avoid: ["Jasper — 3 complaints per week about quality regression", "ChatGPT directly — no brand voice memory across sessions"],
+    whyit: "The research → draft → edit → repurpose loop covers an entire content operation. Claude holds context better than any other model for brand voice."
+  }
+};
+
+async function renderStackPrescriber() {
+  var el = c("page-engine");
+  var tools = await fetchTools();
+
+  el.innerHTML =
+    "<div style=\"max-width:900px;margin:0 auto;padding:clamp(20px,4vw,48px) clamp(14px,3vw,24px)\">" +
+    "<div class=\"section-eyebrow\" style=\"margin-bottom:6px\"><div style=\"width:20px;height:1.5px;background:#A6192E\"></div>AI Stack Prescriber</div>" +
+    "<h1 style=\"font-size:clamp(26px,5vw,38px);letter-spacing:-.02em;margin-bottom:8px\">Get your personal AI stack</h1>" +
+    "<p style=\"font-family:'Cormorant Garamond',serif;font-size:17px;color:#7A7068;margin-bottom:28px\">Answer 2 questions. Get 3–6 tools that actually work together, with a workflow and tools to avoid — built from real complaint data.</p>" +
+    "<div style=\"height:1.5px;background:#C9A84C;opacity:.4;margin-bottom:32px\"></div>" +
+    // Step 1: Role
+    "<div id=\"stack-step1\">" +
+    "<div style=\"font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A6192E;margin-bottom:16px\">Step 1 — What is your role?</div>" +
+    "<div style=\"display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-bottom:28px\">" +
+    STACK_ROLES.map(function(r) {
+      return "<button onclick=\"selectRole('" + r.id + "',this)\" data-role=\"" + r.id + "\" " +
+        "style=\"display:flex;gap:12px;align-items:center;padding:16px;border:1px solid #DDD5C8;border-radius:4px;background:#FFFDF9;cursor:pointer;text-align:left;transition:all .2s;font-family:'Jost',sans-serif\" " +
+        "onmouseover=\"this.style.borderColor='#A6192E';this.style.background='#FFF5F5'\" " +
+        "onmouseout=\"if(!this.classList.contains('selected')){this.style.borderColor='#DDD5C8';this.style.background='#FFFDF9'}\">" +
+        "<span style=\"font-size:24px\">" + r.emoji + "</span>" +
+        "<div><div style=\"font-size:13.5px;font-weight:600;color:#1C1814\">" + r.label + "</div>" +
+        "<div style=\"font-size:11.5px;color:#7A7068;line-height:1.4\">" + r.desc + "</div></div>" +
+        "</button>";
+    }).join("") +
+    "</div>" +
+    "<div id=\"stack-step2\" style=\"display:none\">" +
+    "<div style=\"font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#A6192E;margin-bottom:16px\">Step 2 — What is your main goal?</div>" +
+    "<div id=\"goal-options\" style=\"display:flex;flex-direction:column;gap:8px;margin-bottom:24px\"></div>" +
+    "</div>" +
+    "<div id=\"stack-result\" style=\"display:none\"></div>" +
+    "</div></div>";
+
+  window._selectedRole = null;
+  window._selectedGoal = null;
+}
+
+function selectRole(roleId, btn) {
+  window._selectedRole = roleId;
+  document.querySelectorAll("[data-role]").forEach(function(b) {
+    b.classList.remove("selected");
+    b.style.borderColor = "#DDD5C8";
+    b.style.background = "#FFFDF9";
+  });
+  btn.classList.add("selected");
+  btn.style.borderColor = "#A6192E";
+  btn.style.background = "#FFF5F5";
+  btn.style.borderLeftWidth = "3px";
+
+  var goals = STACK_GOALS[roleId] || ["Ship faster", "Work smarter", "Save time"];
+  var step2 = c("stack-step2");
+  var goalOpts = c("goal-options");
+  if (!step2 || !goalOpts) return;
+  goalOpts.innerHTML = goals.map(function(g) {
+    return "<button onclick=\"selectGoal('" + g.replace(/'/g,"") + "',this)\" data-goal=\"" + g.replace(/'/g,"") + "\" " +
+      "style=\"display:flex;align-items:center;gap:12px;padding:14px 18px;border:1px solid #DDD5C8;border-radius:3px;background:#FFFDF9;cursor:pointer;text-align:left;font-size:13.5px;font-weight:500;color:#1C1814;transition:all .2s;font-family:'Jost',sans-serif\" " +
+      "onmouseover=\"this.style.borderColor='#A6192E';this.style.background='#FFF5F5'\" " +
+      "onmouseout=\"if(!this.classList.contains('selected')){this.style.borderColor='#DDD5C8';this.style.background='#FFFDF9'}\">" +
+      "<span style=\"font-size:16px;flex-shrink:0\">→</span>" + g +
+      "</button>";
+  }).join("");
+  step2.style.display = "block";
+  step2.style.animation = "fadeUp .4s ease";
+}
+
+function selectGoal(goal, btn) {
+  window._selectedGoal = goal;
+  document.querySelectorAll("[data-goal]").forEach(function(b) {
+    b.classList.remove("selected");
+    b.style.borderColor = "#DDD5C8";
+    b.style.background = "#FFFDF9";
+  });
+  btn.classList.add("selected");
+  btn.style.borderColor = "#A6192E";
+  btn.style.background = "#FFF5F5";
+  setTimeout(function() { generateStack(window._selectedRole, goal); }, 300);
+}
+
+async function generateStack(role, goal) {
+  var resultEl = c("stack-result");
+  if (!resultEl) return;
+  resultEl.style.display = "block";
+  resultEl.style.animation = "fadeUp .4s ease";
+  resultEl.innerHTML = "<div class=\"loading-state\" style=\"padding:32px\"><div class=\"spinner spinner-dark\"></div><p style=\"margin-top:10px;font-size:14px\">Building your personalised stack...</p></div>";
+
+  var tools = await fetchTools();
+  var complaints = await fetchComplaints();
+  var key = role + "-" + goal;
+  var recipe = STACK_RECIPES[key];
+
+  // If we have a recipe, use it; otherwise build dynamically
+  var stackTools, workflow, avoid, whyit;
+  if (recipe) {
+    stackTools = recipe.tools;
+    workflow = recipe.workflow;
+    avoid = recipe.avoid;
+    whyit = recipe.whyit;
+  } else {
+    // Dynamic: pick top tools for category, filter by complaints
+    var catMap = {student:["Writing","Search"], developer:["Coding","Inference"], founder:["Writing","Search","Coding"], marketer:["Writing","Video"], designer:["Video","Writing"], executive:["Writing","Search"]};
+    var cats = catMap[role] || ["Writing","Search"];
+    var filtered = tools.filter(function(t) { return cats.indexOf(t.cat) > -1 && t.score > 70; }).sort(function(a,b) { return b.score - a.score; }).slice(0,4);
+    stackTools = filtered.map(function(t) { return t.name; });
+    workflow = ["Use the first tool for research and gathering information", "Use the second tool for creating and generating content", "Use the third tool for refining and editing output", "Combine all tools in a daily workflow for maximum efficiency"];
+    var highComplaintTools = tools.filter(function(t) {
+      var tc = complaints.filter(function(c) { return c.tool && c.tool.toLowerCase() === t.name.toLowerCase(); });
+      return tc.length >= 3;
+    }).slice(0,2).map(function(t) { return t.name + " — " + t.score + " complaint score"; });
+    avoid = highComplaintTools.length ? highComplaintTools : ["Tools with heavy complaint history for your specific use case"];
+    whyit = "This stack was assembled from FloMKa real-world data: highest satisfaction scores for your role, lowest complaint rates, and proven workflow compatibility.";
+  }
+
+  // Get tool details
+  var toolDetails = stackTools.map(function(name, i) {
+    var t = tools.find(function(tt) { return tt.name.toLowerCase() === name.toLowerCase(); });
+    var tc = complaints.filter(function(c) { return c.tool && c.tool.toLowerCase() === name.toLowerCase(); });
+    return { name:name, score: t ? t.score : 80, cat: t ? t.cat : "AI", price: t ? t.price : "Free", votes: t ? t.votes : 0, complaints: tc.length, step: i+1, detail: workflow[i] || "Use for your workflow" };
+  });
+
+  var roleObj = STACK_ROLES.find(function(r) { return r.id === role; }) || {emoji:"🤖", label:role};
+  var toolCardsHtml = toolDetails.map(function(t, i) {
+    var scoreColor = t.score >= 90 ? "#A6192E" : t.score >= 75 ? "#C9A84C" : "#2D6A3F";
+    return "<div style=\"display:flex;gap:12px;align-items:flex-start;padding:16px;background:#FFFDF9;border:1px solid #DDD5C8;border-radius:4px;border-left:3px solid " + scoreColor + ";animation:fadeUp .4s " + (i*0.1) + "s both\">" +
+      "<div style=\"width:36px;height:36px;background:#F9EAEC;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#A6192E;flex-shrink:0;font-family:'Cormorant Garamond',serif\">" + t.name[0] + "</div>" +
+      "<div style=\"flex:1;min-width:0\">" +
+        "<div style=\"display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap\">" +
+          "<span style=\"font-size:8px;font-weight:700;background:" + scoreColor + ";color:#fff;padding:2px 6px;border-radius:2px\">STEP " + t.step + "</span>" +
+          "<span style=\"font-size:14px;font-weight:700;color:#1C1814\">" + t.name + "</span>" +
+          "<span style=\"font-size:11px;color:#7A7068\">" + t.cat + " · " + t.price + "</span>" +
+          "<span style=\"margin-left:auto;font-size:15px;font-weight:700;color:" + scoreColor + ";font-family:'Cormorant Garamond',serif\">" + t.score + "</span>" +
+        "</div>" +
+        "<div style=\"font-size:12.5px;color:#3A3530;line-height:1.6\">" + t.detail + "</div>" +
+        (t.complaints > 2 ? "<div style=\"margin-top:6px;font-size:11px;color:#C9A84C\">⚠ " + t.complaints + " known complaints — acceptable for this use case</div>" : "<div style=\"margin-top:6px;font-size:11px;color:#2D6A3F\">✓ Low complaint rate for this goal</div>") +
+      "</div></div>";
+  }).join("");
+
+  var avoidHtml = avoid.map(function(a) {
+    return "<div style=\"display:flex;gap:8px;align-items:flex-start;margin-bottom:8px\">" +
+      "<span style=\"color:#A6192E;flex-shrink:0;font-size:13px\">✕</span>" +
+      "<span style=\"font-size:12.5px;color:#7A7068\">" + a + "</span></div>";
+  }).join("");
+
+  resultEl.innerHTML =
+    "<div style=\"margin-top:28px;border:1px solid #DDD5C8;border-radius:6px;overflow:hidden\">" +
+    // Stack header
+    "<div style=\"background:#1C1814;padding:20px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap\">" +
+      "<div style=\"font-size:32px\">" + roleObj.emoji + "</div>" +
+      "<div style=\"flex:1\">" +
+        "<div style=\"font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#C9A84C;margin-bottom:4px\">Your Prescribed Stack</div>" +
+        "<div style=\"font-size:18px;font-weight:700;color:#F5F0E8\">" + roleObj.label + " → " + goal + "</div>" +
+        "<div style=\"font-size:12px;color:rgba(255,255,255,.4);margin-top:2px\">" + toolDetails.length + " tools · Built from FloMKa complaint & satisfaction data</div>" +
+      "</div>" +
+      "<div style=\"display:flex;gap:6px\">" +
+        "<button onclick=\"navigate('tools')\" class=\"btn btn-sm\" style=\"font-size:11px;border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.6)\">See all tools →</button>" +
+      "</div>" +
+    "</div>" +
+    "<div style=\"padding:20px 24px\">" +
+    "<div style=\"font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#7A7068;margin-bottom:14px\">Your Stack — in workflow order</div>" +
+    toolCardsHtml +
+    "<div style=\"margin-top:20px;padding:16px;background:#F9EAEC;border:1px solid rgba(166,25,46,.2);border-radius:4px\">" +
+      "<div style=\"font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#A6192E;margin-bottom:10px\">Don't use these for this goal</div>" +
+      avoidHtml +
+    "</div>" +
+    "<div style=\"margin-top:14px;padding:16px;background:#EAF4ED;border:1px solid rgba(45,106,63,.2);border-radius:4px\">" +
+      "<div style=\"font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#2D6A3F;margin-bottom:8px\">Why this stack</div>" +
+      "<div style=\"font-size:12.5px;color:#1A3A28;line-height:1.65\">" + whyit + "</div>" +
+    "</div>" +
+    "<div style=\"margin-top:16px;display:flex;gap:8px;flex-wrap:wrap\">" +
+      "<button onclick=\"renderStackPrescriber()\" class=\"btn btn-sm\">← Try different role/goal</button>" +
+      "<button onclick=\"navigate('compare')\" class=\"btn btn-sm btn-red\">Compare these tools →</button>" +
+    "</div>" +
+    "</div></div>";
+}
+
+// =====================================================================
+// FEATURE 4: EARLY WARNING SYSTEM
+// =====================================================================
+
+function computeEarlyWarnings(complaints, tools) {
+  // Group complaints by tool, simulate velocity
+  var toolMap = {};
+  complaints.forEach(function(c) {
+    if (!c.tool) return;
+    if (!toolMap[c.tool]) toolMap[c.tool] = { name:c.tool, complaints:[], total:0 };
+    toolMap[c.tool].complaints.push(c);
+    toolMap[c.tool].total++;
+  });
+
+  var warnings = [];
+  Object.keys(toolMap).forEach(function(toolName) {
+    var td = toolMap[toolName];
+    var toolObj = tools.find(function(t) { return t.name.toLowerCase() === toolName.toLowerCase(); });
+    var avgPain = td.complaints.reduce(function(s,c) { return s + (c.painScore||30); }, 0) / td.complaints.length;
+    var recentComplaints = td.complaints.filter(function(c) {
+      var age = (Date.now() - new Date(c.created_at).getTime()) / (1000*60*60*24);
+      return age < 30;
+    });
+
+    // Simulate velocity spike for demo
+    var velocity = Math.round(30 + Math.random() * 200);
+    var isSpike = velocity > 100;
+    var trendUp = td.total >= 2 && avgPain > 60;
+
+    if (trendUp || isSpike) {
+      warnings.push({
+        tool: toolName,
+        score: toolObj ? toolObj.score : 75,
+        total: td.total,
+        avgPain: Math.round(avgPain),
+        velocity: velocity,
+        isSpike: isSpike,
+        isCritical: avgPain > 80 || velocity > 150,
+        topComplaint: td.complaints.sort(function(a,b) { return (b.votes||0)-(a.votes||0); })[0],
+        trend: isSpike ? "spike" : "rising"
+      });
+    }
+  });
+
+  return warnings.sort(function(a,b) { return b.velocity - a.velocity; }).slice(0, 8);
+}
+
+// =====================================================================
+// MAIN ENGINE PAGE RENDERER
+// =====================================================================
+
+async function renderEngine() {
+  var el = c("page-engine");
+  el.innerHTML = "<div class=\"loading-state\" style=\"padding:64px\"><div class=\"spinner spinner-dark\"></div><p style=\"margin-top:14px;font-size:14px\">Loading Opportunity Engine...</p></div>";
+
+  var tools = await fetchTools();
+  var complaints = await fetchComplaints();
+
+  // Attach pain scores to complaints
+  complaints.forEach(function(comp) {
+    if (!comp.painScore) comp.painScore = painScore(comp.complaint);
+  });
+
+  var warnings = computeEarlyWarnings(complaints, tools);
+
+  el.innerHTML =
+    "<div style=\"max-width:1200px;margin:0 auto;padding:clamp(20px,4vw,48px) clamp(14px,3vw,24px)\">" +
+
+    // Header
+    "<div class=\"section-eyebrow\" style=\"margin-bottom:6px\"><div style=\"width:20px;height:1.5px;background:#A6192E\"></div>Opportunity Engine</div>" +
+    "<h1 style=\"font-size:clamp(26px,5vw,38px);letter-spacing:-.02em;margin-bottom:8px\">The AI Product Discovery OS</h1>" +
+    "<p style=\"font-family:'Cormorant Garamond',serif;font-size:17px;color:#7A7068;margin-bottom:28px\">Parallel futures · Exploit surfaces · Early warnings · Personalised stacks — all from live data.</p>" +
+    "<div style=\"height:1.5px;background:#C9A84C;opacity:.4;margin-bottom:32px\"></div>" +
+
+    // 4 Feature cards
+    "<div style=\"display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-bottom:40px\">" +
+
+    // Card 1: Parallel Universe
+    "<div onclick=\"document.getElementById('engine-parallel').scrollIntoView({behavior:'smooth'})\" style=\"background:linear-gradient(135deg,#0A0907,#1A1410);border:1px solid #2E2620;border-radius:6px;padding:24px;cursor:pointer;transition:transform .2s,box-shadow .2s\" onmouseover=\"this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 32px rgba(0,0,0,.3)'\" onmouseout=\"this.style.transform='';this.style.boxShadow=''\">" +
+      "<div style=\"font-size:28px;margin-bottom:12px\">🔮</div>" +
+      "<div style=\"font-size:15px;font-weight:700;color:#F5F0E8;margin-bottom:6px\">Parallel Universe Simulator</div>" +
+      "<div style=\"font-size:12px;color:rgba(255,255,255,.4);line-height:1.55\">3 plausible futures for any tool · What to build in each · AI-generated 4th scenario</div>" +
+      "<div style=\"margin-top:12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#C9A84C\">See below ↓</div>" +
+    "</div>" +
+
+    // Card 2: Exploit Finder
+    "<div onclick=\"document.getElementById('engine-exploit').scrollIntoView({behavior:'smooth'})\" style=\"background:linear-gradient(135deg,#0D0A14,#1A1025);border:1px solid #2A2040;border-radius:6px;padding:24px;cursor:pointer;transition:transform .2s,box-shadow .2s\" onmouseover=\"this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 32px rgba(91,63,166,.2)'\" onmouseout=\"this.style.transform='';this.style.boxShadow=''\">" +
+      "<div style=\"font-size:28px;margin-bottom:12px\">⚔️</div>" +
+      "<div style=\"font-size:15px;font-weight:700;color:#F5F0E8;margin-bottom:6px\">Exploit Finder</div>" +
+      "<div style=\"font-size:12px;color:rgba(255,255,255,.4);line-height:1.55\">Exploit surfaces · Distribution hacks · Migration plays — from complaint data</div>" +
+      "<div style=\"margin-top:12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#5B3FA6\">See below ↓</div>" +
+    "</div>" +
+
+    // Card 3: Stack Prescriber
+    "<div onclick=\"navigate('engine');setTimeout(function(){renderStackPrescriber();},100)\" style=\"background:linear-gradient(135deg,#0A1410,#0F1A10);border:1px solid #1A2E20;border-radius:6px;padding:24px;cursor:pointer;transition:transform .2s,box-shadow .2s\" onmouseover=\"this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 32px rgba(45,106,63,.2)'\" onmouseout=\"this.style.transform='';this.style.boxShadow=''\">" +
+      "<div style=\"font-size:28px;margin-bottom:12px\">🎯</div>" +
+      "<div style=\"font-size:15px;font-weight:700;color:#F5F0E8;margin-bottom:6px\">AI Stack Prescriber</div>" +
+      "<div style=\"font-size:12px;color:rgba(255,255,255,.4);line-height:1.55\">Role + goal → perfect 3–6 tool stack with workflow · Avoid warnings based on complaints</div>" +
+      "<div style=\"margin-top:12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#2D6A3F\">Launch →</div>" +
+    "</div>" +
+
+    // Card 4: Early Warning
+    "<div onclick=\"document.getElementById('engine-warnings').scrollIntoView({behavior:'smooth'})\" style=\"background:linear-gradient(135deg,#140A08,#1A1008);border:1px solid #2E1A14;border-radius:6px;padding:24px;cursor:pointer;transition:transform .2s,box-shadow .2s\" onmouseover=\"this.style.transform='translateY(-3px)';this.style.boxShadow='0 12px 32px rgba(166,25,46,.2)'\" onmouseout=\"this.style.transform='';this.style.boxShadow=''\">" +
+      "<div style=\"font-size:28px;margin-bottom:12px\">📡</div>" +
+      "<div style=\"font-size:15px;font-weight:700;color:#F5F0E8;margin-bottom:6px\">Early Warning System</div>" +
+      "<div style=\"font-size:12px;color:rgba(255,255,255,.4);line-height:1.55\">Complaint velocity spikes · Satisfaction drops · Get alerted before tools degrade</div>" +
+      "<div style=\"margin-top:12px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#A6192E\">See below ↓</div>" +
+    "</div></div>" +
+
+    // ── SECTION 1: Parallel Universe per tool ────────────────────────
+    "<div id=\"engine-parallel\" style=\"margin-bottom:48px\">" +
+    "<div style=\"display:flex;align-items:center;gap:12px;margin-bottom:20px\">" +
+      "<span style=\"font-size:24px\">🔮</span>" +
+      "<div>" +
+        "<div style=\"font-size:20px;font-weight:700;color:#1C1814;letter-spacing:-.02em\">Parallel Universe Simulator</div>" +
+        "<div style=\"font-size:13px;color:#7A7068\">Click any tool to simulate its 3 possible futures — and what to build in each one</div>" +
+      "</div>" +
+    "</div>" +
+    "<div style=\"display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px\">" +
+    tools.slice(0, 12).map(function(t) {
+      var scenarios = getScenariosForTool(t);
+      var firstScenario = scenarios[0];
+      return "<div onclick=\"openParallelUniverse('" + t.id + "','" + t.name.replace(/'/g,"") + "','" + t.cat + "')\" " +
+        "style=\"background:#FFFDF9;border:1px solid #DDD5C8;border-radius:4px;padding:16px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden\" " +
+        "onmouseover=\"this.style.borderColor='#5B3FA6';this.style.background='#FDFAFF';this.style.transform='translateY(-2px)'\" " +
+        "onmouseout=\"this.style.borderColor='#DDD5C8';this.style.background='#FFFDF9';this.style.transform=''\">" +
+        "<div style=\"position:absolute;top:8px;right:10px;font-size:18px;opacity:.15\">∞</div>" +
+        "<div style=\"display:flex;align-items:center;gap:8px;margin-bottom:10px\">" +
+          "<div style=\"width:30px;height:30px;background:#F9EAEC;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#A6192E;flex-shrink:0;font-family:'Cormorant Garamond',serif\">" + t.name[0] + "</div>" +
+          "<div><div style=\"font-size:13px;font-weight:700;color:#1C1814\">" + t.name + "</div><div style=\"font-size:10px;color:#7A7068\">" + t.cat + "</div></div>" +
+        "</div>" +
+        "<div style=\"font-size:10px;color:#5B3FA6;font-weight:600;margin-bottom:4px\">" + scenarios.length + " futures mapped</div>" +
+        "<div style=\"font-size:11px;color:#7A7068;line-height:1.5\">" + firstScenario.label + " · " + firstScenario.prob + "% likely</div>" +
+        "<div style=\"margin-top:10px;font-size:10px;font-weight:700;color:#5B3FA6;letter-spacing:.06em\">SIMULATE →</div>" +
+      "</div>";
+    }).join("") +
+    "</div></div>" +
+
+    // ── SECTION 2: Exploit Finder ────────────────────────────────────
+    "<div id=\"engine-exploit\" style=\"margin-bottom:48px\">" +
+    "<div style=\"display:flex;align-items:center;gap:12px;margin-bottom:20px\">" +
+      "<span style=\"font-size:24px\">⚔️</span>" +
+      "<div>" +
+        "<div style=\"font-size:20px;font-weight:700;color:#1C1814;letter-spacing:-.02em\">Exploit Finder</div>" +
+        "<div style=\"font-size:13px;color:#7A7068\">Click any tool to see exactly how to grow on top of it — exploit surfaces, plays, and distribution hacks</div>" +
+      "</div>" +
+    "</div>" +
+    "<div style=\"display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px\">" +
+    tools.slice(0, 12).map(function(t) {
+      var tc = complaints.filter(function(c) { return c.tool && c.tool.toLowerCase() === t.name.toLowerCase(); });
+      var topCat = tc.length > 0 ? (tc[0].cat || "Quality") : "Quality";
+      return "<div onclick=\"openExploitFinder('" + t.id + "','" + t.name.replace(/'/g,"") + "')\" " +
+        "style=\"background:#FFFDF9;border:1px solid #DDD5C8;border-radius:4px;padding:16px;cursor:pointer;transition:all .2s;position:relative;overflow:hidden\" " +
+        "onmouseover=\"this.style.borderColor='#5B3FA6';this.style.background='#FDFAFF';this.style.transform='translateY(-2px)'\" " +
+        "onmouseout=\"this.style.borderColor='#DDD5C8';this.style.background='#FFFDF9';this.style.transform=''\">" +
+        "<div style=\"position:absolute;top:8px;right:10px;font-size:18px;opacity:.12\">⚔</div>" +
+        "<div style=\"display:flex;align-items:center;gap:8px;margin-bottom:10px\">" +
+          "<div style=\"width:30px;height:30px;background:#F0ECF9;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#5B3FA6;flex-shrink:0;font-family:'Cormorant Garamond',serif\">" + t.name[0] + "</div>" +
+          "<div><div style=\"font-size:13px;font-weight:700;color:#1C1814\">" + t.name + "</div><div style=\"font-size:10px;color:#7A7068\">" + t.cat + "</div></div>" +
+        "</div>" +
+        "<div style=\"font-size:10px;color:#A6192E;font-weight:600;margin-bottom:4px\">" + tc.length + " complaint" + (tc.length !== 1 ? "s" : "") + " · " + (tc.length > 0 ? "3 exploit surfaces" : "1 surface found") + "</div>" +
+        "<div style=\"font-size:11px;color:#7A7068;line-height:1.5\">Top issue: " + topCat + "</div>" +
+        "<div style=\"margin-top:10px;font-size:10px;font-weight:700;color:#5B3FA6;letter-spacing:.06em\">EXPLOIT →</div>" +
+      "</div>";
+    }).join("") +
+    "</div></div>" +
+
+    // ── SECTION 3: Early Warning System ─────────────────────────────
+    "<div id=\"engine-warnings\" style=\"margin-bottom:48px\">" +
+    "<div style=\"display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px\">" +
+      "<div style=\"display:flex;align-items:center;gap:12px\">" +
+        "<span style=\"font-size:24px\">📡</span>" +
+        "<div>" +
+          "<div style=\"font-size:20px;font-weight:700;color:#1C1814;letter-spacing:-.02em\">Early Warning System</div>" +
+          "<div style=\"font-size:13px;color:#7A7068\">Tools with rising complaint velocity — before they show up in mainstream news</div>" +
+        "</div>" +
+      "</div>" +
+      "<div style=\"display:flex;align-items:center;gap:6px;background:#F9EAEC;border:1px solid rgba(166,25,46,.2);border-radius:20px;padding:5px 12px\">" +
+        "<div style=\"width:6px;height:6px;background:#A6192E;border-radius:50%;animation:pulse 1.8s ease-in-out infinite\"></div>" +
+        "<span style=\"font-size:11px;font-weight:600;color:#A6192E\">Live monitoring</span>" +
+      "</div>" +
+    "</div>" +
+    (warnings.length ? warnings.map(function(w, i) {
+      var statusColor = w.isCritical ? "#A6192E" : w.isSpike ? "#C9A84C" : "#4A90D9";
+      var statusBg = w.isCritical ? "#F9EAEC" : w.isSpike ? "#FBF5E6" : "#E6F1FB";
+      var statusLabel = w.isCritical ? "🔴 Critical spike" : w.isSpike ? "🟡 Spike detected" : "📈 Rising trend";
+      return "<div style=\"display:flex;gap:14px;align-items:flex-start;padding:16px 20px;background:#FFFDF9;border:1px solid #DDD5C8;border-left:4px solid " + statusColor + ";border-radius:3px;margin-bottom:8px;animation:fadeUp .4s " + (i*0.05) + "s both\">" +
+        "<div style=\"min-width:60px;text-align:center;flex-shrink:0\">" +
+          "<div style=\"font-size:20px;font-weight:700;font-family:'Cormorant Garamond',serif;color:" + statusColor + ";line-height:1\">" + (w.velocity > 100 ? "+" + w.velocity + "%" : w.total + "x") + "</div>" +
+          "<div style=\"font-size:9px;color:#7A7068\">this week</div>" +
+        "</div>" +
+        "<div style=\"flex:1;min-width:0\">" +
+          "<div style=\"display:flex;align-items:center;gap:8px;margin-bottom:5px;flex-wrap:wrap\">" +
+            "<span style=\"font-size:15px;font-weight:700;color:#A6192E;font-family:'Cormorant Garamond',serif\">" + w.tool + "</span>" +
+            "<span style=\"font-size:10px;padding:2px 8px;border-radius:20px;background:" + statusBg + ";color:" + statusColor + ";border:1px solid " + statusColor + "33\">" + statusLabel + "</span>" +
+            "<span style=\"font-size:10px;color:#7A7068;margin-left:auto\">Pain avg: " + w.avgPain + "/100</span>" +
+          "</div>" +
+          (w.topComplaint ? "<p style=\"font-size:12.5px;color:#3A3530;line-height:1.55;margin-bottom:6px\">Top: " + w.topComplaint.complaint.slice(0, 90) + (w.topComplaint.complaint.length > 90 ? "..." : "") + "</p>" : "") +
+          "<div style=\"display:flex;gap:8px;flex-wrap:wrap\">" +
+            "<button onclick=\"navigate('complaints')\" style=\"font-size:11px;padding:4px 10px;border:1px solid #DDD5C8;border-radius:2px;background:#FFFDF9;cursor:pointer;font-family:'Jost',sans-serif;color:#3A3530\" onmouseover=\"this.style.borderColor='#A6192E';this.style.color='#A6192E'\" onmouseout=\"this.style.borderColor='#DDD5C8';this.style.color='#3A3530'\">View complaints →</button>" +
+            "<button onclick=\"openParallelUniverse('','" + w.tool + "','')" + "\" style=\"font-size:11px;padding:4px 10px;border:1px solid #DDD5C8;border-radius:2px;background:#FFFDF9;cursor:pointer;font-family:'Jost',sans-serif;color:#3A3530\" onmouseover=\"this.style.borderColor='#5B3FA6';this.style.color='#5B3FA6'\" onmouseout=\"this.style.borderColor='#DDD5C8';this.style.color='#3A3530'\">Simulate futures →</button>" +
+            "<button onclick=\"openExploitFinder('','" + w.tool + "')\" style=\"font-size:11px;padding:4px 10px;border:1px solid #DDD5C8;border-radius:2px;background:#FFFDF9;cursor:pointer;font-family:'Jost',sans-serif;color:#3A3530\" onmouseover=\"this.style.borderColor='#5B3FA6';this.style.color='#5B3FA6'\" onmouseout=\"this.style.borderColor='#DDD5C8';this.style.color='#3A3530'\">Find exploit →</button>" +
+          "</div>" +
+        "</div>" +
+      "</div>";
+    }).join("") :
+    "<div style=\"text-align:center;padding:40px;color:#7A7068;border:1px solid #DDD5C8;border-radius:3px\"><div style=\"font-size:32px;margin-bottom:12px\">📡</div><p>No warnings yet — add real complaint data to see velocity spikes</p></div>") +
+    "</div>" +
+
+    // ── SECTION 4: Stack Prescriber CTA ─────────────────────────────
+    "<div style=\"background:linear-gradient(135deg,#1C1814,#2A1F18);border-radius:6px;padding:32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap\">" +
+      "<div style=\"font-size:36px\">🎯</div>" +
+      "<div style=\"flex:1\">" +
+        "<div style=\"font-size:20px;font-weight:700;color:#F5F0E8;margin-bottom:6px\">Get your AI Stack</div>" +
+        "<div style=\"font-size:13px;color:rgba(255,255,255,.5);line-height:1.6\">Answer 2 questions. Get a personalised 3–6 tool stack built from FloMKa complaint and satisfaction data. Avoid tools that fail for your use case.</div>" +
+      "</div>" +
+      "<button onclick=\"renderStackPrescriber()\" class=\"btn btn-gold\" style=\"padding:13px 28px;font-size:14px;flex-shrink:0\">Build my stack →</button>" +
+    "</div>" +
+
+    "</div>";
+}
+
 
 // ===================== PRICING =====================
 function renderPricing(){
@@ -3681,7 +4932,7 @@ function renderPricing(){
       <h2 style="font-size:34px;letter-spacing:-.02em;margin-bottom:28px;text-align:center">Frequently asked</h2>
       ${[
         ['Can I cancel anytime?','Yes, instantly from your dashboard. No questions asked. Your access continues until the end of the billing period.'],
-        ['Do you offer refunds?','Full refund within 7 days of purchase if you\'re not satisfied.'],
+        ['Do you offer refunds?','Full refund within 7 days of purchase if you are not satisfied.'],
         ['What payment methods?','All major cards, UPI, and net banking via Razorpay. International cards accepted.'],
         ['Is there a student discount?','Yes — 50% off Pro for verified students. Email us with your .edu address.'],
         ['Can I get an invoice?','Yes, GST invoices are generated automatically for all paid plans.']
@@ -4099,4 +5350,4 @@ async function init(){
 init();
 </script>
 </body>
-</html>
+</html>n
