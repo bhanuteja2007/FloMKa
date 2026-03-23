@@ -814,6 +814,19 @@ body.app-mode { overflow:auto }
   #ideas-grid .card{padding:0}
 }
 
+
+/* Icon list for audience cards */
+#landing-shell .l-icon-list{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+#landing-shell .l-icon-item{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--ink2)}
+#landing-shell .l-icon-check{font-size:13px;font-weight:700;color:var(--red);flex-shrink:0;width:18px}
+/* Feature mockup box */
+#landing-shell .l-feat-mockup{border-radius:4px;overflow:hidden}
+/* Audience card shorter padding on mobile */
+@media(max-width:640px){
+  #landing-shell .l-aud-card{padding:28px 20px}
+  #landing-shell .l-aud-card > div:first-child + div{font-size:36px!important}
+}
+
 </style>
 </head>
 <body>
@@ -982,7 +995,7 @@ body.app-mode { overflow:auto }
       </svg>
     </button>
     <div class="ln-links">
-      <button class="ln-link" onclick="lgo('l-for-you')">Who it's for</button>
+      <button class="ln-link" onclick="lgo('l-for-you')">For who</button>
       <button class="ln-link" onclick="lgo('l-features')">Features</button>
       <button class="ln-link" onclick="lgo('l-how')">How it works</button>
       <button class="ln-link" onclick="lgo('l-pricing')">Pricing</button>
@@ -1002,10 +1015,10 @@ body.app-mode { overflow:auto }
     <div>
       <div class="l-eyebrow"><span class="live-dot"></span>The AI intelligence platform</div>
       <h1>Know what's<br>happening in AI<br><em>before anyone else.</em></h1>
-      <p class="l-hero-sub">FloMKa tracks every AI tool, every real user complaint, and every emerging startup opportunity — updated daily, built for people who are serious about AI.</p>
+      <p class="l-hero-sub">Tools. Complaints. Startup ideas. Daily brief. All in one place.</p>
       <div class="l-hero-btns">
-        <button class="l-btn l-btn-red l-btn-lg" onclick="toApp('signup')">Start for free — no card needed</button>
-        <button class="l-btn l-btn-lg" onclick="lgo('l-for-you')">See who it's for ↓</button>
+        <button class="l-btn l-btn-red l-btn-lg" onclick="toApp('signup')">Start free — no card needed</button>
+        <button class="l-btn l-btn-lg" onclick="lgo('l-for-you')">See how it works ↓</button>
       </div>
       <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
         <div class="l-avatars">
@@ -1028,200 +1041,202 @@ body.app-mode { overflow:auto }
 <!-- TICKER -->
 <div class="l-ticker"><div class="l-ticker-track" id="landing-ticker"></div></div>
 
-<!-- STATS -->
+<!-- STATS — visual numbers, no paragraphs -->
 <div class="l-section" style="background:#fff;padding-top:52px;padding-bottom:52px">
   <div class="l-wrap">
     <div class="l-stats l-reveal">
       <div class="l-stat">
         <div class="l-stat-n">500<span>+</span></div>
-        <div class="l-stat-l">AI tools tracked &amp; scored<br>in the directory</div>
+        <div class="l-stat-l">AI tools tracked</div>
       </div>
       <div class="l-stat">
         <div class="l-stat-n">10<span>K+</span></div>
-        <div class="l-stat-l">Real user complaints<br>sourced from Reddit &amp; HN</div>
+        <div class="l-stat-l">Real complaints</div>
       </div>
       <div class="l-stat">
         <div class="l-stat-n">Daily</div>
-        <div class="l-stat-l">Intelligence updates —<br>every morning, no weekends off</div>
+        <div class="l-stat-l">Intelligence updates</div>
       </div>
       <div class="l-stat">
         <div class="l-stat-n">₹<span>0</span></div>
-        <div class="l-stat-l">To get started —<br>free forever, no credit card</div>
+        <div class="l-stat-l">To get started</div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- WHY FLOMKA -->
-<div class="l-section" style="background:#fff;padding-top:0">
-  <div class="l-wrap">
-    <div class="l-why-grid">
-      <div class="l-prob-stack l-reveal-left">
-        <div class="l-prob-card">
-          <div class="l-prob-icon">😤</div>
-          <div>
-            <div class="l-prob-q">Which AI tool should I actually use?</div>
-            <div class="l-prob-a">500+ AI tools launch every month. Which one is genuinely worth your time and money — and which are just hype built on a press release?</div>
-          </div>
-        </div>
-        <div class="l-prob-card">
-          <div class="l-prob-icon">🔍</div>
-          <div>
-            <div class="l-prob-q">Is there a startup idea in this frustration?</div>
-            <div class="l-prob-a">Every frustrated AI user is a validated data point. But where do you find 10,000 of them organised by urgency and vote count?</div>
-          </div>
-        </div>
-        <div class="l-prob-card">
-          <div class="l-prob-icon">📰</div>
-          <div>
-            <div class="l-prob-q">What does my team actually need to know this week?</div>
-            <div class="l-prob-a">AI news is everywhere but 90% of it is noise. What is the real signal that should change your decisions — today?</div>
-          </div>
-        </div>
-      </div>
-      <div class="l-reveal-right">
-        <div class="l-eyebrow2"><div style="width:20px;height:1.5px;background:var(--red)"></div>Why FloMKa exists</div>
-        <div class="l-gold"></div>
-        <h2 style="font-size:44px;font-weight:700;color:var(--ink);line-height:1.1;letter-spacing:-.03em;margin-bottom:20px">These questions deserve real answers — not more hype.</h2>
-        <p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--muted);line-height:1.7;margin-bottom:32px">The AI landscape moves so fast that staying current feels like a full-time job. FloMKa does that job for you — surfacing what's real, what's rising, and what's broken. Every day.</p>
-        <div class="l-why-check">
-          <div class="l-check-icon">✓</div>
-          <div class="l-check-text"><strong>No sponsored rankings — ever.</strong> Tool scores are built from community votes, complaint weight, and momentum data. No company can pay to rank higher.</div>
-        </div>
-        <div class="l-why-check">
-          <div class="l-check-icon">✓</div>
-          <div class="l-check-text"><strong>Real complaints, not PR copy.</strong> We track what users actually write on Reddit and HackerNews — every frustration is a data point, not an editorial opinion.</div>
-        </div>
-        <div class="l-why-check">
-          <div class="l-check-icon">✓</div>
-          <div class="l-check-text"><strong>Actionable, not encyclopedic.</strong> Every section ends with something concrete — a tool to try, an idea to explore, a risk to act on. Reading FloMKa should change what you do today.</div>
-        </div>
-        <button class="l-btn l-btn-red" style="margin-top:10px" onclick="toApp('signup')">Get access free →</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- WHO IT'S FOR -->
+<!-- FOR WHO — icon cards, no paragraphs -->
 <div id="l-for-you" class="l-section" style="background:var(--bg2)">
   <div class="l-wrap">
     <div class="l-eyebrow2"><div style="width:20px;height:1.5px;background:var(--red)"></div>Built for you</div>
     <div class="l-gold"></div>
     <h2 class="l-sec-h">One platform, three kinds of people.</h2>
-    <p class="l-sec-p">Whether you're learning about AI, building with it, or making decisions around it — FloMKa has exactly what you need.</p>
-    <div class="l-aud-grid l-reveal">
+    <div class="l-aud-grid l-reveal" style="margin-top:32px">
+
+      <!-- Students -->
       <div class="l-aud-card">
         <div class="l-aud-accent" style="background:var(--red)"></div>
-        <div class="l-aud-num">01</div>
+        <div style="font-size:48px;margin-bottom:16px">🎓</div>
         <span class="l-aud-tag">Students &amp; Learners</span>
         <h3 class="l-aud-title">Learn smarter, not harder</h3>
-        <p class="l-aud-body">The AI tool landscape changes every week and nobody has time to evaluate 500 tools manually. FloMKa gives you a clear, unbiased, constantly updated picture of what's actually worth learning — so you spend time building skills, not researching tools.</p>
-        <div class="l-aud-list">
-          <div class="l-aud-item"><div class="l-aud-dot"></div>Honest tool directory — understand exactly what each tool does before signing up</div>
-          <div class="l-aud-item"><div class="l-aud-dot"></div>Real user complaints so you know the trade-offs and limitations before committing</div>
-          <div class="l-aud-item"><div class="l-aud-dot"></div>Startup ideas radar to spark your next project, thesis, hackathon, or side hustle</div>
-          <div class="l-aud-item"><div class="l-aud-dot"></div>Trend dashboard to see what skills are rising in demand before everyone else does</div>
-          <div class="l-aud-item"><div class="l-aud-dot"></div>Free forever for the core experience — no paywall blocking students from learning</div>
+        <div class="l-icon-list">
+          <div class="l-icon-item"><span class="l-icon-check">✓</span>Find the right tool in seconds</div>
+          <div class="l-icon-item"><span class="l-icon-check">✓</span>See real reviews, not ads</div>
+          <div class="l-icon-item"><span class="l-icon-check">✓</span>Spark your next side project</div>
+          <div class="l-icon-item"><span class="l-icon-check">✓</span>Free forever — no paywall</div>
         </div>
+        <button class="l-btn l-btn-red" style="width:100%;margin-top:20px;justify-content:center" onclick="toApp('signup')">Start free →</button>
       </div>
+
+      <!-- Founders -->
       <div class="l-aud-card">
         <div class="l-aud-accent" style="background:var(--gold)"></div>
-        <div class="l-aud-num">02</div>
+        <div style="font-size:48px;margin-bottom:16px">🚀</div>
         <span class="l-aud-tag">Founders &amp; Builders</span>
-        <h3 class="l-aud-title">Find your next idea in the complaints</h3>
-        <p class="l-aud-body">The best startup ideas don't come from brainstorming sessions — they come from validated user frustrations. FloMKa surfaces what thousands of real AI users are complaining about every week. Each complaint is a market gap with a built-in audience waiting to pay for the solution.</p>
-        <div class="l-aud-list">
-          <div class="l-aud-item"><div class="l-aud-dot"></div>Evidence-backed startup ideas scored by complaint volume, recency and market size</div>
-          <div class="l-aud-item"><div class="l-aud-dot"></div>Spot rising tools weeks before they hit mainstream adoption — first mover advantage</div>
-          <div class="l-aud-item"><div class="l-aud-dot"></div>AI Finder — describe your exact problem, get honest recs with known issues included</div>
-          <div class="l-aud-item"><div class="l-aud-dot"></div>Side-by-side tool comparison with real complaint data — not marketing copy</div>
-          <div class="l-aud-item"><div class="l-aud-dot"></div>Trend momentum charts to validate which AI categories are actually growing</div>
+        <h3 class="l-aud-title">Find ideas in complaints</h3>
+        <div class="l-icon-list">
+          <div class="l-icon-item"><span class="l-icon-check" style="color:var(--gold)">✓</span>Validated startup ideas daily</div>
+          <div class="l-icon-item"><span class="l-icon-check" style="color:var(--gold)">✓</span>Spot rising tools early</div>
+          <div class="l-icon-item"><span class="l-icon-check" style="color:var(--gold)">✓</span>Parallel Universe Simulator</div>
+          <div class="l-icon-item"><span class="l-icon-check" style="color:var(--gold)">✓</span>Exploit Finder for competitors</div>
         </div>
+        <button class="l-btn l-btn-red" style="width:100%;margin-top:20px;justify-content:center" onclick="toApp('signup')">Start free →</button>
       </div>
+
+      <!-- CEOs -->
       <div class="l-aud-card">
         <div class="l-aud-accent" style="background:var(--green)"></div>
-        <div class="l-aud-num">03</div>
-        <span class="l-aud-tag">CEOs &amp; Decision Makers</span>
-        <h3 class="l-aud-title">Board-ready intelligence in 5 minutes</h3>
-        <p class="l-aud-body">You don't have time to read 40 AI newsletters or evaluate every new tool release. The FloMKa Executive Brief gives you a daily, industry-personalised summary of what moved, what broke, and exactly what your team should act on this week — ready to forward to your leadership team.</p>
-        <div class="l-aud-list">
-          <div class="l-aud-item"><div class="l-aud-dot"></div>Daily Executive Brief tailored to your sector — Tech, Fintech, Healthcare, E-commerce and more</div>
-          <div class="l-aud-item"><div class="l-aud-dot"></div>Risk radar — what's about to affect your operations before it hits mainstream news</div>
-          <div class="l-aud-item"><div class="l-aud-dot"></div>Adoption signals — what top-performing teams are switching to right now</div>
-          <div class="l-aud-item"><div class="l-aud-dot"></div>One concrete Monday action item — specific, industry-relevant, and immediately actionable</div>
-          <div class="l-aud-item"><div class="l-aud-dot"></div>Share the brief directly with your team via WhatsApp, Slack, or email in one click</div>
+        <div style="font-size:48px;margin-bottom:16px">💼</div>
+        <span class="l-aud-tag">CEOs &amp; Leaders</span>
+        <h3 class="l-aud-title">5-minute daily brief</h3>
+        <div class="l-icon-list">
+          <div class="l-icon-item"><span class="l-icon-check" style="color:var(--green)">✓</span>Industry-personalised brief</div>
+          <div class="l-icon-item"><span class="l-icon-check" style="color:var(--green)">✓</span>Risk radar every morning</div>
+          <div class="l-icon-item"><span class="l-icon-check" style="color:var(--green)">✓</span>One Monday action item</div>
+          <div class="l-icon-item"><span class="l-icon-check" style="color:var(--green)">✓</span>Forward to your team in 1 tap</div>
         </div>
+        <button class="l-btn l-btn-red" style="width:100%;margin-top:20px;justify-content:center" onclick="toApp('signup')">Start free →</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- FEATURES -->
+<!-- FEATURES — visual mockup cards -->
 <div id="l-features" class="l-section" style="background:#fff">
   <div class="l-wrap">
     <div class="l-eyebrow2"><div style="width:20px;height:1.5px;background:var(--red)"></div>The platform</div>
     <div class="l-gold"></div>
-    <h2 class="l-sec-h">Six sections. One feed. All signal.</h2>
-    <p class="l-sec-p">Every part of FloMKa is built around one principle — give you real data, not marketing copy. Here's what's inside.</p>
-    <div class="l-feat-grid l-reveal">
+    <h2 class="l-sec-h">Six powerful tools, one platform.</h2>
+    <div class="l-feat-grid l-reveal" style="margin-top:32px">
+
       <div class="l-feat">
+        <div style="font-size:36px;margin-bottom:14px">🛠</div>
         <span class="l-feat-tag">01 · Tools</span>
         <h3 class="l-feat-title">AI Tools Directory</h3>
-        <p class="l-feat-body">Every major AI tool ranked by a composite score built from community votes, complaint weight, and week-on-week momentum. Filter by category — Coding, Search, Writing, Video, Inference. Search by use case. Compare any two tools side by side. No paid rankings, no sponsored positions — the score is always honest.</p>
+        <div class="l-feat-mockup" style="background:#F5F0E8;border-radius:4px;padding:12px;margin:12px 0">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid #DDD5C8">
+            <div style="width:28px;height:28px;background:#F9EAEC;border-radius:3px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#A6192E;font-size:13px">C</div>
+            <div style="flex:1"><div style="font-size:12px;font-weight:600">Cursor</div><div style="font-size:10px;color:#7A7068">Coding · Free</div></div>
+            <div style="font-size:18px;font-weight:700;color:#A6192E;font-family:Georgia,serif">98</div>
+          </div>
+          <div style="display:flex;gap:6px">
+            <div style="height:4px;flex:98;background:#A6192E;border-radius:2px"></div>
+            <div style="height:4px;flex:2;background:#EDE8E0;border-radius:2px"></div>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--muted)">500+ tools · No paid rankings · Real scores</p>
       </div>
+
       <div class="l-feat">
+        <div style="font-size:36px;margin-bottom:14px">⚡</div>
         <span class="l-feat-tag">02 · Complaints</span>
-        <h3 class="l-feat-title">Real User Complaints Board</h3>
-        <p class="l-feat-body">We track what real users are writing on Reddit, HackerNews, and developer forums — sorted by upvote count so the biggest frustrations always surface first. See exactly what's broken with any AI tool before you commit to it, build on top of it, or recommend it to your team. Every complaint is a verified data point.</p>
+        <h3 class="l-feat-title">Frustration Radar</h3>
+        <div class="l-feat-mockup" style="background:#F9EAEC;border-radius:4px;padding:12px;margin:12px 0;border-left:3px solid #A6192E">
+          <div style="font-size:11px;font-weight:600;color:#A6192E;margin-bottom:4px">ChatGPT · Reliability</div>
+          <div style="font-size:11px;color:#3A3530;line-height:1.5">Hallucinations in long docs — cites papers that don't exist</div>
+          <div style="font-size:10px;color:#7A7068;margin-top:4px">🔥 Pain 94/100 · 2.8K votes</div>
+        </div>
+        <p style="font-size:12px;color:var(--muted)">Real user pain · Scored by intensity · Not PR</p>
       </div>
+
       <div class="l-feat">
+        <div style="font-size:36px;margin-bottom:14px">💡</div>
         <span class="l-feat-tag">03 · Ideas</span>
-        <h3 class="l-feat-title">Startup Ideas Radar</h3>
-        <p class="l-feat-body">Every idea is reverse-engineered from a real, high-volume complaint. Each entry shows you the problem, the startup opportunity, the evidence behind it (Reddit upvotes, HN comments, forum threads), and a confidence score. You get the validated insight — not the brainstorm. The best startup ideas come from the most-upvoted user pain.</p>
+        <h3 class="l-feat-title">Validation Room</h3>
+        <div class="l-feat-mockup" style="background:#EAF4ED;border-radius:4px;padding:12px;margin:12px 0;border-left:3px solid #2D6A3F">
+          <div style="font-size:11px;font-weight:600;color:#2D6A3F;margin-bottom:4px">Validated ARR · ₹1,20,000/yr</div>
+          <div style="font-size:11px;color:#1A3A28">Browser-based AI video editor for creators</div>
+          <div style="height:4px;background:#EDE8E0;border-radius:2px;margin-top:6px;overflow:hidden"><div style="height:100%;width:60%;background:#2D6A3F;border-radius:2px"></div></div>
+        </div>
+        <p style="font-size:12px;color:var(--muted)">Pledge real intent · Founders match · Ideas get built</p>
       </div>
+
       <div class="l-feat">
+        <div style="font-size:36px;margin-bottom:14px">★</div>
         <span class="l-feat-tag">04 · Brief</span>
         <h3 class="l-feat-title">Executive Brief</h3>
-        <p class="l-feat-body">A daily AI-generated intelligence report personalised to your industry — Technology, Fintech, Healthcare, E-commerce, Manufacturing and more. Four sections every day: Risk Radar, Adoption Signal, Opportunity Map, and one Monday Action Item. Powered by live FloMKa data and Groq's llama-3.3-70b. Forward it to your team in one click.</p>
+        <div class="l-feat-mockup" style="background:#1C1814;border-radius:4px;padding:12px;margin:12px 0">
+          <div style="font-size:10px;font-weight:700;color:#C9A84C;letter-spacing:.1em;margin-bottom:6px">TODAY'S BRIEF · TECH</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.7);line-height:1.5">🔴 Risk: Cursor pricing up 40%<br>📈 Rising: Autonomous agents<br>⚡ Action: Evaluate Groq for your team</div>
+        </div>
+        <p style="font-size:12px;color:var(--muted)">AI-generated · Personalised · 5 min read</p>
       </div>
+
       <div class="l-feat">
+        <div style="font-size:36px;margin-bottom:14px">📈</div>
         <span class="l-feat-tag">05 · Trends</span>
         <h3 class="l-feat-title">Trends Dashboard</h3>
-        <p class="l-feat-body">Six-week momentum charts for every major AI tool — so you see what's rising fast, what's plateauing, and what's in decline. Category-level momentum scores show you macro shifts weeks before they become obvious. Are Autonomous Agents rising? Is AI video accelerating? The trends dashboard answers it with data, not opinion.</p>
+        <div class="l-feat-mockup" style="background:#F5F0E8;border-radius:4px;padding:12px;margin:12px 0">
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <div style="display:flex;align-items:center;gap:6px"><span style="font-size:10px;color:#1C1814;width:60px">Cursor</span><div style="flex:1;height:6px;background:#EDE8E0;border-radius:3px;overflow:hidden"><div style="width:98%;height:100%;background:#A6192E;border-radius:3px"></div></div><span style="font-size:10px;color:#A6192E;font-weight:700">▲+12</span></div>
+            <div style="display:flex;align-items:center;gap:6px"><span style="font-size:10px;color:#1C1814;width:60px">Groq</span><div style="flex:1;height:6px;background:#EDE8E0;border-radius:3px;overflow:hidden"><div style="width:88%;height:100%;background:#C9A84C;border-radius:3px"></div></div><span style="font-size:10px;color:#C9A84C;font-weight:700">▲+8</span></div>
+            <div style="display:flex;align-items:center;gap:6px"><span style="font-size:10px;color:#1C1814;width:60px">Claude</span><div style="flex:1;height:6px;background:#EDE8E0;border-radius:3px;overflow:hidden"><div style="width:85%;height:100%;background:#2D6A3F;border-radius:3px"></div></div><span style="font-size:10px;color:#2D6A3F;font-weight:700">▲+2</span></div>
+          </div>
+        </div>
+        <p style="font-size:12px;color:var(--muted)">6-week momentum · Category shifts · Real data</p>
       </div>
+
       <div class="l-feat">
-        <span class="l-feat-tag">06 · Finder</span>
-        <h3 class="l-feat-title">AI Tool Finder</h3>
-        <p class="l-feat-body">Describe exactly what you need to do — "generate SQL from plain English for my non-technical team", "summarise long PDFs for our legal department" — and get honest, complaint-aware recommendations in seconds. Not just what works, but what to watch out for. Powered by real FloMKa complaint data, not generic AI knowledge.</p>
+        <div style="font-size:36px;margin-bottom:14px">🔮</div>
+        <span class="l-feat-tag">06 · Engine</span>
+        <h3 class="l-feat-title">Opportunity Engine</h3>
+        <div class="l-feat-mockup" style="background:#F0ECF9;border-radius:4px;padding:12px;margin:12px 0;border-left:3px solid #5B3FA6">
+          <div style="font-size:10px;font-weight:700;color:#5B3FA6;margin-bottom:5px">PARALLEL UNIVERSE · CURSOR</div>
+          <div style="font-size:11px;color:#3A2060;line-height:1.5">Future A: Enterprise Standard (68%)<br>→ Build compliance wrapper</div>
+        </div>
+        <p style="font-size:12px;color:var(--muted)">Futures · Exploits · Stack builder · Warnings</p>
       </div>
+
     </div>
   </div>
 </div>
 
-<!-- HOW IT WORKS -->
+<!-- HOW IT WORKS — visual 3 steps with icons -->
 <div id="l-how" class="l-section" style="background:var(--bg2)">
   <div class="l-wrap">
     <div class="l-eyebrow2"><div style="width:20px;height:1.5px;background:var(--red)"></div>How it works</div>
     <div class="l-gold"></div>
-    <h2 class="l-sec-h">Up and running in under a minute.</h2>
-    <p class="l-sec-p">No configuration, no lengthy onboarding, no tutorial to sit through. Sign in and you're immediately inside the full platform.</p>
-    <div class="l-steps l-reveal">
+    <h2 class="l-sec-h">Up in under 60 seconds.</h2>
+    <div class="l-steps l-reveal" style="margin-top:32px">
       <div class="l-step">
         <div class="l-step-arr">→</div>
-        <div class="l-step-n">01</div>
-        <h3>Create your free account</h3>
-        <p>Sign up with Google, LinkedIn, or email — no credit card, no trial period, no hidden gates. Takes about 20 seconds and the entire platform is available to you the moment you sign up. Free accounts stay free forever.</p>
+        <div style="font-size:44px;margin-bottom:16px">✉️</div>
+        <div class="l-step-n" style="font-size:40px;margin-bottom:8px">01</div>
+        <h3>Sign up free</h3>
+        <p>Google, LinkedIn, or email. No card. No trial. Done in 20 seconds.</p>
       </div>
       <div class="l-step">
         <div class="l-step-arr">→</div>
-        <div class="l-step-n">02</div>
-        <h3>Set your industry context</h3>
-        <p>Tell FloMKa what sector you're in — Technology, Fintech, Healthcare, E-commerce, or any of eight industries. Your Executive Brief, your AI Finder recommendations, and your Opportunity feed all personalise to your exact context automatically. No manual configuration.</p>
+        <div style="font-size:44px;margin-bottom:16px">🎯</div>
+        <div class="l-step-n" style="font-size:40px;margin-bottom:8px">02</div>
+        <h3>Pick your industry</h3>
+        <p>Tech, Fintech, Healthcare or 5 more. Your brief and recommendations personalise instantly.</p>
       </div>
       <div class="l-step">
-        <div class="l-step-n">03</div>
+        <div style="font-size:44px;margin-bottom:16px">☕</div>
+        <div class="l-step-n" style="font-size:40px;margin-bottom:8px">03</div>
         <h3>Check in every morning</h3>
-        <p>Open FloMKa with your first coffee. Five focused minutes to understand what moved overnight, what tool is rising, what's broken, and what your team should act on today. That is the entire workflow — and it changes what you know every single day.</p>
+        <p>5 minutes. What moved, what broke, what to build next. That's the whole workflow.</p>
       </div>
     </div>
   </div>
@@ -1249,135 +1264,126 @@ body.app-mode { overflow:auto }
   </div>
 </div>
 
-<!-- COMMITMENT -->
+<!-- COMMITMENT — one sentence, no paragraphs -->
 <div class="l-section" style="background:#fff">
   <div class="l-wrap" style="max-width:720px;text-align:center">
-    <div class="l-eyebrow2" style="justify-content:center"><div style="width:20px;height:1.5px;background:var(--red)"></div>Our commitment</div>
-    <div class="l-gold" style="margin-left:auto;margin-right:auto"></div>
-    <h2 style="font-size:46px;font-weight:700;color:var(--ink);line-height:1.08;letter-spacing:-.03em;margin-bottom:20px" class="l-reveal">We never accept money to<br><em style="color:var(--red);font-style:italic">influence what you see.</em></h2>
-    <p style="font-family:'Cormorant Garamond',serif;font-size:19px;color:var(--muted);line-height:1.7;margin-bottom:14px" class="l-reveal">FloMKa is built on one belief — the AI industry needs a single honest source of truth. No sponsored tool rankings. No paid placement. No advertiser pressure on our editorial decisions. Never.</p>
-    <p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--muted);line-height:1.7;margin-bottom:36px" class="l-reveal">Our scores are built from real community votes, real user complaints, and real week-on-week momentum data. If a tool is rising, our score reflects it. If a tool is breaking, our score reflects that too — regardless of whether they advertise with us.</p>
-    <button class="l-btn l-btn-red l-btn-lg l-reveal" onclick="toApp('signup')">Join FloMKa — it's free →</button>
+    <div style="font-size:64px;margin-bottom:20px">🤝</div>
+    <h2 style="font-size:clamp(28px,5vw,46px);font-weight:700;color:var(--ink);line-height:1.1;letter-spacing:-.03em;margin-bottom:16px" class="l-reveal">We never accept money to<br><em style="color:var(--red);font-style:italic">influence what you see.</em></h2>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:28px" class="l-reveal">
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2)"><span style="font-size:18px">🚫</span>No sponsored rankings</div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2)"><span style="font-size:18px">🚫</span>No paid placement</div>
+      <div style="display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink2)"><span style="font-size:18px">🚫</span>No advertiser pressure</div>
+    </div>
+    <button class="l-btn l-btn-red l-btn-lg l-reveal" onclick="toApp('signup')">Join FloMKa free →</button>
   </div>
 </div>
 
 <!-- CTA STRIP -->
 <div class="l-cta">
   <div class="l-cta-inner">
-    <div style="width:40px;height:2px;background:var(--gold);margin:0 auto 28px"></div>
-    <h2 style="font-family:'Cormorant Garamond',serif;font-size:50px;font-weight:700;color:#F5F0E8;letter-spacing:-.03em;line-height:1.08;margin-bottom:16px">Get AI intelligence<br><span style="color:var(--gold);font-style:italic">delivered daily.</span></h2>
-    <p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:rgba(255,255,255,.42);line-height:1.7;max-width:480px;margin:0 auto 36px">Trending tools, real complaints, startup ideas — free, 5 minutes a day. Join founders, students and leaders across India who read FloMKa every morning.</p>
+    <div style="font-size:48px;margin-bottom:16px">📬</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(28px,6vw,50px);font-weight:700;color:#F5F0E8;letter-spacing:-.03em;line-height:1.08;margin-bottom:12px">Get AI intelligence<br><span style="color:var(--gold);font-style:italic">delivered daily.</span></h2>
+    <p style="font-size:14px;color:rgba(255,255,255,.42);margin-bottom:28px">Free · 5 minutes a day · No spam</p>
     <div style="display:flex;gap:8px;max-width:420px;margin:0 auto 14px;flex-wrap:wrap;justify-content:center">
       <input type="email" id="landing-nl-email" placeholder="your@email.com" style="flex:1;min-width:200px;padding:12px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:2px;color:#F5F0E8;font-family:'Jost',sans-serif;font-size:13.5px;outline:none;transition:border .2s" onfocus="this.style.borderColor='rgba(201,168,76,.6)'" onblur="this.style.borderColor='rgba(255,255,255,.15)'" onkeydown="if(event.key==='Enter')nlSub()"/>
       <button class="l-btn l-btn-gold" style="flex-shrink:0;padding:12px 20px;font-size:13.5px" onclick="nlSub()">Subscribe free</button>
     </div>
-    <p style="font-size:11px;color:rgba(255,255,255,.2);letter-spacing:.04em;margin-bottom:32px">No spam. Unsubscribe anytime. We email once a week.</p>
-    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px">
       <button class="l-btn l-btn-red l-btn-lg" onclick="toApp('signup')">Create free account →</button>
       <button class="l-btn l-btn-lg" style="border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.5)" onmouseover="this.style.borderColor='rgba(255,255,255,.5)';this.style.color='#fff'" onmouseout="this.style.borderColor='rgba(255,255,255,.2)';this.style.color='rgba(255,255,255,.5)'" onclick="toApp('login')">Sign in</button>
     </div>
   </div>
 </div>
 
-<!-- PRICING -->
+<!-- PRICING — simplified visual -->
 <div id="l-pricing" class="l-section" style="background:#fff">
   <div class="l-wrap">
     <div class="l-eyebrow2"><div style="width:20px;height:1.5px;background:var(--red)"></div>Pricing</div>
     <div class="l-gold"></div>
-    <h2 class="l-sec-h">Start free. No tricks, no trials.</h2>
-    <p class="l-sec-p">The core experience is free forever. Pro is launching soon — join the waitlist now for founding member pricing and early access.</p>
+    <h2 class="l-sec-h">Start free. No tricks.</h2>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:32px">Pro launching soon — join waitlist for founding price.</p>
     <div class="l-plans l-reveal">
       <div class="l-plan">
+        <div style="font-size:40px;margin-bottom:8px">🆓</div>
         <div class="l-plan-name">Free</div>
         <div class="l-plan-price">₹0</div>
-        <div class="l-plan-sub">forever · no credit card · no trial</div>
-        <div style="height:1px;background:var(--line);margin-bottom:22px"></div>
-        <div class="l-pf"><span class="l-ck">✓</span>Full AI tools directory with scores</div>
-        <div class="l-pf"><span class="l-ck">✓</span>Complaints board preview — top 10</div>
-        <div class="l-pf"><span class="l-ck">✓</span>Trend score preview for all tools</div>
-        <div class="l-pf"><span class="l-ck">✓</span>AI Tool Finder — 5 queries/day</div>
-        <div class="l-pf"><span class="l-ck">✓</span>3 saved tools in your dashboard</div>
-        <div class="l-pf"><span class="l-ck">✓</span>Weekly newsletter digest</div>
-        <div class="l-pf"><span class="l-cx">✕</span><span style="color:var(--faint)">Full complaints board</span></div>
-        <div class="l-pf"><span class="l-cx">✕</span><span style="color:var(--faint)">Startup ideas feed</span></div>
-        <div class="l-pf"><span class="l-cx">✕</span><span style="color:var(--faint)">Daily Executive Brief</span></div>
-        <div class="l-pf"><span class="l-cx">✕</span><span style="color:var(--faint)">Trend alerts by email</span></div>
-        <button class="l-btn l-btn-red" style="width:100%;margin-top:24px;padding:13px;font-size:13.5px;justify-content:center" onclick="toApp('signup')">Get started free →</button>
+        <div class="l-plan-sub">forever · no card</div>
+        <div style="height:1px;background:var(--line);margin-bottom:16px"></div>
+        <div class="l-pf"><span class="l-ck">✓</span>Full tools directory</div>
+        <div class="l-pf"><span class="l-ck">✓</span>Complaints preview</div>
+        <div class="l-pf"><span class="l-ck">✓</span>AI Tool Finder</div>
+        <div class="l-pf"><span class="l-ck">✓</span>Weekly newsletter</div>
+        <div class="l-pf"><span class="l-cx">✕</span><span style="color:var(--faint)">Executive Brief</span></div>
+        <div class="l-pf"><span class="l-cx">✕</span><span style="color:var(--faint)">Startup ideas</span></div>
+        <button class="l-btn l-btn-red" style="width:100%;margin-top:20px;padding:13px;justify-content:center" onclick="toApp('signup')">Get started free →</button>
       </div>
       <div class="l-plan l-plan-featured">
-        <div class="l-plan-badge">MOST POPULAR · LAUNCHING SOON</div>
+        <div class="l-plan-badge">LAUNCHING SOON</div>
+        <div style="font-size:40px;margin-bottom:8px">⚡</div>
         <div class="l-plan-name" style="color:var(--red)">Pro</div>
         <div class="l-plan-price">₹750</div>
-        <div class="l-plan-sub">per month · founding member price</div>
-        <div style="height:1px;background:var(--line);margin-bottom:22px"></div>
+        <div class="l-plan-sub">per month · founding price</div>
+        <div style="height:1px;background:var(--line);margin-bottom:16px"></div>
         <div class="l-pf"><span class="l-ck">✓</span>Everything in Free</div>
-        <div class="l-pf"><span class="l-ck">✓</span>Full complaints board — all entries</div>
-        <div class="l-pf"><span class="l-ck">✓</span>Complete startup ideas radar</div>
-        <div class="l-pf"><span class="l-ck">✓</span>Daily Executive Brief — all industries</div>
+        <div class="l-pf"><span class="l-ck">✓</span>Daily Executive Brief</div>
+        <div class="l-pf"><span class="l-ck">✓</span>Full startup ideas radar</div>
         <div class="l-pf"><span class="l-ck">✓</span>Unlimited saved tools</div>
-        <div class="l-pf"><span class="l-ck">✓</span>Trend alerts by email</div>
-        <div class="l-pf"><span class="l-ck">✓</span>3-way tool comparison</div>
-        <div class="l-pf"><span class="l-ck">✓</span>Pro community Discord access</div>
-        <div class="l-pf"><span class="l-ck">✓</span>Unlimited AI Finder queries</div>
-        <button class="l-btn" style="width:100%;margin-top:24px;padding:13px;font-size:13.5px;justify-content:center;border-color:var(--red);color:var(--red)" onmouseover="this.style.background='var(--red)';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='var(--red)'" onclick="toApp('signup')">Join Pro waitlist →</button>
+        <div class="l-pf"><span class="l-ck">✓</span>Parallel Universe access</div>
+        <div class="l-pf"><span class="l-ck">✓</span>Exploit Finder</div>
+        <button class="l-btn" style="width:100%;margin-top:20px;padding:13px;justify-content:center;border-color:var(--red);color:var(--red)" onmouseover="this.style.background='var(--red)';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='var(--red)'" onclick="toApp('signup')">Join waitlist →</button>
       </div>
       <div class="l-plan">
+        <div style="font-size:40px;margin-bottom:8px">🏢</div>
         <div class="l-plan-name">API / Enterprise</div>
         <div class="l-plan-price">₹8,200</div>
-        <div class="l-plan-sub">per month · contact us to discuss</div>
-        <div style="height:1px;background:var(--line);margin-bottom:22px"></div>
+        <div class="l-plan-sub">per month · contact us</div>
+        <div style="height:1px;background:var(--line);margin-bottom:16px"></div>
         <div class="l-pf"><span class="l-ck">✓</span>Everything in Pro</div>
-        <div class="l-pf"><span class="l-ck">✓</span>REST API — 5,000 requests/day</div>
-        <div class="l-pf"><span class="l-ck">✓</span>14 data endpoints</div>
-        <div class="l-pf"><span class="l-ck">✓</span>Webhooks &amp; real-time data push</div>
-        <div class="l-pf"><span class="l-ck">✓</span>CSV &amp; JSON data export</div>
-        <div class="l-pf"><span class="l-ck">✓</span>Dedicated Slack channel support</div>
-        <div class="l-pf"><span class="l-ck">✓</span>SLA guarantee &amp; priority data</div>
-        <div class="l-pf"><span class="l-ck">✓</span>Custom integrations on request</div>
-        <button class="l-btn" style="width:100%;margin-top:24px;padding:13px;font-size:13.5px;justify-content:center" onmouseover="this.style.borderColor='var(--ink)';this.style.color='var(--ink)'" onmouseout="this.style.borderColor='var(--line)';this.style.color='var(--ink2)'" onclick="toApp('signup')">Contact us →</button>
+        <div class="l-pf"><span class="l-ck">✓</span>REST API 5,000 req/day</div>
+        <div class="l-pf"><span class="l-ck">✓</span>Webhooks &amp; real-time</div>
+        <div class="l-pf"><span class="l-ck">✓</span>CSV &amp; JSON export</div>
+        <div class="l-pf"><span class="l-ck">✓</span>Dedicated support</div>
+        <div class="l-pf"><span class="l-ck">✓</span>SLA guarantee</div>
+        <button class="l-btn" style="width:100%;margin-top:20px;padding:13px;justify-content:center" onclick="toApp('signup')">Contact us →</button>
       </div>
     </div>
   </div>
 </div>
 
-<!-- FAQ -->
+<!-- FAQ — accordion, short answers -->
 <div id="l-faq" class="l-section" style="background:var(--bg2)">
-  <div class="l-wrap" style="max-width:720px">
-    <div class="l-eyebrow2"><div style="width:20px;height:1.5px;background:var(--red)"></div>Frequently asked</div>
+  <div class="l-wrap" style="max-width:680px">
+    <div class="l-eyebrow2"><div style="width:20px;height:1.5px;background:var(--red)"></div>FAQ</div>
     <div class="l-gold"></div>
-    <h2 class="l-sec-h" style="margin-bottom:36px">Questions we get a lot.</h2>
+    <h2 class="l-sec-h" style="margin-bottom:28px">Quick answers.</h2>
     <div class="l-faq l-reveal" onclick="lfaq(this)">
-      <button class="l-faq-q"><span class="l-faq-q-text">Is FloMKa really free forever?</span><span class="l-faq-icon">+</span></button>
-      <div class="l-faq-a">Yes. The free tier is free forever — no trial period, no credit card, no automatic upgrade. You get the full tools directory, complaints preview, trend scores, and AI Finder. We make money from Pro and API plans, not by restricting the free tier aggressively.</div>
+      <button class="l-faq-q"><span class="l-faq-q-text">Is it really free?</span><span class="l-faq-icon">+</span></button>
+      <div class="l-faq-a">Yes. Free forever. No credit card, no trial, no auto-upgrade. We charge for Pro and API — never for the core experience.</div>
     </div>
     <div class="l-faq l-reveal" onclick="lfaq(this)">
-      <button class="l-faq-q"><span class="l-faq-q-text">How does FloMKa score AI tools?</span><span class="l-faq-icon">+</span></button>
-      <div class="l-faq-a">Our composite score has four components: community vote weight (40%), complaint penalty based on volume and severity (30%), week-on-week momentum (20%), and integration breadth as a proxy for enterprise readiness (10%). No company can pay to influence their score. A tool with 5,000 complaints will score lower than one with 50, regardless of how much they spend on marketing.</div>
+      <button class="l-faq-q"><span class="l-faq-q-text">How are tools scored?</span><span class="l-faq-icon">+</span></button>
+      <div class="l-faq-a">Community votes (40%) + complaint penalty (30%) + momentum (20%) + integrations (10%). No company can pay to rank higher.</div>
     </div>
     <div class="l-faq l-reveal" onclick="lfaq(this)">
-      <button class="l-faq-q"><span class="l-faq-q-text">Where does the complaint data come from?</span><span class="l-faq-icon">+</span></button>
-      <div class="l-faq-a">We source complaints from Reddit threads (r/artificial, r/ChatGPT, r/cursor, r/MachineLearning and others), HackerNews discussions, and developer forums. Every complaint in the system is a real post from a real user — we don't fabricate or editorialize. Complaints are sorted by upvote count so the highest-signal frustrations always surface first.</div>
-    </div>
-    <div class="l-faq l-reveal" onclick="lfaq(this)">
-      <button class="l-faq-q"><span class="l-faq-q-text">What is the Executive Brief exactly?</span><span class="l-faq-icon">+</span></button>
-      <div class="l-faq-a">The Executive Brief is a daily AI-generated intelligence report personalised to your industry. It has four sections: Risk Radar (what's breaking in your sector), Adoption Signal (what leading teams are adopting), Opportunity Map (where the gaps are), and one Monday Action Item (something concrete to do this week). It's generated fresh every day using live FloMKa data and takes about 5 minutes to read.</div>
-    </div>
-    <div class="l-faq l-reveal" onclick="lfaq(this)">
-      <button class="l-faq-q"><span class="l-faq-q-text">When is the Pro plan launching?</span><span class="l-faq-icon">+</span></button>
-      <div class="l-faq-a">Pro is launching in approximately 3 months. If you join the waitlist now, you'll get early access before the public launch and a founding member price that's locked in for life — meaning you'll never pay more than ₹750/month even as we add more features. Join the waitlist from your dashboard after signing up.</div>
-    </div>
-    <div class="l-faq l-reveal" onclick="lfaq(this)">
-      <button class="l-faq-q"><span class="l-faq-q-text">Does FloMKa accept sponsored content or paid rankings?</span><span class="l-faq-icon">+</span></button>
-      <div class="l-faq-a">No. FloMKa does not accept payment to rank tools higher, feature tools prominently, or suppress negative complaints. Our revenue comes entirely from Pro and API subscriptions — not from the tools we cover. This isn't a policy we might change later. It's the foundation the product is built on.</div>
+      <button class="l-faq-q"><span class="l-faq-q-text">Where does complaint data come from?</span><span class="l-faq-icon">+</span></button>
+      <div class="l-faq-a">Reddit, HackerNews, and developer forums. Every complaint is real — we don't fabricate. Sorted by upvote count.</div>
     </div>
     <div class="l-faq l-reveal" onclick="lfaq(this)">
       <button class="l-faq-q"><span class="l-faq-q-text">Can I sign up with Google or LinkedIn?</span><span class="l-faq-icon">+</span></button>
-      <div class="l-faq-a">Yes. FloMKa supports Google login, LinkedIn login, and email/password signup. Google and LinkedIn take about 2 clicks and don't require you to create or remember a password. All three options are available on the sign-up screen.</div>
+      <div class="l-faq-a">Yes. Google, LinkedIn, or email. Takes about 20 seconds.</div>
+    </div>
+    <div class="l-faq l-reveal" onclick="lfaq(this)">
+      <button class="l-faq-q"><span class="l-faq-q-text">When does Pro launch?</span><span class="l-faq-icon">+</span></button>
+      <div class="l-faq-a">In about 3 months. Join the waitlist now to lock in founding price (₹750/mo forever).</div>
+    </div>
+    <div class="l-faq l-reveal" onclick="lfaq(this)">
+      <button class="l-faq-q"><span class="l-faq-q-text">Do you accept sponsored rankings?</span><span class="l-faq-icon">+</span></button>
+      <div class="l-faq-a">Never. Revenue comes from Pro and API subscriptions only. This is the foundation the product is built on.</div>
     </div>
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- FOOTER — simplified -->
 <footer>
   <div style="max-width:1180px;margin:0 auto">
     <div class="l-footer-grid">
@@ -1391,17 +1397,16 @@ body.app-mode { overflow:auto }
           <rect x="15" y="14" width="5" height="2" rx="1" fill="#C9A84C" opacity="0.65"/>
           <text x="33" y="21" font-family="Georgia,serif" font-size="17" font-weight="700" letter-spacing="-0.5"><tspan fill="#1C1814">Flo</tspan><tspan fill="#A6192E">M</tspan><tspan fill="#1C1814">K</tspan><tspan fill="#C9A84C">a</tspan></text>
         </svg>
-        <p style="font-size:13px;color:var(--muted);line-height:1.7;max-width:200px;margin-bottom:16px">The pulse of AI — every single day. Intelligence for students, founders and leaders.</p>
-        <p style="font-size:11px;color:var(--faint)">© 2026 FloMKa · flomka.ai · Made in India 🇮🇳</p>
+        <p style="font-size:13px;color:var(--muted);line-height:1.6;max-width:200px;margin-bottom:16px">The pulse of AI — every single day.</p>
+        <p style="font-size:11px;color:var(--faint)">© 2026 FloMKa · Made in India 🇮🇳</p>
       </div>
       <div>
         <div class="l-footer-head">Platform</div>
         <button class="l-fl" onclick="toApp('signup')">Tools Directory</button>
-        <button class="l-fl" onclick="toApp('signup')">Complaints Board</button>
+        <button class="l-fl" onclick="toApp('signup')">Complaints Radar</button>
         <button class="l-fl" onclick="toApp('signup')">Startup Ideas</button>
         <button class="l-fl" onclick="toApp('signup')">Executive Brief</button>
-        <button class="l-fl" onclick="toApp('signup')">Trends</button>
-        <button class="l-fl" onclick="toApp('signup')">AI Tool Finder</button>
+        <button class="l-fl" onclick="toApp('signup')">Opportunity Engine</button>
       </div>
       <div>
         <div class="l-footer-head">For</div>
@@ -1416,40 +1421,16 @@ body.app-mode { overflow:auto }
         <button class="l-fl" onclick="toApp('signup')">Sign up free</button>
         <button class="l-fl" onclick="toApp('login')">Sign in</button>
         <button class="l-fl" onclick="toApp('signup')">Join Pro waitlist</button>
-        <button class="l-fl" onclick="toApp('signup')">API access</button>
       </div>
     </div>
-    <div style="height:1px;background:var(--line);margin-bottom:24px"></div>
+    <div style="height:1px;background:var(--line);margin-bottom:20px"></div>
     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
-      <span style="font-size:12px;color:var(--faint)">FloMKa never sells user data and never accepts payment to influence rankings.</span>
       <span style="font-size:12px;color:var(--faint)">No ads · No sponsored content · No BS</span>
+      <span style="font-size:12px;color:var(--faint)">FloMKa never sells user data</span>
     </div>
   </div>
 </footer>
 
-</div>
-
-</div>
-
-<!-- ═══ OAUTH LOADING SCREEN (shown during Google/LinkedIn redirect) ═══ -->
-<div id="oauth-loading" style="display:none;position:fixed;inset:0;flex-direction:column;align-items:center;justify-content:center;background:#FDFAF6;z-index:99999;gap:20px">
-  <svg width="52" height="52" viewBox="0 0 32 32" fill="none">
-    <rect width="32" height="32" rx="6" fill="#A6192E"/>
-    <rect x="7" y="9" width="12" height="3" rx="1.5" fill="#FAF7F2"/>
-    <rect x="7" y="16" width="8" height="2.5" rx="1.25" fill="#FAF7F2"/>
-    <rect x="7" y="9" width="3" height="14" rx="1.5" fill="#FAF7F2"/>
-    <rect x="17" y="11" width="7" height="2.5" rx="1.25" fill="#C9A84C"/>
-    <rect x="17" y="16" width="4" height="2" rx="1" fill="#C9A84C" opacity=".65"/>
-  </svg>
-  <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
-    <div style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#1C1814;letter-spacing:-.02em">FloMKa</div>
-    <div style="font-family:'Jost',sans-serif;font-size:13px;color:#7A7068">Signing you in…</div>
-  </div>
-  <div style="display:flex;gap:6px;margin-top:4px">
-    <div style="width:6px;height:6px;border-radius:50%;background:#A6192E;animation:ldot 1.2s ease-in-out infinite"></div>
-    <div style="width:6px;height:6px;border-radius:50%;background:#C9A84C;animation:ldot 1.2s ease-in-out infinite .2s"></div>
-    <div style="width:6px;height:6px;border-radius:50%;background:#A6192E;animation:ldot 1.2s ease-in-out infinite .4s"></div>
-  </div>
 </div>
 
 <!-- ═══ APP SHELL (shown after authentication) ═══ -->
@@ -1738,7 +1719,7 @@ const RAZORPAY_KEY = 'rzp_test_YourKeyHere';
 // ─────────────────────────────────────────────────────
 // Get your free Groq key at: https://console.groq.com
 // Without this key: AI Finder, Executive Brief & Compare verdict won't work
-const GROQ_API_KEY = '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'; // ← Replace this
+const GROQ_API_KEY = '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'; 
 
 // ===================== UTILS (early) =====================
 function esc(str){ 
@@ -5350,4 +5331,4 @@ async function init(){
 init();
 </script>
 </body>
-</html>n
+</html>
